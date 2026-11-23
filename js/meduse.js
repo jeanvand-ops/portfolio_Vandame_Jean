@@ -231,7 +231,32 @@
     Object.assign(media.style, {width: mw + 'px', height: mh + 'px', left: ml + 'px', top: mt + 'px'});
   }
   new ResizeObserver(cadrer).observe(zone); cadrer();
-  const oeilXY = i => [ml + OEIL[i][0] * mw, mt + OEIL[i][1] * mh];
+  let zoom = 1;                                          // on se rapproche d'elle en scrollant
+  const OX = (OEIL[0][0] + OEIL[1][0]) / 2, OY = (OEIL[0][1] + OEIL[1][1]) / 2;
+  const oeilXY = i => {
+    const ox = ml + OX * mw, oy = mt + OY * mh;
+    return [ox + (ml + OEIL[i][0] * mw - ox) * zoom, oy + (mt + OEIL[i][1] * mh - oy) * zoom];
+  };
+  media.style.transformOrigin = (OX * 100) + '% ' + (OY * 100) + '%';
+  const section = zone.parentElement, fuiteI = $('#rf-pct');
+  let prog = 0, enJeu = false, echappe = false, parDemo = false;
+  function suivreScroll() {
+    const r = section.getBoundingClientRect(), course = r.height - zone.offsetHeight, haut = zone.offsetTop - section.offsetTop;
+    const barre = zone.getBoundingClientRect().top;
+    prog = borne((barre - r.top) / Math.max(course, 1), 0, 1);
+    enJeu = r.top <= barre + 1 && r.bottom >= barre + zone.offsetHeight - 1 && prog < .985;
+    zoom = 1 + prog * 1.7;
+    media.style.transform = `scale(${zoom.toFixed(3)})`;
+    zone.style.setProperty('--p', prog.toFixed(3));
+    fuiteI.textContent = Math.round(prog * 100) + ' %';
+    if (prog >= .985 && !echappe && mode === 'libre') { echappe = true; regard = 0; message('Tu lui as échappé ! Pour cette fois.'); }
+    if (prog < .9) echappe = false;
+  }
+  // pétrifié : impossible de scroller pendant quelques secondes
+  const bloque = e => { if (mode === 'pierre' && !parDemo) e.preventDefault(); };
+  addEventListener('wheel', bloque, {passive: false});
+  addEventListener('touchmove', bloque, {passive: false});
+  addEventListener('keydown', e => { if (['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', ' ', 'Home', 'End'].includes(e.key)) bloque(e); });
 
   function message(t, alerte) { if (msg.textContent !== t) msg.textContent = t; msg.classList.toggle('alerte', !!alerte); }
   function placer(x, y) { curseur.style.transform = `translate(${x}px,${y}px)`; }
@@ -240,14 +265,15 @@
   function petrifier() {
     mode = 'pierre'; fige = [mx, my]; compte++;
     curseur.classList.add('pierre'); zone.classList.add('pierre');
+    if (!parDemo) zone.classList.add('verrou');
     if (!CALME) { flash.classList.remove('on'); void flash.offsetWidth; flash.classList.add('on'); zone.classList.remove('tremble'); void zone.offsetWidth; zone.classList.add('tremble'); }
     $('#r-compte').textContent = compte; $('#r-pl').textContent = compte > 1 ? 's' : '';
-    let n = 3; message('Pétrifiée ! Reprise dans ' + n + '…', true);
+    let n = 3; message('Pétrifiée ! Bloquée ' + n + ' s…', true);
     clearInterval(reprise);
     reprise = setInterval(() => {
       n--;
       if (mode !== 'pierre') return clearInterval(reprise);
-      if (n > 0) return message('Pétrifiée ! Reprise dans ' + n + '…', true);
+      if (n > 0) return message('Pétrifiée ! Bloquée ' + n + ' s…', true);
       clearInterval(reprise); if (mode === 'pierre') enStatue();
     }, 1000);
   }
@@ -260,8 +286,8 @@
     s.innerHTML = curseur.querySelector('svg').outerHTML;
     statues.appendChild(s);
     while (statues.children.length > 14) statues.firstChild.remove();
-    curseur.classList.remove('pierre'); zone.classList.remove('pierre', 'fixe');
-    mode = 'libre'; fige = null; regard = 0;
+    curseur.classList.remove('pierre'); zone.classList.remove('pierre', 'fixe', 'verrou');
+    mode = 'libre'; fige = null; regard = 0; parDemo = false;
     message(compte === 1 ? 'Une statue de plus. Scrolle pour fuir !' : 'Encore une. Scrolle pour fuir !', true);
   }
 
@@ -279,14 +305,15 @@
   (function boucleRegard(t) {
     const dt = Math.min(.05, (t - avant) / 1000); avant = t;
     const vitesse = vx / Math.max(dt, .001); vx = 0;
+    suivreScroll();
     if (mode === 'libre') {
-      if (dedans) {
-        // immobile : elle s'éveille lentement (~8 s). Agité : beaucoup plus vite.
+      if (dedans && enJeu) {
+        // immobile : elle s'éveille lentement. Agité : beaucoup plus vite. Plus on avance, plus c'est dur.
         const agite = Math.min(vitesse, 2000) / 2000;
-        regard += dt * (.12 + agite * 1.25);
+        regard += dt * (.12 + prog * .25 + agite * 1.25) * (1 + prog * 1.2);
       } else regard -= dt * .6;
       regard = borne(regard, 0, 1);
-      if (dedans) message(regard > .7 ? 'Trop tard, elle te voit !' : regard > .3 ? 'Elle s\'éveille… doucement.' : 'Ne t\'agite pas trop…', regard > .7);
+      if (dedans && enJeu) message(regard > .7 ? 'Trop tard, elle te voit !' : regard > .3 ? 'Elle s\'éveille… doucement.' : 'Ne t\'agite pas trop…', regard > .7);
       if (regard >= 1) petrifier();
     }
     if (mode !== 'pierre') placer(mx, my); else placer(fige[0], fige[1]);
@@ -327,7 +354,7 @@
         regard = (e - 1.2) / 2;
         message(regard > .6 ? 'Elle s\'agite… les yeux s\'ouvrent !' : 'Elle s\'agite sur son visage…', regard > .6);
       } else {
-        regard = 1; mode = 'libre'; petrifier(); zone.classList.remove('demo');
+        regard = 1; mode = 'libre'; parDemo = true; petrifier(); zone.classList.remove('demo');
         message('Pétrifiée.', true);
         demoT = setTimeout(() => { if (mode === 'pierre') { enStatue(); message('À toi. Ne la fixe pas trop longtemps.'); } }, 1500);
         return;
@@ -336,13 +363,9 @@
     })(t0);
   }
   function arreterDemo() { mode = 'libre'; regard = 0; zone.classList.remove('demo'); message('Ne t\'agite pas trop…'); }
-  let echappe = false;
   new IntersectionObserver(es => {
-    const r = es[0].intersectionRatio;
-    if (r > .6 && !demoFaite && !CALME) setTimeout(() => { if (!dedans && mode === 'libre') demo(); }, 500);
-    if (r < .35 && regard > .05 && mode === 'libre') { regard = 0; echappe = true; }
-    if (r > .6 && echappe) { echappe = false; message('Tu lui as échappé. Pour cette fois.'); }
-  }, {threshold: [0, .35, .6, 1]}).observe(zone);
+    if (es[0].isIntersecting && !demoFaite && !CALME) setTimeout(() => { if (!dedans && mode === 'libre' && prog < .1) demo(); }, 400);
+  }, {threshold: .7}).observe(zone);
   $('#r-demo').addEventListener('click', () => { clearTimeout(demoT); demo(); });
   $('#r-liberer').addEventListener('click', () => {
     statues.innerHTML = ''; compte = 0; $('#r-compte').textContent = '0'; $('#r-pl').textContent = 's'; message('Statues libérées. Pour l\'instant.');

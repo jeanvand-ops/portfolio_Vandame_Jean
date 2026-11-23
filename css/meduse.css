@@ -88,19 +88,26 @@
 .vase-points i.on{opacity:1;background:var(--m-rouge)}
 
 /* ---------- le regard qui pétrifie ---------- */
-.page-meduse .regard-s{padding:0;scroll-margin-top:var(--barre)}
+.page-meduse .regard-s{padding:0;height:420svh;position:relative}
 .page-meduse .regard-s > *{max-width:none}
-.regard-zone{position:relative;height:var(--haut);min-height:28rem;overflow:hidden;background:#000;cursor:none;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.regard-zone{position:sticky;top:var(--barre);height:var(--haut);min-height:28rem;overflow:hidden;background:#000;cursor:none;touch-action:pan-y;user-select:none;-webkit-user-select:none;--p:0}
+.regard-zone::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;opacity:var(--p);
+  background:radial-gradient(ellipse 60% 55% at 55% 52%,transparent 20%,rgba(0,0,0,.92) 85%)}
 .r-haut,.r-bas{position:absolute;left:0;right:0;z-index:6;padding:clamp(1rem,3vw,2.2rem) var(--gut);pointer-events:none}
 .r-haut{top:0;background:linear-gradient(180deg,rgba(0,0,0,.85),transparent);padding-top:4.2rem;padding-bottom:4rem}
 .r-haut p{max-width:30rem;margin-top:.6rem;font-size:.95rem;opacity:.9}
 .r-haut b{color:var(--m-creme);font-weight:700;border-bottom:2px solid var(--m-rouge)}
 .r-bas{bottom:0;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:1rem 2rem;background:linear-gradient(0deg,rgba(0,0,0,.85),transparent);padding-top:4rem}
 .r-bas button{pointer-events:auto;cursor:pointer}
-.r-fuite{position:absolute;z-index:6;right:var(--gut);top:50%;transform:translateY(-50%) rotate(90deg);transform-origin:right center;font-family:var(--nom);text-transform:uppercase;font-size:.75rem;
-  white-space:nowrap;pointer-events:none;opacity:.8}
-.r-fuite span{display:inline-block;transform:rotate(-90deg);animation:fuite 1s ease-in-out infinite}
-@keyframes fuite{50%{transform:rotate(-90deg) translateX(5px)}}
+.r-fuite{position:absolute;z-index:6;right:var(--gut);top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;
+  font-family:var(--nom);text-transform:uppercase;font-size:.7rem;pointer-events:none}
+.rf-barre{width:8px;height:min(38vh,20rem);background:rgba(241,235,224,.2);position:relative;overflow:hidden}
+.rf-barre i{position:absolute;inset:0;background:var(--m-creme);transform-origin:top;transform:scaleY(var(--p,0))}
+.r-fuite b{font-family:var(--titre);font-weight:400;font-size:1.3rem}
+.rf-fleche{animation:fuite 1s ease-in-out infinite}
+@keyframes fuite{50%{transform:translateY(5px)}}
+.regard-zone.verrou .rf-barre i{background:var(--m-rouge)}
+.regard-zone.verrou .rf-fleche{opacity:.2;animation:none}
 .r-media{position:absolute;left:0;top:0;transition:filter .3s}
 .r-media img{width:100%;height:100%;display:block}
 .regard-zone.pierre .r-media{filter:grayscale(1) contrast(1.15) brightness(.85)}
@@ -189,7 +196,10 @@
   .vase-grille{grid-template-columns:1fr;min-height:0}
   .vase-zone{height:min(62svh,30rem);min-height:20rem}
   .vase-citation{min-height:5.2em;font-size:clamp(1.3rem,5.6vw,1.9rem)}
-  .r-fuite{display:none}
+  .page-meduse .regard-s{height:340svh}
+  .r-fuite{right:.6rem;font-size:.6rem}
+  .rf-barre{height:24vh;width:6px}
+  .r-haut{padding-right:3rem}
   .r-bas{flex-direction:column;align-items:flex-start}
   .frames-grille{grid-template-columns:1fr}
   .page-meduse .teaser{grid-template-columns:1fr;justify-items:center}

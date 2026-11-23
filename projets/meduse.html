@@ -127,7 +127,7 @@
       <div class="r-statues" id="r-statues"></div>
       <div class="r-haut">
         <h2 class="m-h2" id="regard-t">Ne la regarde pas dans les yeux</h2>
-        <p>Plus tu t'agites, plus elle s'éveille vite. Même immobile, elle finit par ouvrir les yeux. Une seule issue : <b>scrolle pour t'échapper.</b></p>
+        <p>Plus tu t'agites, plus elle s'éveille vite. Même immobile, elle finit par ouvrir les yeux. Une seule issue : <b>scrolle jusqu'au bout pour t'échapper.</b> Plus tu avances, plus elle se rapproche.</p>
       </div>
       <div class="r-bas">
         <p class="r-message" id="r-message" aria-live="polite">Ne t'agite pas trop…</p>
@@ -137,7 +137,12 @@
           <button type="button" class="btn-b texte" id="r-liberer">Libérer les statues</button>
         </div>
       </div>
-      <div class="r-fuite" aria-hidden="true">Scrolle pour fuir <span>↓</span></div>
+      <div class="r-fuite" aria-hidden="true">
+        <span class="rf-txt">Fuite</span>
+        <div class="rf-barre"><i id="rf-i"></i></div>
+        <b id="rf-pct">0 %</b>
+        <span class="rf-fleche">↓</span>
+      </div>
       <div class="r-curseur" id="r-curseur" aria-hidden="true">
         <svg viewBox="-2 -2 24 32"><g class="c-corps"><path d="M0 0V23L6 17.5L10.5 27L14.5 25L10 15.6H18Z"/></g><path class="c-fissures" d="M2 5L5 10L3 14M5 10L9 12M7 19L9 22"/></svg>
         <span class="c-bulle">Pétrifié !</span>
