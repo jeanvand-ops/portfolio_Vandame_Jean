@@ -7,181 +7,313 @@
 <meta name="description" content="Portfolio de Jean Vandame, direction artistique et motion design, Paris.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Poppins:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <style>
 :root{
   --noir:#000;
+  --encre:#140405;
   --rouge:#ff0a14;
+  --rouge-sombre:#a8000a;
   --rose:#ff9a9a;
   --papier:#f2efea;
   --jaune:#ffe79a;
   --turquoise:#2bbfa0;
-  --titre:'Anton','Impact','Arial Narrow',sans-serif;
+  --barre:58px;
+  --titre:'Anton',Impact,'Arial Narrow',sans-serif;
+  --nom:'Archivo Black','Arial Black',sans-serif;
   --texte:'Poppins','Helvetica Neue',Arial,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--noir);color:var(--papier);font-family:var(--texte);line-height:1.55;overflow-x:hidden}
 a{color:inherit}
-:focus-visible{outline:3px solid var(--jaune);outline-offset:4px}
+img{display:block}
+:focus-visible{outline:3px solid var(--jaune);outline-offset:3px}
 
-/* grain sur toute la page */
-.grain{position:fixed;inset:-50%;z-index:50;pointer-events:none;opacity:.14;mix-blend-mode:overlay;
-  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-  animation:grain 1s steps(6) infinite}
+/* ---------- GRAIN ---------- */
+.grain{position:fixed;inset:-50%;z-index:90;pointer-events:none;opacity:.17;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  animation:grain .9s steps(6) infinite}
 @keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-3%)}60%{transform:translate(-2%,-2%)}80%{transform:translate(3%,3%)}100%{transform:translate(0,0)}}
 
-.star{width:1em;height:1em;display:inline-block;vertical-align:-.1em;fill:currentColor}
+/* ---------- BARRE ROUGE ---------- */
+.barre{position:fixed;top:0;left:0;right:0;height:var(--barre);z-index:80;background:var(--rouge);color:var(--noir);
+  display:flex;align-items:stretch;justify-content:space-between;font-family:var(--nom);text-transform:uppercase;font-size:.92rem;letter-spacing:.02em}
+.barre .logo{display:flex;align-items:center;gap:.6rem;padding:0 1.2rem;text-decoration:none;font-family:var(--titre);font-size:1.6rem;letter-spacing:.01em}
+.barre .logo .court{display:none}
+.barre .logo svg{width:1.1rem;height:1.1rem;fill:currentColor;transition:transform .5s}
+.barre .logo:hover svg{transform:rotate(90deg)}
+.barre nav{display:flex}
+.barre nav a{white-space:nowrap;display:flex;align-items:center;padding:0 1.3rem;text-decoration:none;border-left:2px solid var(--noir);transition:background .12s,color .12s}
+.barre nav a:hover,.barre nav a[aria-current]{background:var(--noir);color:var(--rouge)}
+.barre .dispo{display:flex;align-items:center;gap:.5rem;padding:0 1.3rem;border-left:2px solid var(--noir);font-family:var(--texte);font-weight:600;text-transform:none;font-size:.85rem}
+.barre .dispo i{width:.6rem;height:.6rem;border-radius:50%;background:var(--noir);animation:clignote 1.6s steps(2) infinite}
+@keyframes clignote{50%{opacity:.15}}
 
-/* grands titres */
-.gros{font-family:var(--titre);font-weight:400;text-transform:uppercase;line-height:.84;letter-spacing:-.01em}
+/* ---------- MUR DE PROJETS ---------- */
+.mur{position:relative;height:100svh;overflow:hidden;background:var(--encre);padding-top:var(--barre)}
+.mur-grille{position:absolute;left:50%;top:50%;width:150vw;display:grid;grid-template-columns:repeat(6,1fr);gap:1.4vw;
+  transform:translate(-50%,-50%) rotate(-6deg);will-change:transform}
+.tuile{position:relative;aspect-ratio:4/5;overflow:hidden;background:#1c0a0b;text-decoration:none;
+  opacity:0;transform:scale(.6);animation:pop .7s cubic-bezier(.2,1.4,.4,1) forwards}
+.tuile:nth-child(3n){aspect-ratio:1}
+.tuile:nth-child(6n+2){margin-top:-30%}
+.tuile:nth-child(6n+4){margin-top:-18%}
+@keyframes pop{to{opacity:1;transform:none}}
+.tuile img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.15) brightness(.55);transition:filter .25s,transform .5s}
+.tuile span{position:absolute;left:0;bottom:0;background:var(--rouge);color:var(--noir);font-family:var(--nom);text-transform:uppercase;font-size:.85rem;padding:.3rem .6rem;transform:translateY(110%);transition:transform .2s}
+.tuile:hover img,.tuile:focus-visible img{filter:none;transform:scale(1.06)}
+.tuile:hover span,.tuile:focus-visible span{transform:none}
+.tuile.vide{display:grid;place-items:center;background:var(--turquoise)}
+.tuile.vide svg{width:40%;fill:var(--rouge)}
 
-/* panneaux empilés qui se recouvrent au scroll */
-.panneau{position:sticky;top:0;min-height:100svh;overflow:hidden;padding:clamp(1.2rem,4vw,3rem)}
-
-/* intro */
-.hero{background:var(--noir);display:flex;flex-direction:column;justify-content:flex-end}
-.hero-img{position:absolute;right:-6%;top:0;height:100%;width:auto;max-width:none;object-fit:cover;opacity:.9;
-  mask-image:linear-gradient(to right,transparent,#000 40%);-webkit-mask-image:linear-gradient(to right,transparent,#000 40%)}
-.menu{position:absolute;top:clamp(1.2rem,4vw,3rem);left:clamp(1.2rem,4vw,3rem);right:clamp(1.2rem,4vw,3rem);display:flex;justify-content:space-between;z-index:3;font-weight:600;font-size:.95rem}
-.menu a{text-decoration:none}
-.menu a:hover{color:var(--rouge)}
-.hero h1{position:relative;z-index:2;font-size:clamp(5rem,24vw,26rem);color:var(--papier)}
-.hero h1 .l{display:block;overflow:hidden}
-.hero h1 .l span{display:block;transform:translateY(105%);animation:monte .7s cubic-bezier(.2,.9,.1,1) forwards}
-.hero h1 .l:nth-child(2) span{animation-delay:.12s}
+.mur::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 55% 50% at 50% 55%,rgba(0,0,0,.25),rgba(0,0,0,.8))}
+.carte{position:absolute;z-index:5;left:50%;top:calc(50% + var(--barre)/2);transform:translate(-50%,-50%);
+  background:var(--noir);padding:clamp(1.2rem,3vw,2.4rem) clamp(1.4rem,3.4vw,2.8rem);width:min(92vw,820px);
+  box-shadow:12px 12px 0 var(--rouge)}
+.carte h1{font-family:var(--titre);font-weight:400;text-transform:uppercase;line-height:.84;font-size:clamp(4.2rem,13vw,10.5rem);letter-spacing:-.005em}
+.carte h1 .l{display:block;overflow:hidden}
+.carte h1 .l span{display:block;transform:translateY(105%);animation:monte .8s .5s cubic-bezier(.2,.9,.1,1) forwards}
+.carte h1 .l:nth-child(2) span{animation-delay:.62s;color:var(--rouge)}
 @keyframes monte{to{transform:none}}
-.hero .sub{position:relative;z-index:2;margin:1.2rem 0 4.5rem;font-size:clamp(1rem,1.6vw,1.3rem);max-width:30ch}
-.bande{position:absolute;left:0;right:0;bottom:0;background:var(--rouge);color:var(--noir);overflow:hidden;white-space:nowrap;z-index:3;padding:.55rem 0;font-family:var(--titre);font-size:1.5rem;text-transform:uppercase}
-.bande div{display:inline-block;animation:defile 22s linear infinite}
-.bande span{margin:0 1.1rem}
-@keyframes defile{to{transform:translateX(-50%)}}
+.carte .bas{display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:center;justify-content:space-between;margin-top:1.4rem}
+.carte p{font-size:clamp(1rem,1.5vw,1.15rem);max-width:34ch}
+.bouton{display:inline-flex;align-items:center;gap:.7rem;background:var(--rouge);color:var(--noir);font-family:var(--nom);text-transform:uppercase;
+  text-decoration:none;padding:.85rem 1.3rem;font-size:.95rem;transition:transform .15s,box-shadow .15s}
+.bouton svg{width:1rem;height:1rem;fill:currentColor}
+.bouton:hover{transform:translate(-4px,-4px);box-shadow:5px 5px 0 var(--papier)}
+.indice{position:absolute;z-index:5;bottom:1.2rem;left:50%;transform:translateX(-50%);font-size:.85rem;opacity:.75;display:flex;flex-direction:column;align-items:center;gap:.3rem}
+.indice i{width:2px;height:28px;background:var(--papier);animation:descend 1.4s ease-in-out infinite;transform-origin:top}
+@keyframes descend{0%{transform:scaleY(0)}50%{transform:scaleY(1)}100%{transform:scaleY(0);transform-origin:bottom}}
 
-/* projets */
-.projet{display:grid;grid-template-columns:repeat(12,1fr);grid-template-rows:auto 1fr auto;gap:1rem}
-.projet h2{grid-column:1/-1;grid-row:1;position:relative;z-index:2;font-size:clamp(4.5rem,21vw,23rem)}
-.projet .visuel{position:relative;z-index:1;display:block}
-.projet .infos{position:relative;z-index:3;align-self:end}
-.tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.8rem}
-.tags span{border:2px solid currentColor;padding:.15rem .8rem;font-weight:600;font-size:.85rem}
-.projet p{max-width:36ch}
+/* ---------- ZOOM AU SCROLL ---------- */
+.intro-zoom{padding:clamp(4rem,10vw,8rem) clamp(1.2rem,4vw,3rem) 2rem;max-width:1400px;margin:0 auto}
+.intro-zoom h2{font-family:var(--titre);font-weight:400;text-transform:uppercase;font-size:clamp(3rem,10vw,9rem);line-height:.88}
+.intro-zoom h2 em{font-style:normal;color:var(--rouge)}
+.intro-zoom p{margin-top:1rem;max-width:44ch;opacity:.85}
 
-.meduse{background:var(--noir)}
-.meduse h2{color:var(--rouge)}
-.meduse .visuel{grid-column:4/-1;grid-row:2/4;margin-top:-5vw}
-.meduse video,.meduse .visuel img{width:100%;display:block;aspect-ratio:16/9;object-fit:cover;background:#000}
-.meduse .infos{grid-column:1/4;grid-row:3}
+.zoom{position:relative;height:280vh}
+.zoom-scene{position:sticky;top:0;height:100svh;overflow:hidden;display:grid;place-items:center}
+.zoom-media{position:absolute;inset:0;clip-path:inset(var(--y,32%) var(--x,34%));will-change:clip-path}
+.zoom-media img,.zoom-media video{width:100%;height:100%;object-fit:cover;transform:scale(var(--s,1.25))}
+.zoom-media.contain{background:var(--fond,#000)}
+.zoom-media.contain img{object-fit:contain}
+.zoom-scene::after{content:"";position:absolute;inset:auto 0 0 0;height:55%;z-index:1;pointer-events:none;opacity:var(--t,0);
+  background:linear-gradient(to top,rgba(0,0,0,.92) 25%,transparent)}
+.zoom-num{position:absolute;top:calc(var(--barre) + 1.2rem);left:clamp(1.2rem,4vw,3rem);font-family:var(--nom);font-size:.9rem;z-index:2}
+.zoom-titre{position:absolute;z-index:2;left:clamp(1.2rem,4vw,3rem);right:clamp(1.2rem,4vw,3rem);bottom:clamp(1.2rem,4vw,3rem);
+  display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:1rem 2rem;opacity:var(--t,0);transform:translateY(calc((1 - var(--t,0)) * 40px))}
+.zoom-titre h3{font-family:var(--titre);font-weight:400;text-transform:uppercase;line-height:.84;font-size:clamp(4rem,15vw,15rem);color:var(--papier);
+  text-shadow:0 0 40px rgba(0,0,0,.45)}
+.zoom-titre .infos{max-width:32ch;background:var(--noir);padding:1rem 1.2rem}
+.tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.6rem}
+.tags span{background:var(--rouge);color:var(--noir);font-family:var(--nom);text-transform:uppercase;font-size:.72rem;padding:.15rem .5rem}
+.zoom-titre .infos a{display:inline-block;margin-top:.7rem;font-weight:600}
+.zoom-titre .infos a:hover{color:var(--rouge)}
+.p4l{display:grid;place-items:center;background:var(--jaune)}
+.p4l svg{width:30vmin;fill:var(--rouge)}
 
-.monsieur{background:var(--rose);color:var(--noir)}
-.monsieur h2{color:var(--noir);text-align:right}
-.monsieur .visuel{grid-column:1/6;grid-row:2/4;margin-top:-6vw}
-.monsieur .visuel img{width:100%;max-height:78vh;object-fit:cover;display:block}
-.monsieur .infos{grid-column:8/-1;grid-row:3}
+/* ---------- À PROPOS / CONTACT ---------- */
+.apropos{display:grid;grid-template-columns:repeat(12,1fr);gap:1.5rem;padding:clamp(5rem,12vw,10rem) clamp(1.2rem,4vw,3rem);max-width:1400px;margin:0 auto}
+.apropos h2{grid-column:1/8;font-family:var(--titre);font-weight:400;text-transform:uppercase;font-size:clamp(3rem,8vw,7.5rem);line-height:.88}
+.apropos h2 em{font-style:normal;color:var(--rouge)}
+.apropos .txt{grid-column:8/-1;align-self:end;display:grid;gap:1rem;font-size:1.05rem}
+.apropos ul{list-style:none;display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.4rem}
+.apropos li{border:2px solid var(--papier);padding:.15rem .7rem;font-weight:600;font-size:.85rem}
 
-.play{background:var(--jaune);color:var(--noir)}
-.play h2{color:var(--rouge)}
-.play .visuel{grid-column:5/-1;grid-row:2/4;margin-top:-5vw;min-height:48vh;background:var(--turquoise);
-  clip-path:polygon(0 8%,92% 0,100% 88%,10% 100%);display:grid;place-items:center}
-.play .visuel .star{width:34%;height:auto;color:var(--rouge)}
-.play .infos{grid-column:1/5;grid-row:3}
-
-/* à propos et contact */
-.apropos{background:var(--noir);display:flex;flex-direction:column;justify-content:center;gap:2rem}
-.apropos .gros{font-size:clamp(2.6rem,9vw,9rem);max-width:15ch}
-.apropos p{max-width:46ch;font-size:1.1rem}
-.contact{background:var(--rouge);color:var(--noir);display:flex;flex-direction:column;justify-content:space-between}
-.contact .gros{font-size:clamp(5rem,26vw,28rem)}
-.contact a.mail{align-self:flex-start;background:var(--noir);color:var(--papier);padding:1rem 1.8rem;font-weight:600;font-size:clamp(1rem,2vw,1.4rem);text-decoration:none;transition:transform .15s}
+.contact{background:var(--rouge);color:var(--noir);padding:clamp(4rem,10vw,8rem) clamp(1.2rem,4vw,3rem) 1.5rem;overflow:hidden}
+.contact h2{font-family:var(--titre);font-weight:400;text-transform:uppercase;font-size:clamp(5rem,22vw,22rem);line-height:.82;white-space:nowrap}
+.contact .lignes{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between;margin-top:2rem}
+.contact a.mail{background:var(--noir);color:var(--papier);padding:1rem 1.6rem;font-family:var(--nom);font-size:clamp(1rem,2.2vw,1.5rem);text-decoration:none;transition:transform .15s,box-shadow .15s}
 .contact a.mail:hover{transform:translate(-4px,-4px);box-shadow:6px 6px 0 var(--papier)}
-.contact small{display:block;margin-top:2rem}
+.contact small{font-weight:600}
 
 @media (max-width:760px){
-  .panneau{position:relative}
-  .projet{display:block}
-  .projet .visuel{margin:1rem 0}
-  .play .visuel{min-height:36vh}
-  .hero-img{right:-30%;opacity:.7}
+  .barre .dispo{display:none}
+  .barre nav a{padding:0 .8rem;font-size:.78rem}
+  .barre .logo{font-size:1.3rem;padding:0 .9rem}
+  .barre .logo .long{display:none}.barre .logo .court{display:inline}
+  .mur-grille{width:260vw;grid-template-columns:repeat(5,1fr)}
+  .apropos h2,.apropos .txt{grid-column:1/-1}
+  .zoom{height:220vh}
 }
 @media (prefers-reduced-motion:reduce){
-  .grain,.bande div{animation:none}
-  .hero h1 .l span{animation:none;transform:none}
+  .grain,.indice i,.barre .dispo i{animation:none}
+  .tuile,.carte h1 .l span{animation:none;opacity:1;transform:none}
+  .zoom{height:auto}
+  .zoom-scene{position:relative}
+  .zoom-media{clip-path:none}
+  .zoom-scene{--t:1}
   html{scroll-behavior:auto}
 }
 </style>
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="etoile" viewBox="0 0 100 100"><path d="M50 0C54 30 70 46 100 50C70 54 54 70 50 100C46 70 30 54 0 50C30 46 46 30 50 0Z"/></symbol></svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="etoile" viewBox="0 0 100 100"><path d="M50 0C54 30 70 46 100 50C70 54 54 70 50 100C46 70 30 54 0 50C30 46 46 30 50 0Z"/></symbol>
+  <symbol id="fleche" viewBox="0 0 24 24"><path d="M4 11h12.2l-5.6-5.6L12 4l8 8-8 8-1.4-1.4 5.6-5.6H4z"/></symbol>
+</svg>
 <div class="grain" aria-hidden="true"></div>
 
-<header class="panneau hero">
-  <img class="hero-img" src="meduse.jpg" alt="">
-  <nav class="menu" aria-label="Navigation">
-    <a href="#projets">Projets</a>
+<header class="barre">
+  <a class="logo" href="index.html" aria-label="Jean Vandame, accueil"><svg><use href="#etoile"/></svg><span class="long">Jean Vandame</span><span class="court">JV</span></a>
+  <nav aria-label="Menu principal">
+    <a href="projets.html">Projets</a>
+    <a href="#apropos">À propos</a>
     <a href="#contact">Contact</a>
+    <span class="dispo"><i></i>Ouvert aux projets</span>
   </nav>
-  <h1 class="gros"><span class="l"><span>Jean</span></span><span class="l"><span>Vandame</span></span></h1>
-  <p class="sub">Direction artistique et motion design, à Paris.</p>
-  <div class="bande" aria-hidden="true"><div>
-    <span>Motion design</span><svg class="star"><use href="#etoile"/></svg><span>Direction artistique</span><svg class="star"><use href="#etoile"/></svg><span>Illustration</span><svg class="star"><use href="#etoile"/></svg><span>3D</span><svg class="star"><use href="#etoile"/></svg>
-    <span>Motion design</span><svg class="star"><use href="#etoile"/></svg><span>Direction artistique</span><svg class="star"><use href="#etoile"/></svg><span>Illustration</span><svg class="star"><use href="#etoile"/></svg><span>3D</span><svg class="star"><use href="#etoile"/></svg>
-  </div></div>
 </header>
 
-<main id="projets">
-
-  <!-- PROJET 1 : MÉDUSE
-       Vidéo : dépose ton fichier à la racine du dépôt, à côté de index.html, sous le nom meduse.mp4 (voir la note sur la taille).
-       Autre option : remplace la balise <video> par un iframe YouTube ou Vimeo. -->
-  <section class="panneau projet meduse" aria-labelledby="t-meduse">
-    <h2 class="gros" id="t-meduse">Méduse</h2>
-    <div class="visuel">
-      <video controls preload="none" poster="meduse.jpg">
-        <source src="meduse.mp4" type="video/mp4">
-      </video>
+<!-- ===== MUR DE PROJETS ===== -->
+<section class="mur" aria-label="Aperçu des projets">
+  <div class="mur-grille" id="mur"></div>
+  <div class="carte">
+    <h1><span class="l"><span>Jean</span></span><span class="l"><span>Vandame</span></span></h1>
+    <div class="bas">
+      <p>Direction artistique et motion design. Des silhouettes à angles vifs, du rouge, du grain.</p>
+      <a class="bouton" href="projets.html">Choisis ton projet <svg><use href="#fleche"/></svg></a>
     </div>
-    <div class="infos">
-      <div class="tags"><span>Direction artistique</span><span>Animation</span></div>
-      <p>Persée, Méduse, deux couleurs et du grain. Une animation de 1 min 20.</p>
-    </div>
-  </section>
-
-  <!-- PROJET 2 : TITRE PROVISOIRE, à renommer (ligne <h2> et attribut alt de l'image) -->
-  <section class="panneau projet monsieur" aria-labelledby="t-monsieur">
-    <h2 class="gros" id="t-monsieur">Monsieur</h2>
-    <div class="visuel">
-      <img src="monsieur.jpg" alt="Personnage noir aux yeux blancs en larmes, manteau rouge, fond rayé rouge et blanc" width="900" height="1600">
-    </div>
-    <div class="infos">
-      <div class="tags"><span>Illustration</span><span>Direction artistique</span></div>
-      <p>Une silhouette, trois couleurs, des angles vifs.</p>
-    </div>
-  </section>
-
-  <!-- PROJET 3 : PLAY 4 LIFE
-       Remplace le bloc turquoise par une image : <img src="play4life.jpg" alt="..."> dans .visuel -->
-  <section class="panneau projet play" aria-labelledby="t-play">
-    <h2 class="gros" id="t-play">Play 4 Life</h2>
-    <div class="visuel" aria-hidden="true"><svg class="star"><use href="#etoile"/></svg></div>
-    <div class="infos">
-      <div class="tags"><span>Direction artistique</span><span>Motion design</span><span>TF1</span></div>
-      <p>Un projet réalisé pour TF1.</p>
-    </div>
-  </section>
-</main>
-
-<section class="panneau apropos" aria-labelledby="t-apropos">
-  <h2 class="gros" id="t-apropos">Des formes à angles vifs, et une histoire par image.</h2>
-  <p>Je m'appelle Jean, j'ai 23 ans. Je prépare un master Direction Artistique et Motion Design à LISAA Paris, en alternance chez TF1 Factory.</p>
-  <p>J'aime le rouge, le grain, les silhouettes découpées et les animations qui claquent.</p>
+  </div>
+  <div class="indice" aria-hidden="true">Scroll<i></i></div>
 </section>
 
-<footer class="panneau contact" id="contact">
-  <h2 class="gros">On en parle ?</h2>
-  <div>
+<!-- ===== ZOOM AU SCROLL : 3 PROJETS PHARES ===== -->
+<section class="intro-zoom">
+  <h2>Trois projets <em>à voir de près</em></h2>
+  <p>Méduse, Monsieur et Play 4 Life. Descends, l'image s'ouvre.</p>
+</section>
+
+<!-- Projet 1 : la vidéo meduse.mp4 se lance si tu l'ajoutes au dépôt. Sinon, l'image s'affiche. -->
+<section class="zoom" aria-labelledby="z1">
+  <div class="zoom-scene">
+    <div class="zoom-media">
+      <video muted loop playsinline autoplay preload="metadata" poster="img-meduse.jpg"><source src="meduse.mp4" type="video/mp4"></video>
+    </div>
+    <span class="zoom-num">01 / 03</span>
+    <div class="zoom-titre">
+      <h3 id="z1">Méduse</h3>
+      <div class="infos">
+        <div class="tags"><span>Animation</span><span>Direction artistique</span></div>
+        <p>Persée, Méduse, deux couleurs et du grain. 1 min 20 d'animation.</p>
+        <a href="projets.html#meduse">Voir le projet</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="zoom" aria-labelledby="z2">
+  <div class="zoom-scene">
+    <div class="zoom-media contain" style="--fond:#b3001b"><img src="img-monsieur.jpg" alt="Personnage noir aux yeux blancs en larmes, manteau rouge, fond rayé rouge et blanc"></div>
+    <span class="zoom-num">02 / 03</span>
+    <div class="zoom-titre">
+      <h3 id="z2">Monsieur</h3>
+      <div class="infos">
+        <div class="tags"><span>Illustration</span></div>
+        <p>Une silhouette, trois couleurs, des angles vifs.</p>
+        <a href="projets.html#monsieur">Voir le projet</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Projet 3 : remplace le bloc jaune par <img src="img-play4life.jpg" alt="..."> quand tu as le visuel -->
+<section class="zoom" aria-labelledby="z3">
+  <div class="zoom-scene">
+    <div class="zoom-media p4l"><svg aria-hidden="true"><use href="#etoile"/></svg></div>
+    <span class="zoom-num">03 / 03</span>
+    <div class="zoom-titre">
+      <h3 id="z3" style="color:var(--rouge);text-shadow:none">Play 4 Life</h3>
+      <div class="infos">
+        <div class="tags"><span>Motion design</span><span>TF1</span></div>
+        <p>Direction artistique et motion design pour TF1.</p>
+        <a href="projets.html#play4life">Voir le projet</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== À PROPOS ===== -->
+<section class="apropos" id="apropos">
+  <h2>Des formes dures, <em>des émotions vraies.</em></h2>
+  <div class="txt">
+    <p>Je m'appelle Jean, j'ai 23 ans. Je prépare un master Direction Artistique et Motion Design à LISAA Paris, en alternance comme assistant DA chez TF1 Factory.</p>
+    <p>J'aime raconter une histoire en une image, et la faire bouger juste ce qu'il faut.</p>
+    <ul><li>Motion 2D</li><li>3D Blender</li><li>Illustration</li><li>Print</li><li>DA</li></ul>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<footer class="contact" id="contact">
+  <h2>On en parle ?</h2>
+  <div class="lignes">
     <a class="mail" href="mailto:jeanvand@gmail.com">jeanvand@gmail.com</a>
     <small>Jean Vandame, Paris</small>
   </div>
 </footer>
 
+<script>
+/* ---- Liste des visuels du mur (ordre libre) ---- */
+const MUR = [
+  ['meduse','Méduse'],['qualbo','Qualbo'],['monsieur','Monsieur'],['carton-tv','Carton TV'],
+  ['uma','UMÀ'],['toid','TOID'],['aquarium','Aquarium'],[null,'Play 4 Life','play4life'],
+  ['bose','Bose'],['carton-foot','Carton Foot'],['qonto','Qonto'],['scrap','SCRAP']
+];
+const mur = document.getElementById('mur');
+const total = 30; // nombre de tuiles, la liste se répète
+for (let i = 0; i < total; i++) {
+  const [id, nom, lien] = MUR[i % MUR.length];
+  const a = document.createElement('a');
+  a.className = 'tuile' + (id ? '' : ' vide');
+  a.href = 'projets.html#' + (lien || id);
+  a.style.animationDelay = (Math.random() * .6).toFixed(2) + 's';
+  a.innerHTML = id
+    ? `<img src="img-${id}.jpg" alt="" loading="${i < 14 ? 'eager' : 'lazy'}"><span>${nom}</span>`
+    : `<svg aria-hidden="true"><use href="#etoile"/></svg><span>${nom}</span>`;
+  a.setAttribute('aria-label', nom);
+  if (i >= MUR.length) a.tabIndex = -1;
+  mur.appendChild(a);
+}
+
+const calme = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---- Parallaxe du mur à la souris (et dérive lente sur mobile) ---- */
+if (!calme) {
+  let cx = 0, cy = 0, tx = 0, ty = 0, souris = false;
+  addEventListener('pointermove', e => {
+    if (e.pointerType !== 'mouse') return;
+    souris = true;
+    tx = (e.clientX / innerWidth - .5) * -2;
+    ty = (e.clientY / innerHeight - .5) * -2;
+  });
+  (function boucle(t) {
+    if (!souris) { tx = Math.sin(t / 3200) * .8; ty = Math.cos(t / 4100) * .6; }
+    cx += (tx - cx) * .06; cy += (ty - cy) * .06;
+    const dy = Math.min(scrollY, innerHeight) * .25;
+    mur.style.transform = `translate(calc(-50% + ${cx * 7}vw), calc(-50% + ${cy * 7}vh - ${dy}px)) rotate(-6deg)`;
+    requestAnimationFrame(boucle);
+  })(0);
+}
+
+/* ---- Zoom au scroll ---- */
+const zooms = [...document.querySelectorAll('.zoom')];
+function zoom() {
+  for (const z of zooms) {
+    const r = z.getBoundingClientRect();
+    const course = r.height - innerHeight;
+    let p = Math.min(Math.max(-r.top / course, 0), 1);
+    const ouverture = Math.min(p / .6, 1);          // 0 → 60 % : l'image s'ouvre
+    const e = 1 - Math.pow(1 - ouverture, 3);
+    const m = z.querySelector('.zoom-media');
+    m.style.setProperty('--y', (32 * (1 - e)) + '%');
+    m.style.setProperty('--x', (34 * (1 - e)) + '%');
+    m.style.setProperty('--s', (1.25 - .25 * e).toFixed(3));
+    const t = Math.min(Math.max((p - .55) / .25, 0), 1); // le titre arrive ensuite
+    z.querySelector('.zoom-scene').style.setProperty('--t', t.toFixed(3));
+  }
+}
+if (!calme) { addEventListener('scroll', () => requestAnimationFrame(zoom), {passive:true}); addEventListener('resize', zoom); zoom(); }
+</script>
 </body>
 </html>
