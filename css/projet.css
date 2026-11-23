@@ -205,3 +205,16 @@ body.page-projet{background:var(--p-fond);color:var(--p-texte)}
   .synth-star.hit{animation:none}
 }
 .hero-perso:not(:has(img)) .etoile-svg{width:46%;right:27%;bottom:27%;opacity:1}
+
+/* ---------- bloc Couleurs (commun à tous les projets) ---------- */
+.couleurs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,10.5rem),1fr));gap:clamp(.8rem,2vw,1.5rem)}
+.couleur{display:flex;flex-direction:column;align-items:flex-start;gap:.15rem;text-align:left;color:inherit}
+.c-pastille{position:relative;display:block;width:100%;aspect-ratio:5/4;background:var(--c);margin-bottom:.7rem;
+  outline:1px solid rgba(128,128,128,.35);outline-offset:-1px;transition:transform .18s,box-shadow .18s}
+.c-copier{position:absolute;left:.7rem;bottom:.6rem;font-family:var(--nom);font-size:.7rem;text-transform:uppercase;color:var(--ct);opacity:0;transition:opacity .18s}
+.couleur:hover .c-pastille,.couleur:focus-visible .c-pastille{transform:translate(-4px,-4px);box-shadow:6px 6px 0 var(--p-accent,#ff0a14)}
+.couleur:hover .c-copier,.couleur.copie .c-copier{opacity:1}
+.c-nom{font-family:var(--nom);text-transform:uppercase;font-size:.82rem;transition:color .15s}
+.couleur:hover .c-nom{color:var(--p-accent,#ff0a14)}
+.c-hex{font-size:.9rem;font-weight:600;letter-spacing:.04em}
+.c-role{font-size:.8rem;opacity:.65}

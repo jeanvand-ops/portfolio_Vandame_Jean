@@ -1,115 +1,150 @@
 /* =====================================================================
    Page sur mesure : MÉDUSE
-   Rouge de la légende officielle → couleurs de la céramique grecque
+   Blanc par défaut, rouge au survol. Rouge de la légende → couleurs de la céramique.
    ===================================================================== */
 .page-meduse{
   --m-rouge:#ff0a14; --m-noir:#0a0a0a; --m-creme:#f1ebe0; --m-bleu:#3b8fe3; --m-ocre:#eba552;
-  --p-fond:var(--m-noir); --p-texte:var(--m-creme); --p-titre:var(--m-rouge); --p-accent:var(--m-rouge); --p-accent-t:#000;
+  --p-fond:var(--m-noir); --p-texte:var(--m-creme); --p-titre:var(--m-creme); --p-accent:var(--m-rouge); --p-accent-t:#000;
   --haut:calc(100svh - var(--barre));
   background:var(--m-noir); color:var(--m-creme);
 }
 .page-meduse main{padding-top:var(--barre)}
 .page-meduse section{padding-inline:var(--gut)}
-.page-meduse section > *{max-width:76rem;margin-inline:auto}
+.page-meduse section > *{max-width:78rem;margin-inline:auto}
+.m-h2{font-family:var(--titre);font-weight:400;text-transform:uppercase;font-size:clamp(2.3rem,6vw,4.8rem);line-height:.92;color:var(--m-creme)}
 .m-tete-s{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:.4rem 2rem;margin-bottom:clamp(1.2rem,3vw,2rem)}
-.m-tete-s h2{font-family:var(--titre);font-weight:400;text-transform:uppercase;font-size:clamp(2.2rem,6vw,4.6rem);line-height:.92;color:var(--m-rouge)}
 .m-tete-s p{max-width:30rem;opacity:.8;font-size:.95rem}
-/* frise grecque réutilisable */
-.meandre{height:14px;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='14' viewBox='0 0 28 14'><path d='M0 13h4V1h12v8H8V5h4' fill='none' stroke='black' stroke-width='2'/><path d='M14 13h14' stroke='black' stroke-width='2'/></svg>") repeat-x}
+
+/* boutons blancs, rouges au survol */
+.page-meduse .bouton{background:var(--m-creme);color:#000}
+.page-meduse .bouton:hover{background:var(--m-rouge);box-shadow:5px 5px 0 var(--m-creme)}
+.page-meduse .tags span{background:var(--m-creme);color:#000;transition:background .15s}
+.page-meduse .tags span:hover{background:var(--m-rouge)}
+.btn-b{min-width:3rem;height:3rem;padding:0 1rem;background:var(--m-creme);color:#000;font-family:var(--nom);font-size:1rem;text-transform:uppercase;
+  clip-path:polygon(0 0,100% 0,100% 72%,82% 100%,0 100%);transition:background .15s,color .15s}
+.btn-b.texte{font-size:.72rem;height:2.4rem}
+.btn-b:hover{background:var(--m-rouge);color:#000}
+
+/* retour fixe en haut à gauche */
+.retour-fixe{position:fixed;z-index:70;top:calc(var(--barre) + .8rem);left:var(--gut);background:var(--m-creme);color:#000;text-decoration:none;
+  font-family:var(--nom);text-transform:uppercase;font-size:.75rem;padding:.55rem .85rem;clip-path:polygon(0 0,100% 0,100% 70%,90% 100%,0 100%);
+  transition:background .15s}
+.retour-fixe:hover{background:var(--m-rouge)}
 
 /* ---------- ouverture ---------- */
-.m-hero{position:relative;height:var(--haut);min-height:30rem;display:flex;align-items:flex-end;overflow:hidden;padding-block:clamp(1.5rem,5vw,4rem)}
+.m-hero{position:relative;height:var(--haut);padding-top:4rem;min-height:32rem;display:flex;align-items:flex-end;overflow:hidden;padding-block:clamp(1.5rem,5vw,4rem)}
 .page-meduse .m-hero > *{max-width:none;margin:0}
 .m-hero-img{position:absolute;inset:0;view-transition-name:perso}
 .m-hero-img img{width:100%;height:100%;object-fit:cover;transform:translateX(22%) scale(1.3);transform-origin:50% 20%}
 .m-hero::after{content:"";position:absolute;inset:0;pointer-events:none;
   background:linear-gradient(90deg,var(--m-noir) 0,rgba(10,10,10,.85) 32%,transparent 62%),linear-gradient(0deg,var(--m-noir),transparent 30%)}
 .m-hero-txt{position:relative;z-index:1;max-width:40rem}
-.m-hero h1{font-family:var(--titre);font-weight:400;text-transform:uppercase;color:var(--m-rouge);font-size:clamp(5rem,17vw,15rem);line-height:.82;margin:.6rem 0 1rem;letter-spacing:-.005em}
+.m-sur{font-family:var(--nom);text-transform:uppercase;font-size:.78rem;opacity:.8}
+.m-hero h1{font-family:var(--titre);font-weight:400;text-transform:uppercase;color:var(--m-rouge);font-size:clamp(5rem,17vw,15rem);line-height:.82;margin:.4rem 0 1rem}
 .m-sous{font-size:clamp(1.05rem,1.8vw,1.35rem);margin-bottom:1.1rem;max-width:26rem}
 .m-sous em{font-style:normal;color:var(--m-rouge);font-weight:700}
 .m-actions{display:flex;flex-wrap:wrap;align-items:center;gap:1rem 1.6rem;margin-top:1.4rem}
-.m-lien{font-family:var(--nom);text-transform:uppercase;font-size:.85rem;text-decoration:none;border-bottom:2px solid currentColor}
+.m-lien{font-family:var(--nom);text-transform:uppercase;font-size:.85rem;text-decoration:none;border-bottom:2px solid currentColor;transition:color .15s}
 .m-lien:hover{color:var(--m-rouge)}
-.page-meduse .retour{display:inline-flex;font-family:var(--nom);text-transform:uppercase;font-size:.8rem;text-decoration:none;border-bottom:2px solid currentColor}
 
-/* ---------- intention ---------- */
-.m-intention{padding-block:clamp(4rem,12vw,9rem);text-align:center}
-.page-meduse .m-intention > *{max-width:54rem}
-.m-grand{font-family:var(--titre);text-transform:uppercase;font-size:clamp(1.9rem,4.6vw,3.6rem);line-height:1.02;margin-bottom:1.5rem}
+/* ---------- le projet ---------- */
+.m-projet{padding-block:clamp(4rem,11vw,8rem)}
+.m-projet-grille{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(2rem,6vw,6rem)}
+.m-projet-gauche{position:sticky;top:calc(var(--barre) + 4.5rem);align-self:start}
+.m-grand{font-family:var(--titre);text-transform:uppercase;font-size:clamp(1.7rem,3.4vw,2.9rem);line-height:1.02;margin-top:1.4rem}
 .m-grand span{color:var(--m-rouge)}
-.m-intention p:not(.m-grand){opacity:.8;max-width:40rem}
+.m-projet-droite{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2rem 2.2rem}
+.bloc{border-top:3px solid var(--m-creme);padding-top:.9rem;transition:border-color .2s}
+.bloc:hover{border-color:var(--m-rouge)}
+.bloc h3{font-family:var(--nom);text-transform:uppercase;font-size:.85rem;margin-bottom:.6rem}
+.bloc p{font-size:.95rem;opacity:.85}
+.m-fiche{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem 2.2rem;background:#151515;padding:1.4rem 1.5rem}
+.m-fiche dt{font-family:var(--nom);text-transform:uppercase;font-size:.7rem;opacity:.6;margin-bottom:.2rem}
+.m-fiche dd{font-size:.92rem}
 
-/* ---------- le récit à rebours ---------- */
-.rebours{height:calc(8 * 75svh + 100svh);position:relative;padding:0}
-.page-meduse .rebours > *{max-width:none}
-.rb-colle{position:sticky;top:var(--barre);height:var(--haut);display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:1rem;
-  padding:clamp(1rem,2.5vw,1.8rem) var(--gut);background:var(--rb-fond,var(--m-noir));color:var(--rb-encre,var(--m-creme));
-  transition:background .7s,color .7s;overflow:hidden}
-.rb-tete{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;font-family:var(--nom);text-transform:uppercase;font-size:.8rem}
-.rb-etat{padding:.35rem .7rem;background:var(--rb-encre,var(--m-creme));color:var(--rb-fond,var(--m-noir));transition:background .7s,color .7s}
-.rb-compteur{white-space:nowrap}
-.rb-compteur b{font-family:var(--titre);font-weight:400;font-size:clamp(2rem,4vw,3.2rem);line-height:1}
-.rb-scene{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:clamp(1.2rem,3.5vw,3.5rem);align-items:center;min-height:0;
-  max-width:84rem;width:100%;margin:0 auto}
-.rb-cadre{position:relative;margin:0;aspect-ratio:16/9;justify-self:center;overflow:hidden;background:#000;
-  width:min(100%,calc((100svh - var(--barre) - 10rem) * 16 / 9));box-shadow:10px 10px 0 var(--rb-encre,var(--m-creme));transition:box-shadow .7s}
-.plan{position:absolute;inset:0;opacity:0;transition:opacity .55s;background:var(--fond);color:var(--encre);display:grid;place-items:center;overflow:hidden}
-.plan.on{opacity:1}
-.plan img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.plan .grec{font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:clamp(2.6rem,8vw,7rem);line-height:1;text-align:center;padding:0 1rem}
-.plan .meandre{position:absolute;left:0;right:0;bottom:6%;filter:var(--m-filtre,none);opacity:.9}
-.plan.clair .meandre{filter:invert(1)}
-.plan .yeux{position:absolute;inset:0}
-.plan .yeux i{position:absolute;width:9%;aspect-ratio:2.2;background:var(--encre);border-radius:50%/50%;clip-path:ellipse(50% 32% at 50% 50%)}
-.rb-droite{min-width:0}
-.rb-titre{font-family:var(--nom);text-transform:uppercase;font-size:.85rem;margin-bottom:.8rem;opacity:.85}
-.rb-texte{font-family:var(--titre);text-transform:uppercase;font-size:clamp(1.5rem,2.8vw,2.6rem);line-height:1.04;quotes:none}
-.rb-frise{display:grid;grid-template-columns:repeat(8,1fr);gap:4px;max-width:84rem;width:100%;margin:0 auto}
-.rb-frise button{position:relative;height:2.2rem;display:flex;align-items:flex-end;padding:0 0 .35rem;font-family:var(--nom);font-size:.7rem;
-  border-top:4px solid currentColor;opacity:.4;transition:opacity .2s}
-.rb-frise button.on,.rb-frise button:hover{opacity:1}
-.rb-frise button.on::before{content:"";position:absolute;left:0;top:-4px;height:4px;width:100%;background:var(--m-rouge)}
-.rb-frise button:nth-child(2){margin-left:.8rem}
-/* effet rembobinage entre le plan 1 et la suite */
-.rb-rembobine{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:3;pointer-events:none;opacity:0;white-space:nowrap;
-  font-family:var(--nom);text-transform:uppercase;font-size:clamp(.9rem,2.4vw,1.5rem);background:var(--m-creme);color:#000;padding:.7rem 1.1rem}
-.rb-rembobine span{color:var(--m-rouge);margin-right:.4rem}
-.rb-colle.rembobine .rb-rembobine{opacity:1}
-.rb-colle.rembobine .rb-cadre{animation:vhs .12s steps(2) infinite}
-.rb-colle.rembobine .plan.on{filter:contrast(1.6) saturate(.4)}
-@keyframes vhs{0%{transform:translateX(-6px) skewX(-3deg)}50%{transform:translateX(5px) skewX(2deg)}100%{transform:translateX(-2px)}}
+/* ---------- le vase qui tourne ---------- */
+.vase-s{padding-block:clamp(3rem,7vw,5rem);background:var(--v-fond,var(--m-noir));color:var(--v-txt,var(--m-creme));transition:background .7s,color .7s}
+.vase-grille{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(1.5rem,4vw,4rem);align-items:center;min-height:calc(var(--haut) - 6rem)}
+.vase-zone{position:relative;height:min(calc(var(--haut) - 7rem),46rem);min-height:24rem}
+.vase-zone canvas{position:absolute;inset:0;width:100%;height:100%;cursor:grab;touch-action:pan-y}
+.vase-zone canvas:active{cursor:grabbing}
+.vase-indice{position:absolute;left:50%;bottom:0;transform:translateX(-50%);font-family:var(--nom);text-transform:uppercase;font-size:.72rem;white-space:nowrap;
+  transition:opacity .4s;pointer-events:none}
+.vase-indice span{display:inline-block;animation:glisse 1.4s ease-in-out infinite}
+.vase-indice span:last-child{animation-direction:reverse}
+@keyframes glisse{50%{transform:translateX(-6px)}}
+.vase-s.touche .vase-indice{opacity:0}
+.vase-texte .m-h2{color:inherit;margin-bottom:1.4rem;font-size:clamp(2rem,4vw,3.6rem)}
+.vase-compteur{display:flex;align-items:baseline;flex-wrap:wrap;gap:.2rem .7rem;margin-bottom:.4rem}
+.vase-compteur b{font-family:var(--titre);font-weight:400;font-size:clamp(3.5rem,8vw,6rem);line-height:.9}
+.vase-compteur span{font-family:var(--nom);font-size:.9rem}
+.vase-compteur em{font-style:normal;font-family:var(--nom);text-transform:uppercase;font-size:.7rem;padding:.3rem .6rem;background:var(--v-txt,var(--m-creme));color:var(--v-fond,var(--m-noir));margin-left:auto;transition:background .7s,color .7s}
+.vase-titre{font-family:var(--nom);text-transform:uppercase;font-size:.85rem;margin:1rem 0 .7rem;opacity:.85}
+.vase-citation{font-family:var(--titre);text-transform:uppercase;font-size:clamp(1.5rem,2.6vw,2.4rem);line-height:1.05;min-height:4.4em}
+.vase-boutons{display:flex;align-items:center;gap:.6rem;margin-top:1.6rem}
+.vase-points{display:flex;gap:5px;margin-left:.8rem}
+.vase-points i{width:.55rem;height:.55rem;background:currentColor;opacity:.3;transform:rotate(45deg);transition:opacity .3s,background .3s}
+.vase-points i.on{opacity:1;background:var(--m-rouge)}
 
-/* ---------- le reflet ---------- */
-.reflet-s{padding-block:clamp(4rem,10vw,7rem)}
-.bouclier-zone{position:relative;aspect-ratio:20/9;overflow:hidden;cursor:none;touch-action:none;background:#000;
-  width:min(100%,calc((100svh - var(--barre) - 13rem) * 20 / 9));--x:62%;--y:45%;--r:120px}
-.page-meduse .reflet-s .bouclier-zone{margin-inline:auto}
-.bouclier-zone img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 0}
-.b-reflet{position:absolute;inset:0;clip-path:circle(var(--r) at var(--x) var(--y))}
-.b-reflet img{transform:scaleX(-1);transform-origin:var(--x) 50%;filter:grayscale(1) brightness(2.8) contrast(1.4)}
-.b-reflet::after{content:"";position:absolute;inset:0;background:var(--m-bleu);mix-blend-mode:multiply}
-.b-reflet::before{content:"";position:absolute;inset:0;z-index:1;background:radial-gradient(circle var(--r) at var(--x) var(--y),transparent 70%,rgba(235,165,82,.35));pointer-events:none}
-.b-anneau{position:absolute;left:var(--x);top:var(--y);width:calc(var(--r) * 2);height:calc(var(--r) * 2);transform:translate(-50%,-50%);border-radius:50%;
-  border:6px solid var(--m-ocre);box-shadow:0 0 0 3px #000,inset 0 0 0 3px #000,0 0 40px rgba(59,143,227,.35);pointer-events:none}
-.b-legendes{display:flex;justify-content:space-between;gap:1rem;margin-top:1.2rem;font-family:var(--titre);text-transform:uppercase;font-size:clamp(1.1rem,2.4vw,1.8rem)}
-.page-meduse .reflet-s .b-legendes{width:min(100%,calc((100svh - var(--barre) - 13rem) * 20 / 9))}
-.b-legendes p{color:var(--m-rouge)}
-.b-legendes .b-l2{color:var(--m-bleu);text-align:right}
-.b-legendes small{display:block;font-family:var(--nom);font-size:.7rem;color:var(--m-creme);opacity:.7}
+/* ---------- le regard qui pétrifie ---------- */
+.regard-s{padding-block:clamp(4rem,10vw,7rem)}
+.regard-zone{position:relative;aspect-ratio:20/9;overflow:hidden;background:#000;cursor:none;touch-action:none;user-select:none;-webkit-user-select:none;
+  width:min(100%,calc((100svh - var(--barre) - 13rem) * 20 / 9))}
+.page-meduse .regard-s .regard-zone{margin-inline:auto}
+.r-media{position:absolute;left:0;top:0;transition:filter .3s}
+.r-media img{width:100%;height:100%;display:block}
+.regard-zone.pierre .r-media{filter:grayscale(1) contrast(1.15) brightness(.85)}
+.oeil{position:absolute;width:4.3%;aspect-ratio:2.6;transform:translate(-50%,-50%) scaleY(var(--o,0));border-radius:50%;
+  background:radial-gradient(ellipse at 50% 50%,#fff8d6 0,#ffd75a 45%,#ff7a00 100%);box-shadow:0 0 calc(var(--o,0) * 26px) calc(var(--o,0) * 8px) rgba(255,190,60,.9);
+  clip-path:ellipse(50% 46% at 50% 50%);opacity:calc(var(--o,0) * 1.4)}
+.oeil i{position:absolute;left:50%;top:50%;width:16%;height:86%;background:#000;border-radius:50%;transform:translate(calc(-50% + var(--px,0px)),-50%)}
+.r-rayons{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.r-rayons line{stroke:#ffd75a;stroke-width:2;stroke-dasharray:6 8;opacity:0;filter:drop-shadow(0 0 6px #ff9a00)}
+.regard-zone.fixe .r-rayons line{opacity:var(--ray,0);animation:rayon .5s linear infinite}
+@keyframes rayon{to{stroke-dashoffset:-28}}
+.r-curseur{position:absolute;left:0;top:0;width:34px;pointer-events:none;z-index:4;opacity:0;transition:opacity .2s}
+.regard-zone.dedans .r-curseur,.regard-zone.demo .r-curseur,.regard-zone.pierre .r-curseur{opacity:1}
+.r-curseur svg{width:100%;overflow:visible;display:block}
+.c-corps path{fill:#fff;stroke:#000;stroke-width:1.6;stroke-linejoin:round;transition:fill .25s}
+.c-fissures{fill:none;stroke:#2a2724;stroke-width:1.1;opacity:0}
+.c-bulle{position:absolute;left:30px;top:-12px;font-family:var(--nom);text-transform:uppercase;font-size:.7rem;background:var(--m-creme);color:#000;padding:.25rem .45rem;white-space:nowrap;
+  opacity:0;transform:scale(.6);transform-origin:left bottom;transition:opacity .2s,transform .25s}
+.r-curseur.pierre .c-corps path,.statue .c-corps path{fill:#9a958c;stroke:#3a3631}
+.r-curseur.pierre .c-corps,.statue .c-corps{filter:url(#pierre-f)}
+.r-curseur.pierre .c-fissures,.statue .c-fissures{opacity:1}
+.r-curseur.pierre svg{animation:petrifie .45s ease-out}
+.r-curseur.pierre .c-bulle{opacity:1;transform:scale(1)}
+@keyframes petrifie{0%{transform:scale(1.5)}40%{transform:scale(.88) rotate(-6deg)}70%{transform:scale(1.05) rotate(3deg)}100%{transform:scale(1)}}
+.r-statues{position:absolute;inset:0;pointer-events:none;z-index:3}
+.statue{position:absolute;width:34px;transform:rotate(var(--rot,0deg));filter:drop-shadow(3px 4px 0 rgba(0,0,0,.6))}
+.statue svg{width:100%;overflow:visible;display:block}
+.r-flash{position:absolute;inset:0;background:#fff3c4;opacity:0;pointer-events:none;z-index:5}
+.r-flash.on{animation:flash .5s ease-out}
+@keyframes flash{0%{opacity:.75}100%{opacity:0}}
+.regard-zone.tremble{animation:tremble .35s linear}
+@keyframes tremble{20%{transform:translate(-4px,2px)}40%{transform:translate(4px,-2px)}60%{transform:translate(-3px,-1px)}80%{transform:translate(2px,1px)}}
+.regard-bas{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1rem 2rem;margin-top:1.2rem}
+.page-meduse .regard-s .regard-bas{width:min(100%,calc((100svh - var(--barre) - 13rem) * 20 / 9))}
+.r-message{font-family:var(--titre);text-transform:uppercase;font-size:clamp(1.3rem,2.6vw,2rem);line-height:1.05}
+.r-message.alerte{color:var(--m-rouge)}
+.r-actions{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1rem}
+.r-compte{font-family:var(--nom);text-transform:uppercase;font-size:.75rem}
+.r-compte b{font-family:var(--titre);font-weight:400;font-size:1.6rem;margin-right:.2rem}
 
 /* ---------- le film ---------- */
 .film{padding-block:clamp(4rem,10vw,7rem);background:var(--m-creme);color:#000}
+.film .m-h2{color:#000}
 .film .m-tete-s p{opacity:.75}
-.film-cadre{position:relative;aspect-ratio:16/9;background:#000;width:min(100%,calc((100svh - var(--barre) - 11rem) * 16 / 9));box-shadow:12px 12px 0 var(--m-rouge)}
+.film-cadre{position:relative;aspect-ratio:16/9;background:#000;width:min(100%,calc((100svh - var(--barre) - 11rem) * 16 / 9));box-shadow:12px 12px 0 #000;transition:box-shadow .2s}
+.film-cadre:hover{box-shadow:12px 12px 0 var(--m-rouge)}
 .page-meduse .film .film-cadre{margin-inline:auto}
 .film-cadre iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .film-lancer{position:absolute;inset:0;width:100%;height:100%;display:grid;place-items:center}
 .film-lancer img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:filter .3s}
 .film-lancer:hover img{filter:brightness(.7)}
 .film-play{position:relative;display:grid;place-items:center;width:clamp(6rem,14vw,10rem);aspect-ratio:1}
-.film-play svg{position:absolute;inset:0;fill:var(--m-creme);filter:drop-shadow(6px 6px 0 #000);transition:transform .5s}
-.film-lancer:hover .film-play svg{transform:rotate(90deg) scale(1.1)}
+.film-play svg{position:absolute;inset:0;fill:var(--m-creme);filter:drop-shadow(6px 6px 0 #000);transition:transform .5s,fill .2s}
+.film-lancer:hover .film-play svg{transform:rotate(90deg) scale(1.1);fill:var(--m-rouge)}
 .film-play b{position:relative;font-family:var(--nom);text-transform:uppercase;font-size:.8rem;color:#000}
 
 /* ---------- styleframes ---------- */
@@ -119,41 +154,39 @@
 .frames-grille img{width:100%;aspect-ratio:16/9;object-fit:cover;transition:transform .3s}
 .frames-grille figure:hover img{transform:scale(1.02)}
 .frames-grille figcaption{display:flex;justify-content:space-between;gap:1rem;margin-top:.6rem;font-family:var(--nom);text-transform:uppercase;font-size:.78rem}
-.frames-grille figcaption span{color:var(--m-rouge)}
+.frames-grille figure:hover figcaption{color:var(--m-rouge)}
 
 /* ---------- teaser ---------- */
 .teaser{padding-block:clamp(4rem,10vw,7rem)}
-.page-meduse .teaser{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(1.5rem,4vw,4rem);align-items:center;max-width:76rem;margin-inline:auto}
+.page-meduse .teaser{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(1.5rem,4vw,4rem);align-items:center;max-width:78rem;margin-inline:auto}
 .page-meduse .teaser[hidden]{display:none}
 .teaser-cadre video{height:min(78svh,44rem);aspect-ratio:9/16;background:#000;display:block}
 .teaser .m-tete-s{display:block}
 .teaser .m-tete-s p{margin-top:1rem}
 
-/* ---------- fiche ---------- */
-.page-meduse .infos-bas{border-top-color:var(--m-rouge)}
-.page-meduse .infos-bas > *{max-width:none;margin:0}
+/* ---------- couleurs ---------- */
+.couleurs-s{padding-block:clamp(4rem,10vw,7rem);border-top:1px solid rgba(241,235,224,.15)}
 
 /* ---------- mobile ---------- */
 @media (max-width:860px){
+  .retour-fixe{top:calc(var(--barre) + .5rem);left:.6rem;font-size:0;width:2.4rem;height:2.4rem;padding:0;display:grid;place-items:center;box-shadow:0 0 0 2px #000}
+  .retour-fixe::before{content:'←';font-size:1.1rem}
   .m-hero-img{bottom:auto;height:66%}
   .m-hero-img img{object-position:60% 0;transform:scale(1.22);transform-origin:60% 0}
-  .rb-etat{font-size:.68rem}
   .m-hero::after{background:linear-gradient(0deg,var(--m-noir) 0,var(--m-noir) 36%,transparent 62%)}
-  .rebours{height:calc(8 * 65svh + 100svh)}
-  .rb-scene{grid-template-columns:1fr;align-content:center;gap:1.1rem}
-  .rb-cadre{width:100%;box-shadow:6px 6px 0 var(--rb-encre,var(--m-creme))}
-  .rb-texte{font-size:clamp(1.3rem,5.6vw,1.9rem)}
-  .rb-frise button{font-size:0;height:1.2rem}
-  .rb-frise button:nth-child(2){margin-left:.4rem}
-  .bouclier-zone{aspect-ratio:4/3;width:100%;--r:80px}
-  .bouclier-zone .b-base{transform:scale(1.28);transform-origin:55% 0}
-  .b-reflet img{transform:scale(-1.28,1.28);transform-origin:var(--x) 0}
-  .page-meduse .reflet-s .b-legendes{width:100%}
+  .m-projet-grille{grid-template-columns:1fr}
+  .m-projet-gauche{position:static}
+  .m-projet-droite,.m-fiche{grid-template-columns:1fr}
+  .vase-grille{grid-template-columns:1fr;min-height:0}
+  .vase-zone{height:min(62svh,30rem);min-height:20rem}
+  .vase-citation{min-height:5.2em;font-size:clamp(1.3rem,5.6vw,1.9rem)}
+  .regard-zone{aspect-ratio:4/5;width:100%}
+  .page-meduse .regard-s .regard-bas{width:100%}
   .frames-grille{grid-template-columns:1fr}
   .page-meduse .teaser{grid-template-columns:1fr;justify-items:center}
   .teaser-cadre video{height:min(70svh,36rem)}
-  .film-cadre{box-shadow:6px 6px 0 var(--m-rouge)}
+  .film-cadre,.film-cadre:hover{box-shadow:6px 6px 0 #000}
 }
 @media (prefers-reduced-motion:reduce){
-  .rb-colle.rembobine .rb-cadre{animation:none}
+  .vase-indice span,.r-curseur.pierre svg,.regard-zone.tremble,.r-flash.on,.regard-zone.fixe .r-rayons line{animation:none}
 }
