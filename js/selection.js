@@ -24,6 +24,7 @@ PROJETS.forEach((p, i) => {
   b.addEventListener('mouseenter', () => animer(b, p, true));
   b.addEventListener('mouseleave', () => animer(b, p, false));
   b.addEventListener('dblclick', ouvrir);
+  b.style.setProperty('--i', i);
   rangee.appendChild(b);
 });
 
@@ -80,4 +81,13 @@ addEventListener('keydown', e => {
 
 // projet demandé dans l'adresse (ex. projets.html#meduse)
 const depart = PROJETS.findIndex(p => p.id === location.hash.slice(1));
+// arrivée depuis le mur de l'accueil : petite entrée animée
+let depuisMur = false;
+try { depuisMur = sessionStorage.getItem('depuis-mur') === '1'; sessionStorage.removeItem('depuis-mur'); } catch (e) {}
+if (depuisMur) {
+  const ecran = document.querySelector('.ecran');
+  ecran.classList.add('arrivee');
+  if (!window.CSSViewTransitionRule) ecran.classList.add('sans-vt');
+  setTimeout(() => ecran.classList.remove('arrivee', 'sans-vt'), 1600);
+}
 choisir(depart >= 0 ? depart : 0);

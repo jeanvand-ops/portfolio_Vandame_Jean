@@ -11,7 +11,8 @@ for (let i = 0; i < total; i++) {
   const [id, nom, lien] = MUR[i % MUR.length];
   const a = document.createElement('a');
   a.className = 'tuile' + (id ? '' : ' vide');
-  a.href = 'projets/' + (lien || id) + '.html';
+  a.href = 'projets.html#' + (lien || id);
+  a.addEventListener('click', e => choisirTuile(e, a));
   a.style.animationDelay = (Math.random() * .6).toFixed(2) + 's';
   a.innerHTML = id
     ? `<img src="img/visuels/img-${id}.jpg" alt="" loading="${i < 14 ? 'eager' : 'lazy'}"><span>${nom}</span>`
@@ -22,6 +23,32 @@ for (let i = 0; i < total; i++) {
 }
 
 const calme = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---- Clic sur une tuile : elle sort du mur et file vers « Choisis ton projet » ---- */
+function choisirTuile(e, a) {
+  if (e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;
+  e.preventDefault();
+  try { sessionStorage.setItem('depuis-mur', '1'); } catch (err) {}
+  if (calme) { location.href = a.href; return; }
+  // une copie de la tuile s'envole vers l'endroit où sera le grand perso
+  const r = a.getBoundingClientRect();
+  const vol = document.createElement('div');
+  vol.className = 'tuile-vol' + (a.classList.contains('vide') ? ' vide' : '');
+  vol.innerHTML = a.querySelector('img') ? `<img src="${a.querySelector('img').src}" alt="">` : a.querySelector('svg').outerHTML;
+  Object.assign(vol.style, {left: r.left + 'px', top: r.top + 'px', width: r.width + 'px', height: r.height + 'px'});
+  document.body.appendChild(vol);
+  a.style.visibility = 'hidden';
+  document.body.classList.add('choix');
+  const cote = Math.min(innerHeight * .62, innerWidth * (innerWidth < 860 ? .8 : .42));
+  const x = innerWidth < 860 ? (innerWidth - cote) / 2 : innerWidth * .5 - cote - 30, y = Math.max(140, (innerHeight - cote) / 2);
+  vol.animate([
+    {left: r.left + 'px', top: r.top + 'px', width: r.width + 'px', height: r.height + 'px', transform: 'rotate(-6deg)'},
+    {offset: .55, transform: 'rotate(4deg) scale(1.05)'},
+    {left: x + 'px', top: y + 'px', width: cote + 'px', height: cote + 'px', transform: 'rotate(0deg)'}
+  ], {duration: 650, easing: 'cubic-bezier(.6,0,.2,1)', fill: 'forwards'});
+  vol.style.viewTransitionName = 'perso';     // la copie se transforme en grand perso sur la page suivante
+  setTimeout(() => { location.href = a.href; }, 680);
+}
 
 /* ---- Parallaxe du mur à la souris (et dérive lente sur mobile) ---- */
 if (!calme) {

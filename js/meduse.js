@@ -35,7 +35,7 @@
      LE VASE QUI TOURNE : les 8 plans peints autour d'une amphore
      ================================================================= */
   const cv = $('#vase'), ctx = cv.getContext('2d'), sVase = $('.vase-s');
-  const PW = 440, PH = 620, MH = 34, NB = PLANS.length, SW = PW * NB, SH = PH + MH * 2;
+  const PW = 440, PH = 248, MH = 34, NB = PLANS.length, SW = PW * NB, SH = PH + MH * 2;
   const K = SW / (2 * Math.PI);                       // pixels de bande par radian
   const bande = document.createElement('canvas'); bande.width = SW; bande.height = SH;
   const bx = bande.getContext('2d');
@@ -62,18 +62,18 @@
       bx.fillStyle = p.fond; bx.fillRect(x0, y0, PW, PH);
       if (im) {
         const k = Math.max(PW / im.naturalWidth, PH / im.naturalHeight), w = im.naturalWidth * k, h = im.naturalHeight * k;
-        bx.drawImage(im, x0 + (PW - w) / 2, y0 + (PH - h) * .3, w, h);
+        bx.drawImage(im, x0 + (PW - w) / 2, y0 + (PH - h) / 2, w, h);
       } else {
         if (p.yeux) {
           bx.fillStyle = p.encre;
-          YEUX.forEach(([a, b, r]) => { bx.beginPath(); bx.ellipse(x0 + a * PW, y0 + b * PH, PW * .065, PH * .024, r, 0, 7); bx.fill(); });
+          YEUX.forEach(([a, b, r]) => { bx.beginPath(); bx.ellipse(x0 + a * PW, y0 + b * PH, PW * .05, PH * .035, r, 0, 7); bx.fill(); });
         }
         bx.fillStyle = p.encre; bx.textAlign = 'center'; bx.textBaseline = 'middle';
-        bx.font = `italic ${PW * .17}px Georgia, 'Times New Roman', serif`;
+        bx.font = `italic ${PH * .3}px Georgia, 'Times New Roman', serif`;
         bx.fillText(p.grec, x0 + PW / 2, y0 + PH / 2);
       }
       bx.fillStyle = im ? C : p.encre; bx.textAlign = 'left'; bx.textBaseline = 'top';
-      bx.font = `${PH * .075}px Anton, Impact, sans-serif`;
+      bx.font = `${PH * .1}px Anton, Impact, sans-serif`;
       bx.fillText(nn(i), x0 + 22, y0 + 18);
       bx.restore();
       bx.fillStyle = '#111'; bx.fillRect(x0 - 4, MH, 8, PH);
@@ -82,8 +82,8 @@
   }
 
   // profil de l'amphore (côté droit, en unités du rayon) : [type, ...points]
-  const PROFIL = [['L', .56, 0], ['L', .56, .1], ['L', .4, .16], ['L', .36, .24], ['L', .38, .58], ['C', .62, .62, 1, .7, 1, .98],
-                  ['L', 1, 2.26], ['C', 1, 2.62, .5, 2.8, .32, 2.92], ['L', .3, 3], ['L', .48, 3.08], ['L', .48, 3.2]];
+  const PROFIL = [['L', .56, 0], ['L', .56, .1], ['L', .4, .16], ['L', .36, .24], ['L', .38, .5], ['C', .62, .54, 1, .64, 1, .9],
+                  ['L', 1, 1.66], ['C', 1, 2.0, .5, 2.14, .34, 2.22], ['L', .32, 2.3], ['L', .46, 2.36], ['L', .46, 2.42]];
   let W = 1, H = 1, RR = 1, cx = 0, t0 = 0, sale = true;
   const X = x => cx + x * RR, Y = y => t0 + y * RR;
   function cheminVase() {
@@ -103,25 +103,30 @@
   function taille() {
     const b = cv.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, 2);
     W = b.width; H = b.height; cv.width = Math.round(W * d); cv.height = Math.round(H * d); ctx.setTransform(d, 0, 0, d, 0, 0);
-    RR = Math.min(W / 2.8, (H - 30) / 3.26); cx = W / 2; t0 = (H - 30 - 3.2 * RR) / 2;
+    RR = Math.min(W / 2.8, (H - 30) / 2.72); cx = W / 2; t0 = (H - 30 - 2.64 * RR) / 2;
     sale = true;
   }
   function dessiner(rot) {
     ctx.clearRect(0, 0, W, H);
     // halo derrière le vase
-    const g = ctx.createRadialGradient(cx, Y(1.6), 0, cx, Y(1.6), RR * 1.8);
+    const g = ctx.createRadialGradient(cx, Y(1.3), 0, cx, Y(1.3), RR * 1.7);
     g.addColorStop(0, 'rgba(255,255,255,.12)'); g.addColorStop(1, 'rgba(255,255,255,0)');
     ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
-    // anses
-    ctx.strokeStyle = '#111'; ctx.lineWidth = RR * .085; ctx.lineCap = 'round';
+    // anses dorées
+    const or = ctx.createLinearGradient(0, Y(0), 0, Y(.85));
+    or.addColorStop(0, '#f6dc8a'); or.addColorStop(.5, '#d6a43c'); or.addColorStop(1, '#9c6a1c');
+    ctx.strokeStyle = or; ctx.lineWidth = RR * .085; ctx.lineCap = 'round';
     for (const s of [1, -1]) {
-      ctx.beginPath(); ctx.moveTo(X(.37 * s), Y(.28));
-      ctx.bezierCurveTo(X(1.02 * s), Y(.04), X(1.3 * s), Y(.5), X(.86 * s), Y(.8)); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(X(.37 * s), Y(.26));
+      ctx.bezierCurveTo(X(1.02 * s), Y(.02), X(1.3 * s), Y(.46), X(.86 * s), Y(.74)); ctx.stroke();
     }
+    // socle carré
+    ctx.fillStyle = '#111'; ctx.fillRect(X(-.62), Y(2.42), 1.24 * RR, .22 * RR);
+    ctx.fillStyle = or; ctx.fillRect(X(-.62), Y(2.42), 1.24 * RR, .03 * RR); ctx.fillRect(X(-.62), Y(2.61), 1.24 * RR, .03 * RR);
     // corps
     ctx.save(); cheminVase(); ctx.fillStyle = '#111'; ctx.fill(); ctx.clip();
     // la frise des 8 plans, enroulée autour du cylindre
-    const bt = Y(1.0), bh = SH / K * RR;
+    const bt = Y(.96), bh = SH / K * RR;
     for (let px = -RR; px < RR; px += 1) {
       const xc = px + .5, q = Math.sqrt(Math.max(RR * RR - xc * xc, .01));
       let u = ((rot + Math.asin(borne(xc / RR, -1, 1))) * K) % SW; if (u < 0) u += SW;
@@ -133,11 +138,11 @@
     for (let k = 0; k < 28; k++) {
       const f = k * 2 * Math.PI / 28 - rot, c = Math.cos(f);
       if (c <= .04) continue;
-      const xb = Math.sin(f) * .97, xa = Math.sin(f) * .58, h = .05 * c;
-      ctx.beginPath(); ctx.moveTo(X(xb - h), Y(2.33)); ctx.lineTo(X(xb + h), Y(2.33)); ctx.lineTo(X(xa), Y(2.76)); ctx.fill();
+      const xb = Math.sin(f) * .97, xa = Math.sin(f) * .62, h = .04 * c;
+      ctx.beginPath(); ctx.moveTo(X(xb - h), Y(1.72)); ctx.lineTo(X(xb + h), Y(1.72)); ctx.lineTo(X(xa), Y(2.06)); ctx.fill();
     }
     ctx.fillRect(X(-.4), Y(.31), .8 * RR, .035 * RR);
-    ctx.fillRect(X(-.6), Y(3.04), 1.2 * RR, .03 * RR);
+    ctx.fillRect(X(-.5), Y(2.26), RR, .025 * RR);
     // volume : ombres sur les côtés, reflet à gauche
     const l = ctx.createLinearGradient(X(-1), 0, X(1), 0);
     l.addColorStop(0, 'rgba(0,0,0,.7)'); l.addColorStop(.22, 'rgba(0,0,0,.1)'); l.addColorStop(.33, 'rgba(255,255,255,.2)');
@@ -269,12 +274,12 @@
     const vitesse = vx / Math.max(dt, .001); vx = 0;
     if (mode === 'libre') {
       if (dedans) {
-        const [ex, ey] = oeilXY(0), d = Math.hypot(mx - ex - mw * .04, my - ey);
-        const proche = 1 + 1.6 * Math.max(0, 1 - d / (zw * .32));
-        regard += vitesse < 160 ? dt / 2.2 * proche : -dt * (vitesse > 600 ? 1.6 : .5);
-      } else regard -= dt * .8;
+        // immobile : elle s'éveille lentement (~8 s). Agité : beaucoup plus vite.
+        const agite = Math.min(vitesse, 2000) / 2000;
+        regard += dt * (.12 + agite * 1.25);
+      } else regard -= dt * .6;
       regard = borne(regard, 0, 1);
-      if (dedans) message(regard > .7 ? 'Bouge, vite !' : regard > .3 ? 'Elle t\'a vue…' : 'Approche-toi doucement…', regard > .7);
+      if (dedans) message(regard > .7 ? 'Trop tard, elle te voit !' : regard > .3 ? 'Elle s\'éveille… doucement.' : 'Ne t\'agite pas trop…', regard > .7);
       if (regard >= 1) petrifier();
     }
     if (mode !== 'pierre') placer(mx, my); else placer(fige[0], fige[1]);
@@ -302,16 +307,18 @@
     mode = 'demo'; regard = 0; zone.classList.add('demo'); demoFaite = true;
     const depart = [zw * .9, zh * .9], arrivee = [ml + mw * .553, mt + mh * .56];
     const t0 = performance.now();
-    message('Regarde ce qui arrive à cette souris…');
     (function pas(t) {
       if (mode !== 'demo') return;
       const e = (t - t0) / 1000;
-      if (e < 1.5) {
-        const k = 1 - Math.pow(1 - e / 1.5, 3);
+      if (e < 1.2) {
+        const k = 1 - Math.pow(1 - e / 1.2, 3);
         mx = depart[0] + (arrivee[0] - depart[0]) * k; my = depart[1] + (arrivee[1] - depart[1]) * k;
-      } else if (e < 3.1) {
-        regard = (e - 1.5) / 1.6;
-        message(regard > .6 ? 'Elle la fixe…' : 'La souris ne bouge plus…', regard > .6);
+        message('Regarde ce qui arrive à cette souris…');
+      } else if (e < 3.2) {
+        const a = (e - 1.2) * 14;                         // elle s'agite sur le visage
+        mx = arrivee[0] + Math.sin(a) * zw * .07 + Math.sin(a * 2.3) * zw * .02; my = arrivee[1] + Math.cos(a * 1.4) * zh * .07;
+        regard = (e - 1.2) / 2;
+        message(regard > .6 ? 'Elle s\'agite… les yeux s\'ouvrent !' : 'Elle s\'agite sur son visage…', regard > .6);
       } else {
         regard = 1; mode = 'libre'; petrifier(); zone.classList.remove('demo');
         message('Pétrifiée.', true);
@@ -321,7 +328,7 @@
       requestAnimationFrame(pas);
     })(t0);
   }
-  function arreterDemo() { mode = 'libre'; regard = 0; zone.classList.remove('demo'); message('Approche-toi doucement…'); }
+  function arreterDemo() { mode = 'libre'; regard = 0; zone.classList.remove('demo'); message('Ne t\'agite pas trop…'); }
   new IntersectionObserver(es => {
     if (es[0].isIntersecting && !demoFaite && !CALME) setTimeout(() => { if (!dedans && mode === 'libre') demo(); }, 500);
   }, {threshold: .6}).observe(zone);

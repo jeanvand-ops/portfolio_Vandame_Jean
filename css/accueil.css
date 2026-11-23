@@ -86,3 +86,14 @@
   .zoom-scene{--t:1;position:relative}
   .zoom-media{clip-path:none}
 }
+
+/* clic sur une tuile du mur */
+.choix .tuile{animation:none;opacity:.12;transform:scale(.9);filter:blur(2px);transition:opacity .35s,transform .35s,filter .35s}
+.tuile-vol{position:fixed;z-index:85;overflow:hidden;background:var(--turquoise);box-shadow:14px 14px 0 var(--papier);pointer-events:none}
+.tuile-vol img{width:100%;height:100%;object-fit:cover}
+.tuile-vol.vide{display:grid;place-items:center}
+.tuile-vol svg{width:40%;fill:var(--rouge)}
+.choix .carte,.choix .indice{opacity:0;transition:opacity .25s}
+.choix .mur::before{content:"";position:absolute;inset:0;z-index:4;background:var(--rouge);transform:scaleY(0);transform-origin:bottom;animation:volet .5s .1s cubic-bezier(.7,0,.3,1) both;pointer-events:none}
+@keyframes volet{to{transform:scaleY(1)}}
+.choix .mur-grille{z-index:5}

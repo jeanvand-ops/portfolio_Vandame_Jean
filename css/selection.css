@@ -11,16 +11,20 @@
 .scene{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(1.4rem,4vw,4rem);align-items:center;max-width:1300px;width:100%;margin:0 auto}
 
 /* le perso */
-.perso{view-transition-name:perso;position:relative;aspect-ratio:1;width:min(100%,62vh);justify-self:end;background:var(--accent);box-shadow:14px 14px 0 var(--papier);overflow:hidden;cursor:pointer}
+.perso{view-transition-name:perso;position:relative;aspect-ratio:1;width:min(100%,62vh);justify-self:end;background:var(--accent);box-shadow:14px 14px 0 var(--papier);overflow:hidden;cursor:pointer;
+  transition:transform .22s cubic-bezier(.3,1.4,.5,1),box-shadow .22s}
+.perso:hover,.perso:focus-visible{transform:translate(-6px,-12px);box-shadow:20px 26px 0 var(--papier)}
 .perso img{width:100%;height:100%;object-fit:cover}
 .perso .flash{position:absolute;inset:0;background:var(--papier);opacity:0;pointer-events:none}
 .perso.change .flash{animation:flash .35s ease-out}
 .perso.change img{animation:entre .45s cubic-bezier(.2,1.3,.4,1)}
 @keyframes flash{0%{opacity:.9}100%{opacity:0}}
 @keyframes entre{0%{transform:scale(.85) translateY(6%)}100%{transform:none}}
-/* sans GIF : petit sautillement provisoire au survol */
-.perso.anim img,.vignette.anim img{animation:sautille .5s ease-in-out infinite alternate}
-@keyframes sautille{0%{transform:translateY(0) rotate(0)}100%{transform:translateY(-3%) rotate(-1.5deg)}}
+/* sans GIF : c'est tout le bloc qui sautille (l'image n'est plus rognée) */
+.perso.anim{animation:sautille .45s ease-in-out infinite alternate}
+@keyframes sautille{0%{transform:translate(-6px,-12px) rotate(0)}100%{transform:translate(-6px,-18px) rotate(-1deg)}}
+.vignette.anim{animation:sautille-v .45s ease-in-out infinite alternate}
+@keyframes sautille-v{0%{transform:translateY(-6px)}100%{transform:translateY(-10px)}}
 .perso .badge{position:absolute;top:.9rem;left:.9rem;background:var(--noir);color:var(--papier);font-family:var(--nom);font-size:.75rem;padding:.25rem .55rem;text-transform:uppercase}
 
 /* la fiche */
@@ -55,5 +59,16 @@
   .rangee{justify-content:flex-start}
 }
 @media (prefers-reduced-motion:reduce){
-  .perso.change .flash,.perso.change img,.perso.anim img,.vignette.anim img,.jauge i.on{animation:none}
+  .perso.change .flash,.perso.change img,.perso.anim,.vignette.anim,.jauge i.on,.arrivee .fiche,.arrivee .vignette,.arrivee .entete{animation:none}
+  .perso:hover{transform:none}
 }
+
+/* arrivée depuis le mur de l'accueil */
+.arrivee .entete{animation:arr-haut .5s .05s both cubic-bezier(.2,1,.3,1)}
+.arrivee .fiche{animation:arr-droite .55s .12s both cubic-bezier(.2,1,.3,1)}
+.arrivee .vignette{animation:arr-bas .45s both cubic-bezier(.2,1.3,.4,1);animation-delay:calc(.2s + var(--i,0) * 35ms)}
+.arrivee.sans-vt .perso{animation:arr-perso .6s both cubic-bezier(.2,1.2,.3,1)}
+@keyframes arr-haut{from{opacity:0;transform:translateY(-30px)}}
+@keyframes arr-droite{from{opacity:0;transform:translateX(60px)}}
+@keyframes arr-bas{from{opacity:0;transform:translateY(40px)}}
+@keyframes arr-perso{from{opacity:0;transform:scale(.6) rotate(-8deg)}}

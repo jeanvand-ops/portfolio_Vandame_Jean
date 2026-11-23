@@ -39,8 +39,9 @@
 .m-hero::after{content:"";position:absolute;inset:0;pointer-events:none;
   background:linear-gradient(90deg,var(--m-noir) 0,rgba(10,10,10,.85) 32%,transparent 62%),linear-gradient(0deg,var(--m-noir),transparent 30%)}
 .m-hero-txt{position:relative;z-index:1;max-width:40rem}
-.m-sur{font-family:var(--nom);text-transform:uppercase;font-size:.78rem;opacity:.8}
-.m-hero h1{font-family:var(--titre);font-weight:400;text-transform:uppercase;color:var(--m-rouge);font-size:clamp(5rem,17vw,15rem);line-height:.82;margin:.4rem 0 1rem}
+.m-titre{display:inline-flex;flex-direction:column;align-items:flex-end}
+.m-sur{font-family:var(--nom);text-transform:uppercase;font-size:.78rem;color:var(--m-creme);text-align:right;margin-bottom:.2rem}
+.m-hero h1{font-family:var(--titre);font-weight:400;text-transform:uppercase;color:var(--m-rouge);font-size:clamp(5rem,17vw,15rem);line-height:.82;margin:0 0 1rem}
 .m-sous{font-size:clamp(1.05rem,1.8vw,1.35rem);margin-bottom:1.1rem;max-width:26rem}
 .m-sous em{font-style:normal;color:var(--m-rouge);font-weight:700}
 .m-actions{display:flex;flex-wrap:wrap;align-items:center;gap:1rem 1.6rem;margin-top:1.4rem}
