@@ -1,0 +1,88 @@
+/* Page d'accueil : mur de projets, zoom au scroll, à propos, contact */
+/* ---------- MUR DE PROJETS ---------- */
+.mur{position:relative;height:100svh;overflow:hidden;background:var(--encre);padding-top:var(--barre)}
+.mur-grille{position:absolute;left:50%;top:50%;width:150vw;display:grid;grid-template-columns:repeat(6,1fr);gap:1.4vw;
+  transform:translate(-50%,-50%) rotate(-6deg);will-change:transform}
+.tuile{position:relative;aspect-ratio:4/5;overflow:hidden;background:#1c0a0b;text-decoration:none;
+  opacity:0;transform:scale(.6);animation:pop .7s cubic-bezier(.2,1.4,.4,1) forwards}
+.tuile:nth-child(3n){aspect-ratio:1}
+.tuile:nth-child(6n+2){margin-top:-30%}
+.tuile:nth-child(6n+4){margin-top:-18%}
+@keyframes pop{to{opacity:1;transform:none}}
+.tuile img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.15) brightness(.55);transition:filter .25s,transform .5s}
+.tuile span{position:absolute;left:0;bottom:0;background:var(--rouge);color:var(--noir);font-family:var(--nom);text-transform:uppercase;font-size:.85rem;padding:.3rem .6rem;transform:translateY(110%);transition:transform .2s}
+.tuile:hover img,.tuile:focus-visible img{filter:none;transform:scale(1.06)}
+.tuile:hover span,.tuile:focus-visible span{transform:none}
+.tuile.vide{display:grid;place-items:center;background:var(--turquoise)}
+.tuile.vide svg{width:40%;fill:var(--rouge)}
+
+.mur::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 55% 50% at 50% 55%,rgba(0,0,0,.25),rgba(0,0,0,.8))}
+.carte{position:absolute;z-index:5;left:50%;top:calc(50% + var(--barre)/2);transform:translate(-50%,-50%);
+  background:var(--noir);padding:clamp(1.2rem,3vw,2.4rem) clamp(1.4rem,3.4vw,2.8rem);width:min(92vw,820px);
+  box-shadow:12px 12px 0 var(--rouge)}
+.carte h1{font-family:var(--titre);font-weight:400;text-transform:uppercase;line-height:.84;font-size:clamp(4.2rem,13vw,10.5rem);letter-spacing:-.005em}
+.carte h1 .l{display:block;overflow:hidden}
+.carte h1 .l span{display:block;transform:translateY(105%);animation:monte .8s .5s cubic-bezier(.2,.9,.1,1) forwards}
+.carte h1 .l:nth-child(2) span{animation-delay:.62s;color:var(--rouge)}
+@keyframes monte{to{transform:none}}
+.carte .bas{display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:center;justify-content:space-between;margin-top:1.4rem}
+.carte p{font-size:clamp(1rem,1.5vw,1.15rem);max-width:34ch}
+.indice{position:absolute;z-index:5;bottom:1.2rem;left:50%;transform:translateX(-50%);font-size:.85rem;opacity:.75;display:flex;flex-direction:column;align-items:center;gap:.3rem}
+.indice i{width:2px;height:28px;background:var(--papier);animation:descend 1.4s ease-in-out infinite;transform-origin:top}
+@keyframes descend{0%{transform:scaleY(0)}50%{transform:scaleY(1)}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ---------- ZOOM AU SCROLL ---------- */
+.intro-zoom{padding:clamp(4rem,10vw,8rem) clamp(1.2rem,4vw,3rem) 2rem;max-width:1400px;margin:0 auto}
+.intro-zoom h2{font-family:var(--titre);font-weight:400;text-transform:uppercase;font-size:clamp(3rem,10vw,9rem);line-height:.88}
+.intro-zoom h2 em{font-style:normal;color:var(--rouge)}
+.intro-zoom p{margin-top:1rem;max-width:44ch;opacity:.85}
+
+.zoom{position:relative;height:280vh}
+.zoom-scene{position:sticky;top:0;height:100svh;overflow:hidden;display:grid;place-items:center}
+.zoom-media{position:absolute;inset:0;clip-path:inset(var(--y,32%) var(--x,34%));will-change:clip-path}
+.zoom-media img,.zoom-media video{width:100%;height:100%;object-fit:cover;transform:scale(var(--s,1.25))}
+.zoom-media.contain{background:var(--fond,#000)}
+.zoom-media.contain img{object-fit:contain}
+.zoom-scene::after{content:"";position:absolute;inset:auto 0 0 0;height:55%;z-index:1;pointer-events:none;opacity:var(--t,0);
+  background:linear-gradient(to top,rgba(0,0,0,.92) 25%,transparent)}
+.zoom-num{position:absolute;top:calc(var(--barre) + 1.2rem);left:clamp(1.2rem,4vw,3rem);font-family:var(--nom);font-size:.9rem;z-index:2}
+.zoom-titre{position:absolute;z-index:2;left:clamp(1.2rem,4vw,3rem);right:clamp(1.2rem,4vw,3rem);bottom:clamp(1.2rem,4vw,3rem);
+  display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:1rem 2rem;opacity:var(--t,0);transform:translateY(calc((1 - var(--t,0)) * 40px))}
+.zoom-titre h3{font-family:var(--titre);font-weight:400;text-transform:uppercase;line-height:.84;font-size:clamp(4rem,15vw,15rem);color:var(--papier);
+  text-shadow:0 0 40px rgba(0,0,0,.45)}
+.zoom-titre .infos{max-width:32ch;background:var(--noir);padding:1rem 1.2rem}
+.tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.6rem}
+.tags span{background:var(--rouge);color:var(--noir);font-family:var(--nom);text-transform:uppercase;font-size:.72rem;padding:.15rem .5rem}
+.zoom-titre .infos a{display:inline-block;margin-top:.7rem;font-weight:600}
+.zoom-titre .infos a:hover{color:var(--rouge)}
+.p4l{display:grid;place-items:center;background:var(--jaune)}
+.p4l svg{width:30vmin;fill:var(--rouge)}
+
+/* ---------- À PROPOS / CONTACT ---------- */
+.apropos{display:grid;grid-template-columns:repeat(12,1fr);gap:1.5rem;padding:clamp(5rem,12vw,10rem) clamp(1.2rem,4vw,3rem);max-width:1400px;margin:0 auto}
+.apropos h2{grid-column:1/8;font-family:var(--titre);font-weight:400;text-transform:uppercase;font-size:clamp(3rem,8vw,7.5rem);line-height:.88}
+.apropos h2 em{font-style:normal;color:var(--rouge)}
+.apropos .txt{grid-column:8/-1;align-self:end;display:grid;gap:1rem;font-size:1.05rem}
+.apropos ul{list-style:none;display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.4rem}
+.apropos li{border:2px solid var(--papier);padding:.15rem .7rem;font-weight:600;font-size:.85rem}
+
+.contact{background:var(--rouge);color:var(--noir);padding:clamp(4rem,10vw,8rem) clamp(1.2rem,4vw,3rem) 1.5rem;overflow:hidden}
+.contact h2{font-family:var(--titre);font-weight:400;text-transform:uppercase;font-size:clamp(5rem,22vw,22rem);line-height:.82;white-space:nowrap}
+.contact .lignes{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between;margin-top:2rem}
+.contact a.mail{background:var(--noir);color:var(--papier);padding:1rem 1.6rem;font-family:var(--nom);font-size:clamp(1rem,2.2vw,1.5rem);text-decoration:none;transition:transform .15s,box-shadow .15s}
+.contact a.mail:hover{transform:translate(-4px,-4px);box-shadow:6px 6px 0 var(--papier)}
+.contact small{font-weight:600}
+
+@media (max-width:760px){
+  .mur-grille{width:260vw;grid-template-columns:repeat(5,1fr)}
+  .apropos h2,.apropos .txt{grid-column:1/-1}
+  .zoom{height:220vh}
+}
+@media (prefers-reduced-motion:reduce){
+  .indice i{animation:none}
+  .tuile,.carte h1 .l span{animation:none;opacity:1;transform:none}
+  .zoom{height:auto}
+  .zoom-scene{--t:1;position:relative}
+  .zoom-media{clip-path:none}
+}
