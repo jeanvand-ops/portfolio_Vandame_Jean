@@ -242,8 +242,16 @@
     curseur.classList.add('pierre'); zone.classList.add('pierre');
     if (!CALME) { flash.classList.remove('on'); void flash.offsetWidth; flash.classList.add('on'); zone.classList.remove('tremble'); void zone.offsetWidth; zone.classList.add('tremble'); }
     $('#r-compte').textContent = compte; $('#r-pl').textContent = compte > 1 ? 's' : '';
-    message('Pétrifiée ! Détourne le regard pour t\'en sortir.', true);
+    let n = 3; message('Pétrifiée ! Reprise dans ' + n + '…', true);
+    clearInterval(reprise);
+    reprise = setInterval(() => {
+      n--;
+      if (mode !== 'pierre') return clearInterval(reprise);
+      if (n > 0) return message('Pétrifiée ! Reprise dans ' + n + '…', true);
+      clearInterval(reprise); if (mode === 'pierre') enStatue();
+    }, 1000);
   }
+  let reprise;
   function enStatue() {
     if (!fige) return;
     const s = document.createElement('div'); s.className = 'statue';
@@ -254,7 +262,7 @@
     while (statues.children.length > 14) statues.firstChild.remove();
     curseur.classList.remove('pierre'); zone.classList.remove('pierre', 'fixe');
     mode = 'libre'; fige = null; regard = 0;
-    message(compte === 1 ? 'Une statue de plus dans sa collection.' : 'Encore une. Elle ne se lasse pas.');
+    message(compte === 1 ? 'Une statue de plus. Scrolle pour fuir !' : 'Encore une. Scrolle pour fuir !', true);
   }
 
   zone.addEventListener('pointerenter', e => { if (mode === 'demo') arreterDemo(); dedans = true; zone.classList.add('dedans'); [mx, my] = pos(e); });
@@ -262,9 +270,8 @@
   zone.addEventListener('pointermove', e => {
     if (mode === 'demo') arreterDemo();
     const [x, y] = pos(e); vx += Math.hypot(x - mx, y - my); mx = x; my = y; dedans = true; zone.classList.add('dedans');
-    if (mode === 'pierre' && Math.hypot(mx - fige[0], my - fige[1]) > Math.max(160, zw * .2)) enStatue();
   });
-  const sortir = () => { dedans = false; zone.classList.remove('dedans'); if (mode === 'pierre') enStatue(); };
+  const sortir = () => { dedans = false; zone.classList.remove('dedans'); };
   zone.addEventListener('pointerleave', sortir);
   zone.addEventListener('pointerup', e => { if (e.pointerType !== 'mouse') sortir(); });
 
@@ -329,9 +336,13 @@
     })(t0);
   }
   function arreterDemo() { mode = 'libre'; regard = 0; zone.classList.remove('demo'); message('Ne t\'agite pas trop…'); }
+  let echappe = false;
   new IntersectionObserver(es => {
-    if (es[0].isIntersecting && !demoFaite && !CALME) setTimeout(() => { if (!dedans && mode === 'libre') demo(); }, 500);
-  }, {threshold: .6}).observe(zone);
+    const r = es[0].intersectionRatio;
+    if (r > .6 && !demoFaite && !CALME) setTimeout(() => { if (!dedans && mode === 'libre') demo(); }, 500);
+    if (r < .35 && regard > .05 && mode === 'libre') { regard = 0; echappe = true; }
+    if (r > .6 && echappe) { echappe = false; message('Tu lui as échappé. Pour cette fois.'); }
+  }, {threshold: [0, .35, .6, 1]}).observe(zone);
   $('#r-demo').addEventListener('click', () => { clearTimeout(demoT); demo(); });
   $('#r-liberer').addEventListener('click', () => {
     statues.innerHTML = ''; compte = 0; $('#r-compte').textContent = '0'; $('#r-pl').textContent = 's'; message('Statues libérées. Pour l\'instant.');

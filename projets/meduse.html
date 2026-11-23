@@ -115,13 +115,9 @@
     </div>
   </section>
 
-  <!-- ===== LE REGARD QUI PÉTRIFIE ===== -->
+  <!-- ===== LE REGARD QUI PÉTRIFIE (plein écran) ===== -->
   <section class="regard-s" aria-labelledby="regard-t">
-    <div class="m-tete-s">
-      <h2 class="m-h2" id="regard-t">Ne la regarde pas dans les yeux</h2>
-      <p>Son regard change en pierre tout ce qu'il touche. Même ta souris. Plus tu t'agites sur son visage, plus elle s'éveille vite. Et même immobile, elle finit par ouvrir les yeux.</p>
-    </div>
-    <div class="regard-zone" id="regard" aria-label="Le visage de Méduse. Si le curseur reste immobile sur elle, ses yeux s'ouvrent et le pétrifient.">
+    <div class="regard-zone" id="regard" aria-label="Le visage de Méduse en plein écran. Plus le curseur s'agite, plus ses yeux s'ouvrent vite et le pétrifient. Pour s'échapper, il faut faire défiler la page.">
       <div class="r-media" id="r-media">
         <img src="../img/visuels/img-meduse.jpg" alt="">
         <span class="oeil" style="left:50.9%;top:52.3%"><i></i></span>
@@ -129,19 +125,24 @@
       </div>
       <svg class="r-rayons" id="r-rayons" aria-hidden="true"><line/><line/></svg>
       <div class="r-statues" id="r-statues"></div>
+      <div class="r-haut">
+        <h2 class="m-h2" id="regard-t">Ne la regarde pas dans les yeux</h2>
+        <p>Plus tu t'agites, plus elle s'éveille vite. Même immobile, elle finit par ouvrir les yeux. Une seule issue : <b>scrolle pour t'échapper.</b></p>
+      </div>
+      <div class="r-bas">
+        <p class="r-message" id="r-message" aria-live="polite">Ne t'agite pas trop…</p>
+        <div class="r-actions">
+          <span class="r-compte"><b id="r-compte">0</b> souris pétrifiée<span id="r-pl">s</span></span>
+          <button type="button" class="btn-b texte" id="r-demo">Revoir la démo</button>
+          <button type="button" class="btn-b texte" id="r-liberer">Libérer les statues</button>
+        </div>
+      </div>
+      <div class="r-fuite" aria-hidden="true">Scrolle pour fuir <span>↓</span></div>
       <div class="r-curseur" id="r-curseur" aria-hidden="true">
         <svg viewBox="-2 -2 24 32"><g class="c-corps"><path d="M0 0V23L6 17.5L10.5 27L14.5 25L10 15.6H18Z"/></g><path class="c-fissures" d="M2 5L5 10L3 14M5 10L9 12M7 19L9 22"/></svg>
         <span class="c-bulle">Pétrifié !</span>
       </div>
       <div class="r-flash" id="r-flash"></div>
-    </div>
-    <div class="regard-bas">
-      <p class="r-message" id="r-message" aria-live="polite">Ne t'agite pas trop…</p>
-      <div class="r-actions">
-        <span class="r-compte"><b id="r-compte">0</b> souris pétrifiée<span id="r-pl">s</span></span>
-        <button type="button" class="btn-b texte" id="r-demo">Revoir la démo</button>
-        <button type="button" class="btn-b texte" id="r-liberer">Libérer les statues</button>
-      </div>
     </div>
   </section>
 
