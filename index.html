@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jean Vandame – Direction artistique et motion design</title>
+<meta name="description" content="Portfolio de Jean Vandame, direction artistique et motion design, Paris.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --noir:#000;
+  --rouge:#ff0a14;
+  --rose:#ff9a9a;
+  --papier:#f2efea;
+  --jaune:#ffe79a;
+  --turquoise:#2bbfa0;
+  --titre:'Anton','Impact','Arial Narrow',sans-serif;
+  --texte:'Poppins','Helvetica Neue',Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--noir);color:var(--papier);font-family:var(--texte);line-height:1.55;overflow-x:hidden}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--jaune);outline-offset:4px}
+
+/* grain sur toute la page */
+.grain{position:fixed;inset:-50%;z-index:50;pointer-events:none;opacity:.14;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  animation:grain 1s steps(6) infinite}
+@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-3%)}60%{transform:translate(-2%,-2%)}80%{transform:translate(3%,3%)}100%{transform:translate(0,0)}}
+
+.star{width:1em;height:1em;display:inline-block;vertical-align:-.1em;fill:currentColor}
+
+/* grands titres */
+.gros{font-family:var(--titre);font-weight:400;text-transform:uppercase;line-height:.84;letter-spacing:-.01em}
+
+/* panneaux empilés qui se recouvrent au scroll */
+.panneau{position:sticky;top:0;min-height:100svh;overflow:hidden;padding:clamp(1.2rem,4vw,3rem)}
+
+/* intro */
+.hero{background:var(--noir);display:flex;flex-direction:column;justify-content:flex-end}
+.hero-img{position:absolute;right:-6%;top:0;height:100%;width:auto;max-width:none;object-fit:cover;opacity:.9;
+  mask-image:linear-gradient(to right,transparent,#000 40%);-webkit-mask-image:linear-gradient(to right,transparent,#000 40%)}
+.menu{position:absolute;top:clamp(1.2rem,4vw,3rem);left:clamp(1.2rem,4vw,3rem);right:clamp(1.2rem,4vw,3rem);display:flex;justify-content:space-between;z-index:3;font-weight:600;font-size:.95rem}
+.menu a{text-decoration:none}
+.menu a:hover{color:var(--rouge)}
+.hero h1{position:relative;z-index:2;font-size:clamp(5rem,24vw,26rem);color:var(--papier)}
+.hero h1 .l{display:block;overflow:hidden}
+.hero h1 .l span{display:block;transform:translateY(105%);animation:monte .7s cubic-bezier(.2,.9,.1,1) forwards}
+.hero h1 .l:nth-child(2) span{animation-delay:.12s}
+@keyframes monte{to{transform:none}}
+.hero .sub{position:relative;z-index:2;margin:1.2rem 0 4.5rem;font-size:clamp(1rem,1.6vw,1.3rem);max-width:30ch}
+.bande{position:absolute;left:0;right:0;bottom:0;background:var(--rouge);color:var(--noir);overflow:hidden;white-space:nowrap;z-index:3;padding:.55rem 0;font-family:var(--titre);font-size:1.5rem;text-transform:uppercase}
+.bande div{display:inline-block;animation:defile 22s linear infinite}
+.bande span{margin:0 1.1rem}
+@keyframes defile{to{transform:translateX(-50%)}}
+
+/* projets */
+.projet{display:grid;grid-template-columns:repeat(12,1fr);grid-template-rows:auto 1fr auto;gap:1rem}
+.projet h2{grid-column:1/-1;grid-row:1;position:relative;z-index:2;font-size:clamp(4.5rem,21vw,23rem)}
+.projet .visuel{position:relative;z-index:1;display:block}
+.projet .infos{position:relative;z-index:3;align-self:end}
+.tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.8rem}
+.tags span{border:2px solid currentColor;padding:.15rem .8rem;font-weight:600;font-size:.85rem}
+.projet p{max-width:36ch}
+
+.meduse{background:var(--noir)}
+.meduse h2{color:var(--rouge)}
+.meduse .visuel{grid-column:4/-1;grid-row:2/4;margin-top:-5vw}
+.meduse video,.meduse .visuel img{width:100%;display:block;aspect-ratio:16/9;object-fit:cover;background:#000}
+.meduse .infos{grid-column:1/4;grid-row:3}
+
+.monsieur{background:var(--rose);color:var(--noir)}
+.monsieur h2{color:var(--noir);text-align:right}
+.monsieur .visuel{grid-column:1/6;grid-row:2/4;margin-top:-6vw}
+.monsieur .visuel img{width:100%;max-height:78vh;object-fit:cover;display:block}
+.monsieur .infos{grid-column:8/-1;grid-row:3}
+
+.play{background:var(--jaune);color:var(--noir)}
+.play h2{color:var(--rouge)}
+.play .visuel{grid-column:5/-1;grid-row:2/4;margin-top:-5vw;min-height:48vh;background:var(--turquoise);
+  clip-path:polygon(0 8%,92% 0,100% 88%,10% 100%);display:grid;place-items:center}
+.play .visuel .star{width:34%;height:auto;color:var(--rouge)}
+.play .infos{grid-column:1/5;grid-row:3}
+
+/* à propos et contact */
+.apropos{background:var(--noir);display:flex;flex-direction:column;justify-content:center;gap:2rem}
+.apropos .gros{font-size:clamp(2.6rem,9vw,9rem);max-width:15ch}
+.apropos p{max-width:46ch;font-size:1.1rem}
+.contact{background:var(--rouge);color:var(--noir);display:flex;flex-direction:column;justify-content:space-between}
+.contact .gros{font-size:clamp(5rem,26vw,28rem)}
+.contact a.mail{align-self:flex-start;background:var(--noir);color:var(--papier);padding:1rem 1.8rem;font-weight:600;font-size:clamp(1rem,2vw,1.4rem);text-decoration:none;transition:transform .15s}
+.contact a.mail:hover{transform:translate(-4px,-4px);box-shadow:6px 6px 0 var(--papier)}
+.contact small{display:block;margin-top:2rem}
+
+@media (max-width:760px){
+  .panneau{position:relative}
+  .projet{display:block}
+  .projet .visuel{margin:1rem 0}
+  .play .visuel{min-height:36vh}
+  .hero-img{right:-30%;opacity:.7}
+}
+@media (prefers-reduced-motion:reduce){
+  .grain,.bande div{animation:none}
+  .hero h1 .l span{animation:none;transform:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="etoile" viewBox="0 0 100 100"><path d="M50 0C54 30 70 46 100 50C70 54 54 70 50 100C46 70 30 54 0 50C30 46 46 30 50 0Z"/></symbol></svg>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="panneau hero">
+  <img class="hero-img" src="assets/meduse.jpg" alt="">
+  <nav class="menu" aria-label="Navigation">
+    <a href="#projets">Projets</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <h1 class="gros"><span class="l"><span>Jean</span></span><span class="l"><span>Vandame</span></span></h1>
+  <p class="sub">Direction artistique et motion design, à Paris.</p>
+  <div class="bande" aria-hidden="true"><div>
+    <span>Motion design</span><svg class="star"><use href="#etoile"/></svg><span>Direction artistique</span><svg class="star"><use href="#etoile"/></svg><span>Illustration</span><svg class="star"><use href="#etoile"/></svg><span>3D</span><svg class="star"><use href="#etoile"/></svg>
+    <span>Motion design</span><svg class="star"><use href="#etoile"/></svg><span>Direction artistique</span><svg class="star"><use href="#etoile"/></svg><span>Illustration</span><svg class="star"><use href="#etoile"/></svg><span>3D</span><svg class="star"><use href="#etoile"/></svg>
+  </div></div>
+</header>
+
+<main id="projets">
+
+  <!-- PROJET 1 : MÉDUSE
+       Vidéo : dépose ton fichier dans assets/ sous le nom meduse.mp4 (voir la note sur la taille).
+       Autre option : remplace la balise <video> par un iframe YouTube ou Vimeo. -->
+  <section class="panneau projet meduse" aria-labelledby="t-meduse">
+    <h2 class="gros" id="t-meduse">Méduse</h2>
+    <div class="visuel">
+      <video controls preload="none" poster="assets/meduse.jpg">
+        <source src="assets/meduse.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="infos">
+      <div class="tags"><span>Direction artistique</span><span>Animation</span></div>
+      <p>Persée, Méduse, deux couleurs et du grain. Une animation de 1 min 20.</p>
+    </div>
+  </section>
+
+  <!-- PROJET 2 : TITRE PROVISOIRE, à renommer (ligne <h2> et attribut alt de l'image) -->
+  <section class="panneau projet monsieur" aria-labelledby="t-monsieur">
+    <h2 class="gros" id="t-monsieur">Monsieur</h2>
+    <div class="visuel">
+      <img src="assets/monsieur.jpg" alt="Personnage noir aux yeux blancs en larmes, manteau rouge, fond rayé rouge et blanc" width="900" height="1600">
+    </div>
+    <div class="infos">
+      <div class="tags"><span>Illustration</span><span>Direction artistique</span></div>
+      <p>Une silhouette, trois couleurs, des angles vifs.</p>
+    </div>
+  </section>
+
+  <!-- PROJET 3 : PLAY 4 LIFE
+       Remplace le bloc turquoise par une image : <img src="assets/play4life.jpg" alt="..."> dans .visuel -->
+  <section class="panneau projet play" aria-labelledby="t-play">
+    <h2 class="gros" id="t-play">Play 4 Life</h2>
+    <div class="visuel" aria-hidden="true"><svg class="star"><use href="#etoile"/></svg></div>
+    <div class="infos">
+      <div class="tags"><span>Direction artistique</span><span>Motion design</span><span>TF1</span></div>
+      <p>Un projet réalisé pour TF1.</p>
+    </div>
+  </section>
+</main>
+
+<section class="panneau apropos" aria-labelledby="t-apropos">
+  <h2 class="gros" id="t-apropos">Des formes à angles vifs, et une histoire par image.</h2>
+  <p>Je m'appelle Jean, j'ai 23 ans. Je prépare un master Direction Artistique et Motion Design à LISAA Paris, en alternance chez TF1 Factory.</p>
+  <p>J'aime le rouge, le grain, les silhouettes découpées et les animations qui claquent.</p>
+</section>
+
+<footer class="panneau contact" id="contact">
+  <h2 class="gros">On en parle ?</h2>
+  <div>
+    <a class="mail" href="mailto:jeanvand@gmail.com">jeanvand@gmail.com</a>
+    <small>Jean Vandame, Paris</small>
+  </div>
+</footer>
+
+</body>
+</html>
