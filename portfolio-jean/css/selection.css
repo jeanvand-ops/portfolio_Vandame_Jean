@@ -1,0 +1,59 @@
+/* Page « Choisis ton projet » : écran de sélection de personnage */
+/* ---------- ÉCRAN DE SÉLECTION ---------- */
+.ecran{min-height:100svh;padding:calc(var(--barre) + 1.6rem) clamp(1.2rem,4vw,3rem) 1.4rem;display:grid;grid-template-rows:auto 1fr auto;gap:1.4rem;
+  background:radial-gradient(ellipse 70% 60% at 30% 55%,color-mix(in srgb,var(--accent) 34%,transparent),transparent 70%),var(--noir);
+  transition:background .4s}
+.entete{display:flex;justify-content:space-between;align-items:flex-end;gap:1rem;flex-wrap:wrap}
+.entete h1{font-family:var(--titre);font-weight:400;text-transform:uppercase;font-size:clamp(2.6rem,6vw,5rem);line-height:.9}
+.entete p{font-size:.88rem;opacity:.75}
+.entete kbd{font-family:var(--nom);font-size:.75rem;border:2px solid currentColor;padding:0 .35rem;margin:0 .15rem}
+
+.scene{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(1.4rem,4vw,4rem);align-items:center;max-width:1300px;width:100%;margin:0 auto}
+
+/* le perso */
+.perso{view-transition-name:perso;position:relative;aspect-ratio:1;width:min(100%,62vh);justify-self:end;background:var(--accent);box-shadow:14px 14px 0 var(--papier);overflow:hidden;cursor:pointer}
+.perso img{width:100%;height:100%;object-fit:cover}
+.perso .flash{position:absolute;inset:0;background:var(--papier);opacity:0;pointer-events:none}
+.perso.change .flash{animation:flash .35s ease-out}
+.perso.change img{animation:entre .45s cubic-bezier(.2,1.3,.4,1)}
+@keyframes flash{0%{opacity:.9}100%{opacity:0}}
+@keyframes entre{0%{transform:scale(.85) translateY(6%)}100%{transform:none}}
+/* sans GIF : petit sautillement provisoire au survol */
+.perso.anim img,.vignette.anim img{animation:sautille .5s ease-in-out infinite alternate}
+@keyframes sautille{0%{transform:translateY(0) rotate(0)}100%{transform:translateY(-3%) rotate(-1.5deg)}}
+.perso .badge{position:absolute;top:.9rem;left:.9rem;background:var(--noir);color:var(--papier);font-family:var(--nom);font-size:.75rem;padding:.25rem .55rem;text-transform:uppercase}
+
+/* la fiche */
+.fiche{max-width:560px}
+.fiche .num{font-family:var(--nom);font-size:.9rem;color:var(--accent);filter:brightness(1.25)}
+.fiche h2{font-family:var(--titre);font-weight:400;text-transform:uppercase;line-height:.86;font-size:clamp(3.6rem,9vw,8.5rem);margin:.2rem 0 .9rem;overflow-wrap:anywhere}
+.fiche .role{font-family:var(--nom);text-transform:uppercase;font-size:.85rem;margin-bottom:.8rem}
+.fiche .desc{max-width:42ch;margin-bottom:1.4rem}
+.stats{display:grid;gap:.6rem;margin-bottom:1.8rem}
+.stat{display:grid;grid-template-columns:6.5rem 1fr;align-items:center;gap:.8rem;font-family:var(--nom);font-size:.78rem;text-transform:uppercase}
+.jauge{display:grid;grid-template-columns:repeat(10,1fr);gap:3px;height:14px}
+.jauge i{background:rgba(242,239,234,.15);transform-origin:left}
+.jauge i.on{background:var(--papier);animation:remplit .3s both}
+@keyframes remplit{from{transform:scaleX(0)}}
+
+/* la rangée de vignettes */
+.rangee{display:flex;gap:.7rem;overflow-x:auto;padding:1rem .2rem .6rem;scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:var(--rouge) transparent;justify-content:safe center}
+.vignette{position:relative;flex:0 0 auto;width:clamp(64px,7.5vw,96px);aspect-ratio:1;scroll-snap-align:center;background:#222;transition:transform .15s}
+.vignette img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) brightness(.6);transition:filter .15s}
+.vignette:hover img,.vignette[aria-current="true"] img{filter:none}
+.vignette:hover{transform:translateY(-4px)}
+.vignette[aria-current="true"]{outline:4px solid var(--rouge);outline-offset:3px;transform:translateY(-6px)}
+.vignette[aria-current="true"]::before{content:"";position:absolute;left:50%;top:-1.1rem;transform:translateX(-50%);border:7px solid transparent;border-top-color:var(--rouge)}
+.vignette.vide{background:var(--jaune);display:grid;place-items:center}
+.vignette.vide svg,.perso.vide svg{width:45%;fill:var(--rouge)}
+.perso.vide{display:grid;place-items:center;background:var(--jaune)}
+.perso.vide svg{width:40%}
+
+@media (max-width:860px){
+  .scene{grid-template-columns:1fr}
+  .perso{justify-self:center;width:min(100%,46vh)}
+  .rangee{justify-content:flex-start}
+}
+@media (prefers-reduced-motion:reduce){
+  .perso.change .flash,.perso.change img,.perso.anim img,.vignette.anim img,.jauge i.on{animation:none}
+}
