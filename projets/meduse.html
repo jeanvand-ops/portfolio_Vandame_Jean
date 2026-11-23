@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Méduse – Jean Vandame</title>
-<meta name="description" content="Persée tranche la tête de Méduse. Deux couleurs, du grain, 1 min 20 d&#x27;animation.">
+<meta name="description" content="Méduse : le mythe grec raconté à rebours, en full motion design.">
 <meta property="og:title" content="Méduse – Jean Vandame">
 <meta name="theme-color" content="#ff0a14">
 <link rel="icon" type="image/svg+xml" href="../logo/favicon.svg">
@@ -13,8 +13,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Poppins:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/shared.css">
 <link rel="stylesheet" href="../css/projet.css">
+<link rel="stylesheet" href="../css/meduse.css">
 </head>
-<body class="page-projet" data-projet="meduse" data-base="../" style="--p-fond:#000000;--p-texte:#f2efea;--p-titre:#ff0a14;--p-accent:#ff0a14;--p-accent-t:#000000;--p-perso:#ff0a14">
+<!-- Page sur mesure. Les images du film vont dans img/meduse/ (voir le fichier LISEZ-MOI dans ce dossier). -->
+<body class="page-projet page-meduse" data-projet="meduse" data-base="../">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="etoile" viewBox="0 0 100 100"><path d="M50 0C54 30 70 46 100 50C70 54 54 70 50 100C46 70 30 54 0 50C30 46 46 30 50 0Z"/></symbol>
   <symbol id="fleche" viewBox="0 0 24 24"><path d="M4 11h12.2l-5.6-5.6L12 4l8 8-8 8-1.4-1.4 5.6-5.6H4z"/></symbol>
@@ -26,12 +28,107 @@
     <a href="../projets.html">Projets</a>
     <a href="../index.html#apropos">À propos</a>
     <a href="../index.html#contact">Contact</a>
-    
   </nav>
 </header>
-<main id="app"><noscript><p style="padding:6rem 2rem">Méduse : Persée tranche la tête de Méduse. Deux couleurs, du grain, 1 min 20 d&#x27;animation. (active JavaScript pour voir la page complète)</p></noscript></main>
+
+<main>
+  <!-- ===== OUVERTURE ===== -->
+  <section class="m-hero">
+    <div class="m-hero-img"><img src="../img/visuels/img-meduse.jpg" alt="Méduse, tête rouge sur fond noir, saisie par la main de Persée"></div>
+    <div class="m-hero-txt">
+      <a class="retour" href="../projets.html#meduse">← Tous les projets</a>
+      <h1>Méduse</h1>
+      <p class="m-sous">Le mythe raconté <em>à rebours</em>, en full motion design.</p>
+      <div class="tags"><span>Motion design</span><span>Illustration vectorielle</span><span>Animation</span></div>
+      <div class="m-actions">
+        <a class="bouton" href="#film">Voir le film <svg><use href="#fleche"/></svg></a>
+        <a class="m-lien" href="#rebours">Remonter le fil ↓</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== INTENTION ===== -->
+  <section class="m-intention">
+    <p class="m-grand">On connaît surtout sa fin&nbsp;: Persée, le bouclier, la tête tranchée. <span>Le film commence là, puis remonte le temps.</span></p>
+    <p>Avant les serpents, Méduse était une mortelle. En suivant son histoire dans l'ordre inverse, le film renverse le point de vue sur celle qu'on appelle le monstre, devenue aujourd'hui un symbole pour les femmes victimes de violences sexuelles.</p>
+  </section>
+
+  <!-- ===== LE RÉCIT À REBOURS (scroll) ===== -->
+  <section class="rebours" id="rebours" aria-label="Le récit en huit plans">
+    <div class="rb-colle">
+      <div class="rb-tete">
+        <span class="rb-etat" id="rb-etat">La légende officielle</span>
+        <span class="rb-compteur"><b id="rb-num">01</b> / 08</span>
+      </div>
+      <div class="rb-scene">
+        <figure class="rb-cadre" id="rb-cadre"></figure>
+        <div class="rb-droite">
+          <p class="rb-titre" id="rb-titre"></p>
+          <blockquote class="rb-texte" id="rb-texte" aria-live="polite"></blockquote>
+        </div>
+      </div>
+      <div class="rb-frise" id="rb-frise" role="tablist" aria-label="Aller à un plan"></div>
+      <div class="rb-rembobine" aria-hidden="true"><span>◀◀</span> La version qu'on ne raconte pas</div>
+    </div>
+  </section>
+
+  <!-- ===== LE REFLET ===== -->
+  <section class="reflet-s">
+    <div class="m-tete-s">
+      <h2>Regarde-la autrement</h2>
+      <p>Persée ne l'a jamais regardée en face, seulement dans le reflet de son bouclier. Passe le bouclier sur l'image.</p>
+    </div>
+    <div class="bouclier-zone" id="bouclier" tabindex="0" role="img" aria-label="Méduse en rouge. Dans le bouclier, la même image retournée, aux couleurs de la céramique grecque. Flèches du clavier pour déplacer le bouclier.">
+      <img class="b-base" src="../img/visuels/img-meduse.jpg" alt="">
+      <div class="b-reflet"><img src="../img/visuels/img-meduse.jpg" alt=""></div>
+      <div class="b-anneau"></div>
+    </div>
+    <div class="b-legendes">
+      <p><small>La légende</small>« l'horrible Méduse »</p>
+      <p class="b-l2"><small>Dans le reflet</small>« celle qui fut brisée »</p>
+    </div>
+  </section>
+
+  <!-- ===== LE FILM ===== -->
+  <section class="film" id="film">
+    <div class="m-tete-s"><h2>Le film</h2><p>1 min 20. Mets le son.</p></div>
+    <div class="film-cadre">
+      <button class="film-lancer" id="film-lancer" aria-label="Lancer le film Méduse">
+        <img src="https://i.ytimg.com/vi/F0CWzE7a0yY/maxresdefault.jpg" alt="" onerror="this.onerror=null;this.src='../img/visuels/img-meduse.jpg'">
+        <span class="film-play"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M50 0C54 30 70 46 100 50C70 54 54 70 50 100C46 70 30 54 0 50C30 46 46 30 50 0Z"/></svg><b>Lecture</b></span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ===== STYLEFRAMES (s'affichent quand les images sont dans img/meduse/) ===== -->
+  <section class="frames" id="frames" hidden>
+    <div class="m-tete-s"><h2>Styleframes</h2><p>Du rouge de la légende officielle aux couleurs de la céramique grecque pour raconter la vraie histoire.</p></div>
+    <div class="frames-grille" id="frames-grille"></div>
+  </section>
+
+  <!-- ===== TEASER VERTICAL (s'affiche si img/meduse/teaser.mp4 existe) ===== -->
+  <section class="teaser" id="teaser" hidden>
+    <div class="teaser-cadre"><video id="teaser-video" muted loop playsinline controls preload="metadata"></video></div>
+    <div class="m-tete-s"><h2>Teaser vertical</h2><p>Quelques secondes de la légende pour les réseaux, et une question laissée en suspens. Le même univers, recadré pour le mobile.</p></div>
+  </section>
+
+  <!-- ===== FICHE ===== -->
+  <section class="infos-bas">
+    <div><h2>Palette (clic = copie le code)</h2><div class="palette" id="palette"></div></div>
+    <div class="fiche-bas"><h2>Fiche</h2>
+      <dl>
+        <dt>Discipline</dt><dd>Motion design</dd>
+        <dt>Récit</dt><dd>Le mythe de Méduse</dd>
+        <dt>Technique</dt><dd>Illustration vectorielle et animation</dd>
+        <dt>Format</dt><dd>Film 16:9 de 1 min 20 + teaser vertical</dd>
+      </dl>
+    </div>
+  </section>
+  <nav class="nav-projets" id="nav-projets" aria-label="Autres projets"></nav>
+</main>
+<footer class="pied"><span>Jean Vandame, Paris</span><a href="mailto:jeanvand@gmail.com">jeanvand@gmail.com</a></footer>
+
 <script src="../js/projets-data.js"></script>
-<script src="../js/interactions.js"></script>
-<script src="../js/projet.js"></script>
+<script src="../js/meduse.js"></script>
 </body>
 </html>

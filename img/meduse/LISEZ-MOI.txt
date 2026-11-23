@@ -1,0 +1,8 @@
+Images du film Méduse (16:9, JPG, environ 1600 px de large) :
+  plan-01.jpg  Persée triomphant
+  plan-02.jpg  Une vérité effacée
+  plan-03.jpg  Avant les serpents
+  plan-05.jpg  Le temple d'Athéna
+  (facultatif) plan-04.jpg, plan-06.jpg, plan-07.jpg, plan-08.jpg
+Teaser vertical (9:16) : teaser.mp4
+Tant qu'un fichier manque, la page affiche une version typographique à la place.

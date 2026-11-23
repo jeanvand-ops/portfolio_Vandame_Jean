@@ -15,9 +15,9 @@ const PROJETS = [
   {
     "id": "meduse",
     "nom": "Méduse",
-    "role": "Animation · Direction artistique",
+    "role": "Motion design · Illustration · Animation",
     "format": "16:9 · vidéo de 1 min 20",
-    "desc": "Persée tranche la tête de Méduse. Deux couleurs, du grain, 1 min 20 d'animation.",
+    "desc": "Le mythe de Méduse raconté à rebours, en full motion design. 1 min 20.",
     "couleur": "#ff0a14",
     "theme": {
       "fond": "#000000",
