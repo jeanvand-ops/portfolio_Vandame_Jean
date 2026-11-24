@@ -81,75 +81,63 @@
     sale = true;
   }
 
-  // profil de l'amphore (côté droit, en unités du rayon) : [type, ...points]
-  const PROFIL = [['L', .56, 0], ['L', .56, .1], ['L', .4, .16], ['L', .36, .24], ['L', .38, .5], ['C', .62, .54, 1, .64, 1, .9],
-                  ['L', 1, 1.66], ['C', 1, 2.0, .5, 2.14, .34, 2.22], ['L', .32, 2.3], ['L', .46, 2.36], ['L', .46, 2.42]];
-  let W = 1, H = 1, RR = 1, cx = 0, t0 = 0, sale = true;
-  const X = x => cx + x * RR, Y = y => t0 + y * RR;
-  function cheminVase() {
-    ctx.beginPath(); ctx.moveTo(X(-PROFIL[0][1]), Y(PROFIL[0][2])); ctx.lineTo(X(PROFIL[0][1]), Y(PROFIL[0][2]));
-    for (let k = 1; k < PROFIL.length; k++) {
-      const s = PROFIL[k];
-      if (s[0] === 'L') ctx.lineTo(X(s[1]), Y(s[2]));
-      else ctx.bezierCurveTo(X(s[1]), Y(s[2]), X(s[3]), Y(s[4]), X(s[5]), Y(s[6]));
-    }
-    for (let k = PROFIL.length - 1; k >= 1; k--) {
-      const s = PROFIL[k], p = PROFIL[k - 1], px = p[p.length - 2], py = p[p.length - 1];
-      if (s[0] === 'L') ctx.lineTo(X(-px), Y(py));
-      else ctx.bezierCurveTo(X(-s[3]), Y(s[4]), X(-s[1]), Y(s[2]), X(-px), Y(py));
-    }
-    ctx.closePath();
-  }
+  // le vase dessiné par Jean (img/meduse/vase.svg), 1194 x 1842
+  const VW = 1194, VH = 1842, VC = 599, VR = 571;      // largeur, hauteur, axe, rayon du corps
+  const CORPS = ['M829.26,1836.6q-226.15,2.69-452.31,5.37,9.34-21.29,18.68-42.58,204.29,2.2,408.59,4.41Q816.74,1820.2,829.26,1836.6Z', 'M23.94,852.05c15.15,193.92,54.79,347.43,89.21,453,50.29,154.2,99.83,237.92,114.07,261.39,57.7,95.08,120.49,164.54,167.98,210.68q207.54-1.75,415.08-3.5c37.15-35.59,87.31-89.1,136.22-161.62,47.37-70.24,72.84-130.76,121.84-248.94,3.72-8.98,7.94-19.78,13.53-34.6,67.42-178.7,81.31-314.46,84.55-350.7,2.92-32.61,5.67-79.15,4.08-135.67Q597.22,847.07,23.94,852.05Z', 'M835.36,604.68c-64.92,7.43-133.19,13.47-204.57,17.57-97.28,5.6-189.46,6.99-275.81,5.4-60.63,19.41-137.1,51.09-216.86,104.25-42.82,28.54-78.87,58.13-108.72,85.87q242.33-3.05,484.63-3.59,322.09-.72,644.22,3.01c-43.96-39.19-82.61-67.08-109.9-85.37-22.9-15.35-38.05-25.04-126.64-76.27C883.8,633.62,853.56,615.61,835.36,604.68Z', 'M372,399.4q-27.07-17.24-54.14-34.47,278.95-1.07,557.9-2.13-22.27,19.37-44.55,38.75,1.25,87.24,2.49,174.49c-71.25,8.12-146.42,14.74-225.23,19.24-85.13,4.86-166.38,6.76-243.27,6.46Q368.6,500.57,372,399.4Z', 'M318.48,270.74q275.63-.77,551.26-1.54,35.38,27.84,70.76,55.68-338.43,7.26-676.85,14.51Q291.06,305.06,318.48,270.74Z'].map(d => new Path2D(d));     // socle, panse, épaule, col, lèvre
+  const ANSES = ['M55.21,281.27c.36-114.75,36.1-200.6,90.83-214.87,3.6-.93,20.22-4.93,38.14,1.48,55,19.69,80.74,122.61,68.39,253.77q22.81-30.44,45.61-60.89c2.32-128.47-38.68-225.79-105.45-248.3-45.14-15.23-89.54,7.99-92.57,9.63C-11.16,82.32-5.74,308.7,5.88,648.51c2.24,65.53,5.51,119.37,7.95,155q25.65-25.8,51.31-51.6-2.88-40.68-5.1-82.13C52.87,535.27,51.69,405.61,55.21,281.27Z', 'M1146.63,85.37c-20.99-42.12-45.03-68.41-77.12-79.44-9.69-3.33-37.33-11.17-67.84-.57-6.11,2.12-29.35,10.9-53.66,43.16-51.54,68.36-61.36,180.41-63.36,207.84q29.22,24.12,58.44,48.25c-.99-16.26-6.11-110.06,19.46-173.89,7.8-19.46,19.39-38.5,37.79-52.53,17.05-13,30.42-14.44,34.81-14.73,0,0,12.34-.82,25.06,4.23,18.01,7.15,70.44,54.94,84,205.97,5.01,55.89,2.89,105.69-8.13,193.39-8.37,66.64-22.3,158.5-46.59,268.13q30.78,25.87,61.56,51.73c20.79-160.48,34.03-308.17,42.29-441.24C1194.28,330.66,1201.43,195.34,1146.63,85.37Z'].map(d => new Path2D(d));
+  const BANDE_Y = 905;                                  // haut de la frise des 8 plans (unités du dessin)
+  let W = 1, H = 1, RR = 1, S = 1, ox = 0, oy = 0, D = 1, sale = true;
+  const masque = document.createElement('canvas'), couche = document.createElement('canvas');
+  const mk = masque.getContext('2d'), cc = couche.getContext('2d');
+  const Xs = x => ox + x * S, Ys = y => oy + y * S;
   function taille() {
-    const b = cv.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, 2);
-    W = b.width; H = b.height; cv.width = Math.round(W * d); cv.height = Math.round(H * d); ctx.setTransform(d, 0, 0, d, 0, 0);
-    RR = Math.min(W / 2.8, (H - 30) / 2.72); cx = W / 2; t0 = (H - 30 - 2.64 * RR) / 2;
+    const b = cv.getBoundingClientRect(); D = Math.min(devicePixelRatio || 1, 2);
+    W = b.width; H = b.height;
+    for (const c of [cv, masque, couche]) { c.width = Math.round(W * D); c.height = Math.round(H * D); }
+    ctx.setTransform(D, 0, 0, D, 0, 0);
+    S = Math.min((H - 28) / VH, (W * .96) / VW); RR = VR * S;
+    ox = (W - VW * S) / 2; oy = (H - 28 - VH * S) / 2;
+    mk.setTransform(D, 0, 0, D, 0, 0); mk.clearRect(0, 0, W, H); mk.fillStyle = '#000';   // silhouette du vase (sans les anses)
+    mk.save(); mk.translate(ox, oy); mk.scale(S, S); CORPS.forEach(p => mk.fill(p)); mk.restore();
     sale = true;
   }
   function dessiner(rot) {
     ctx.clearRect(0, 0, W, H);
     // halo derrière le vase
-    const g = ctx.createRadialGradient(cx, Y(1.3), 0, cx, Y(1.3), RR * 1.7);
+    const g = ctx.createRadialGradient(W / 2, Ys(VH * .5), 0, W / 2, Ys(VH * .5), VH * S * .7);
     g.addColorStop(0, 'rgba(255,255,255,.12)'); g.addColorStop(1, 'rgba(255,255,255,0)');
     ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
     // anses dorées
-    const or = ctx.createLinearGradient(0, Y(0), 0, Y(.85));
+    const or = ctx.createLinearGradient(0, Ys(0), 0, Ys(830));
     or.addColorStop(0, '#f6dc8a'); or.addColorStop(.5, '#d6a43c'); or.addColorStop(1, '#9c6a1c');
-    ctx.strokeStyle = or; ctx.lineWidth = RR * .085; ctx.lineCap = 'round';
-    for (const s of [1, -1]) {
-      ctx.beginPath(); ctx.moveTo(X(.37 * s), Y(.26));
-      ctx.bezierCurveTo(X(1.02 * s), Y(.02), X(1.3 * s), Y(.46), X(.86 * s), Y(.74)); ctx.stroke();
-    }
-    // socle carré
-    ctx.fillStyle = '#111'; ctx.fillRect(X(-.62), Y(2.42), 1.24 * RR, .22 * RR);
-    ctx.fillStyle = or; ctx.fillRect(X(-.62), Y(2.42), 1.24 * RR, .03 * RR); ctx.fillRect(X(-.62), Y(2.61), 1.24 * RR, .03 * RR);
-    // corps
-    ctx.save(); cheminVase(); ctx.fillStyle = '#111'; ctx.fill(); ctx.clip();
-    // la frise des 8 plans, enroulée autour du cylindre
-    const bt = Y(.96), bh = SH / K * RR;
-    for (let px = -RR; px < RR; px += 1) {
-      const xc = px + .5, q = Math.sqrt(Math.max(RR * RR - xc * xc, .01));
-      let u = ((rot + Math.asin(borne(xc / RR, -1, 1))) * K) % SW; if (u < 0) u += SW;
+    ctx.save(); ctx.translate(ox, oy); ctx.scale(S, S);
+    ctx.fillStyle = or; ANSES.forEach(p => ctx.fill(p)); ctx.restore();
+    // le corps, dans une couche à part pour le découper à la forme du vase
+    cc.setTransform(D, 0, 0, D, 0, 0); cc.globalCompositeOperation = 'source-over'; cc.clearRect(0, 0, W, H);
+    cc.fillStyle = '#111'; cc.fillRect(0, 0, W, H);
+    const RB = RR * 1.45, bt = Ys(BANDE_Y), bh = SH / K * RB, xc0 = Xs(VC);   // RB : la frise est vue un peu plus à plat, pour que les plans restent grands
+    for (let px = -RR; px < RR; px += 1) {                // la frise des 8 plans, enroulée autour du cylindre
+      const xc = px + .5, q = Math.sqrt(Math.max(RB * RB - xc * xc, .01));
+      let u = ((rot + Math.asin(borne(xc / RB, -1, 1))) * K) % SW; if (u < 0) u += SW;
       let sw = Math.max(1, K / q); if (u + sw > SW) sw = SW - u;
-      ctx.drawImage(bande, u, 0, Math.max(sw, .5), SH, cx + px, bt, 1.5, bh);
+      cc.drawImage(bande, u, 0, Math.max(sw, .5), SH, xc0 + px, bt, 1.5, bh);
     }
-    // rayons ocre sur le bas du vase (tournent avec lui)
-    ctx.fillStyle = O;
+    cc.fillStyle = O;                                     // rayons ocre en bas de la panse (tournent avec le vase)
     for (let k = 0; k < 28; k++) {
       const f = k * 2 * Math.PI / 28 - rot, c = Math.cos(f);
       if (c <= .04) continue;
-      const xb = Math.sin(f) * .97, xa = Math.sin(f) * .62, h = .04 * c;
-      ctx.beginPath(); ctx.moveTo(X(xb - h), Y(1.72)); ctx.lineTo(X(xb + h), Y(1.72)); ctx.lineTo(X(xa), Y(2.06)); ctx.fill();
+      const xb = Math.sin(f) * .96 * RR, xa = Math.sin(f) * .42 * RR, h = .05 * c * RR;
+      cc.beginPath(); cc.moveTo(xc0 + xb - h, Ys(1800)); cc.lineTo(xc0 + xb + h, Ys(1800)); cc.lineTo(xc0 + xa, Ys(1530)); cc.fill();
     }
-    ctx.fillRect(X(-.4), Y(.31), .8 * RR, .035 * RR);
-    ctx.fillRect(X(-.5), Y(2.26), RR, .025 * RR);
-    // volume : ombres sur les côtés, reflet à gauche
-    const l = ctx.createLinearGradient(X(-1), 0, X(1), 0);
+    for (const [y, h] of [[352, 9], [616, 10], [1590, 8]]) cc.fillRect(0, Ys(y), W, h * S);   // filets ocre entre les pièces
+    const l = cc.createLinearGradient(Xs(VC - VR), 0, Xs(VC + VR), 0);   // volume : ombres sur les côtés, reflet à gauche
     l.addColorStop(0, 'rgba(0,0,0,.7)'); l.addColorStop(.22, 'rgba(0,0,0,.1)'); l.addColorStop(.33, 'rgba(255,255,255,.2)');
     l.addColorStop(.4, 'rgba(255,255,255,0)'); l.addColorStop(.72, 'rgba(0,0,0,.05)'); l.addColorStop(1, 'rgba(0,0,0,.75)');
-    ctx.fillStyle = l; ctx.fillRect(0, 0, W, H);
-    ctx.restore();
-    cheminVase(); ctx.strokeStyle = 'rgba(241,235,224,.22)'; ctx.lineWidth = 1.5; ctx.stroke();
+    cc.fillStyle = l; cc.fillRect(Xs(VC - VR) - 60, 0, 2 * RR + 120, H);
+    cc.setTransform(1, 0, 0, 1, 0, 0); cc.globalCompositeOperation = 'destination-in'; cc.drawImage(masque, 0, 0);
+    ctx.drawImage(couche, 0, 0, W, H);
+    ctx.save(); ctx.translate(ox, oy); ctx.scale(S, S);   // fin liseré clair autour des formes
+    ctx.strokeStyle = 'rgba(241,235,224,.25)'; ctx.lineWidth = 1.5 / S; CORPS.forEach(p => ctx.stroke(p)); ctx.restore();
   }
 
   // rotation : rot = angle ; le plan i est de face quand rot = (i + .5) * PW / K
