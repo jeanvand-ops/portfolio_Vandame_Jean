@@ -103,10 +103,6 @@
   }
   function dessiner(rot) {
     ctx.clearRect(0, 0, W, H);
-    // halo derrière le vase
-    const g = ctx.createRadialGradient(W / 2, Ys(VH * .5), 0, W / 2, Ys(VH * .5), VH * S * .7);
-    g.addColorStop(0, 'rgba(255,255,255,.12)'); g.addColorStop(1, 'rgba(255,255,255,0)');
-    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
     // anses dorées
     const or = ctx.createLinearGradient(0, Ys(0), 0, Ys(830));
     or.addColorStop(0, '#f6dc8a'); or.addColorStop(.5, '#d6a43c'); or.addColorStop(1, '#9c6a1c');
@@ -129,7 +125,7 @@
       const xb = Math.sin(f) * .96 * RR, xa = Math.sin(f) * .42 * RR, h = .05 * c * RR;
       cc.beginPath(); cc.moveTo(xc0 + xb - h, Ys(1800)); cc.lineTo(xc0 + xb + h, Ys(1800)); cc.lineTo(xc0 + xa, Ys(1530)); cc.fill();
     }
-    for (const [y, h] of [[352, 9], [616, 10], [1590, 8]]) cc.fillRect(0, Ys(y), W, h * S);   // filets ocre entre les pièces
+    for (const [y, h] of [[1590, 8]]) cc.fillRect(0, Ys(y), W, h * S);   // filet ocre au-dessus des rayons
     const l = cc.createLinearGradient(Xs(VC - VR), 0, Xs(VC + VR), 0);   // volume : ombres sur les côtés, reflet à gauche
     l.addColorStop(0, 'rgba(0,0,0,.7)'); l.addColorStop(.22, 'rgba(0,0,0,.1)'); l.addColorStop(.33, 'rgba(255,255,255,.2)');
     l.addColorStop(.4, 'rgba(255,255,255,0)'); l.addColorStop(.72, 'rgba(0,0,0,.05)'); l.addColorStop(1, 'rgba(0,0,0,.75)');
