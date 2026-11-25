@@ -104,8 +104,10 @@
   function dessiner(rot) {
     ctx.clearRect(0, 0, W, H);
     // anses dorées
-    const or = ctx.createLinearGradient(0, Ys(0), 0, Ys(830));
-    or.addColorStop(0, '#f6dc8a'); or.addColorStop(.5, '#d6a43c'); or.addColorStop(1, '#9c6a1c');
+    const hl = .5 + .16 * Math.sin(rot * 1.3);          // le reflet sur l'or glisse un peu quand le vase tourne
+    const or = ctx.createLinearGradient(Xs(0), Ys(60), Xs(VW), Ys(760));
+    or.addColorStop(0, '#b58628'); or.addColorStop(Math.max(hl - .2, .02), '#d6a43c'); or.addColorStop(hl, '#fff1b8');
+    or.addColorStop(Math.min(hl + .2, .98), '#d6a43c'); or.addColorStop(1, '#7c5413');
     ctx.save(); ctx.translate(ox, oy); ctx.scale(S, S);
     ctx.fillStyle = or; ANSES.forEach(p => ctx.fill(p)); ctx.restore();
     // le corps, dans une couche à part pour le découper à la forme du vase
@@ -127,10 +129,25 @@
       cc.beginPath(); cc.moveTo(xc0 + xb - h, Ys(1800)); cc.lineTo(xc0 + xb + h, Ys(1800)); cc.lineTo(xc0 + xa, Ys(1530)); cc.fill();
     }
     for (const [y, h] of [[1590, 8]]) cc.fillRect(0, Ys(y), W, h * S);   // filet ocre au-dessus des rayons
-    const l = cc.createLinearGradient(Xs(VC - VR), 0, Xs(VC + VR), 0);   // volume : ombres sur les côtés, reflet à gauche
-    l.addColorStop(0, 'rgba(0,0,0,.7)'); l.addColorStop(.22, 'rgba(0,0,0,.1)'); l.addColorStop(.33, 'rgba(255,255,255,.2)');
-    l.addColorStop(.4, 'rgba(255,255,255,0)'); l.addColorStop(.72, 'rgba(0,0,0,.05)'); l.addColorStop(1, 'rgba(0,0,0,.75)');
+    // volume : le vase s'assombrit sur les côtés (suit le cylindre) et un peu vers le bas
+    const l = cc.createLinearGradient(Xs(VC - VR), 0, Xs(VC + VR), 0);
+    l.addColorStop(0, 'rgba(0,0,0,.78)'); l.addColorStop(.17, 'rgba(0,0,0,.3)'); l.addColorStop(.5, 'rgba(0,0,0,0)');
+    l.addColorStop(.8, 'rgba(0,0,0,.22)'); l.addColorStop(.955, 'rgba(255,255,255,.1)'); l.addColorStop(1, 'rgba(0,0,0,.82)');
     cc.fillStyle = l; cc.fillRect(Xs(VC - VR) - 60, 0, 2 * RR + 120, H);
+    const bas = cc.createLinearGradient(0, Ys(VH * .5), 0, Ys(VH));
+    bas.addColorStop(0, 'rgba(0,0,0,0)'); bas.addColorStop(1, 'rgba(0,0,0,.5)');
+    cc.fillStyle = bas; cc.fillRect(0, Ys(VH * .5), W, Ys(VH) - Ys(VH * .5));
+    // lumière venue d'en haut à gauche : bandes inclinées qui glissent doucement avec la rotation
+    const ang = .3, dx = Math.cos(ang), dy = Math.sin(ang), k = .85 + .15 * Math.cos(rot * 2.2);
+    const pos = -.3 + .07 * Math.sin(rot * 1.3), cxl = xc0 + RR * pos, cyl = Ys(VH * .45), hh = RR * .9;
+    const lueur = (w, a1, off) => {                       // bande claire de demi-largeur w (en fraction de la longueur)
+      const g = cc.createLinearGradient(cxl + dx * hh * off - dx * hh, cyl + dy * hh * off - dy * hh, cxl + dx * hh * off + dx * hh, cyl + dy * hh * off + dy * hh);
+      g.addColorStop(Math.max(.5 - w, 0), 'rgba(255,255,255,0)'); g.addColorStop(.5, `rgba(255,255,255,${(a1 * k).toFixed(3)})`); g.addColorStop(Math.min(.5 + w, 1), 'rgba(255,255,255,0)');
+      cc.fillStyle = g; cc.fillRect(0, 0, W, H);
+    };
+    lueur(.24, .12, 0);        // lueur large
+    lueur(.03, .3, .13);      // fin reflet brillant, légèrement décalé
+    lueur(.012, .14, -.04);    // second filet, plus discret
     cc.setTransform(1, 0, 0, 1, 0, 0); cc.globalCompositeOperation = 'destination-in'; cc.drawImage(masque, 0, 0);
     ctx.drawImage(couche, 0, 0, W, H);
     ctx.save(); ctx.translate(ox, oy); ctx.scale(S, S);   // fin liseré clair autour des formes

@@ -40,7 +40,7 @@
   const inter = p.interaction || {};
 
   document.getElementById('app').innerHTML = `
-    <section class="hero">
+    <section class="hero" data-nav="Projet">
       <div>
         <a class="retour" href="${base}projets.html#${p.id}">← Tous les projets</a>
         <div class="num">${nn(i)} / ${PROJETS.length}</div>
@@ -52,12 +52,12 @@
       </div>
       <div class="hero-perso">${p.perso ? `<img id="hero-img" src="${u(p.perso)}.jpg" alt="">` : ''}${ETOILE}</div>
     </section>
-    <section class="stage" aria-labelledby="st">
+    <section class="stage" data-nav="Interaction" aria-labelledby="st">
       <div class="stage-tete"><h2 id="st">${esc(inter.titre || 'À toi de jouer')}</h2><p class="aide">${esc(inter.aide || '')}</p></div>
       <div class="corps" id="corps"></div>
     </section>
-    ${p.video ? `<section class="video" id="video" ${p.video === 'embed' ? '' : 'hidden'}><h2>La vidéo</h2><div id="video-zone"></div></section>` : ''}
-    <section class="infos-bas">
+    ${p.video ? `<section class="video" id="video" data-nav="Vidéo" ${p.video === 'embed' ? '' : 'hidden'}><h2>La vidéo</h2><div id="video-zone"></div></section>` : ''}
+    <section class="infos-bas" data-nav="Fiche">
       <div><h2>Palette (clic = copie le code)</h2><div class="palette">${nuances}</div></div>
       <div class="fiche-bas"><h2>Fiche</h2><dl>${fiche}</dl></div>
     </section>

@@ -1,0 +1,33 @@
+/* Bandeau rouge défilant */
+.bandeau-cadre{overflow:hidden;padding:1.6rem 0;background:#fff var(--tex-clair) 0 0/120px}
+.bandeau{background:var(--rouge,#ff0a14);color:#fff;overflow:hidden;border-block:2px solid #0a0a0a;transform:rotate(-1.2deg);margin:0 -3vw;position:relative;z-index:3}
+.bandeau-piste{display:flex;width:max-content;align-items:center;gap:1.6rem;padding:.7rem 0;animation:defile 38s linear infinite;font:400 clamp(1.1rem,2.4vw,1.7rem)/1 'Anton',Impact,sans-serif;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
+.bandeau svg{width:1.1em;height:1.1em;fill:#0a0a0a;flex:none}
+@keyframes defile{to{transform:translateX(-25%)}}
+.bandeau:hover .bandeau-piste{animation-play-state:paused}
+/* Étoiles au clic */
+.burst{position:fixed;pointer-events:none;z-index:9999;fill:var(--rouge,#ff0a14);will-change:transform,opacity}
+.sombre .burst{fill:#fff}
+/* Barre de progression */
+.progres{position:fixed;inset:0 0 auto 0;height:3px;z-index:200;pointer-events:none}
+.progres i{display:block;height:100%;background:var(--rouge,#ff0a14);transform:scaleX(0);transform-origin:0 50%}
+/* Sommaire latéral */
+.sommaire{position:fixed;right:clamp(.6rem,1.6vw,1.4rem);top:50%;transform:translateY(-50%);z-index:150;display:flex;flex-direction:column;gap:.15rem;mix-blend-mode:difference;color:#fff}
+.sommaire a{display:flex;align-items:center;justify-content:flex-end;gap:.6rem;padding:.4rem 0;font:600 .72rem/1 'Poppins',sans-serif;text-transform:uppercase;letter-spacing:.08em;text-decoration:none;color:#fff}
+.sommaire span{opacity:0;transform:translateX(6px);transition:opacity .25s,transform .25s;pointer-events:none}
+.sommaire a:hover span,.sommaire a.on span{opacity:1;transform:none}
+.sommaire i{width:9px;height:9px;border:2px solid #fff;transform:rotate(45deg);transition:background .25s,transform .25s}
+.sommaire a.on i{background:#fff;transform:rotate(45deg) scale(1.25)}
+@media (max-width:1000px){.sommaire{display:none}}
+/* Coulisses du process */
+.process{padding:clamp(3rem,8vw,6rem) clamp(1.2rem,5vw,4rem);padding-right:clamp(3.4rem,6vw,5rem)}
+.process-grille{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:clamp(1rem,2.4vw,2rem)}
+.etape{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s cubic-bezier(.2,.7,.2,1);border-top:2px solid currentColor;padding-top:1rem}
+.etape.vu{opacity:1;transform:none}
+.etape-n{font:400 2.4rem/1 'Anton',Impact,sans-serif;color:var(--rouge,#ff0a14)}
+.etape-vis{aspect-ratio:4/3;margin:.8rem 0;background:#1b1b1b;overflow:hidden;position:relative}
+.etape-vis img{width:100%;height:100%;object-fit:cover;display:block}
+.etape-vis.vide::after,.etape-vis:empty::after{content:'';position:absolute;inset:0;background:var(--tex-sombre) 0 0/120px}
+.etape h3{font:400 1.3rem/1.1 'Anton',Impact,sans-serif;text-transform:uppercase;margin-bottom:.4rem}
+.etape p{opacity:.8;font-size:.92rem;line-height:1.55}
+@media (prefers-reduced-motion:reduce){.bandeau-piste{animation:none}.etape{opacity:1;transform:none}}

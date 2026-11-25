@@ -27,8 +27,8 @@ body.page-projet{background:var(--p-fond);color:var(--p-texte)}
 .hero-perso{position:relative;aspect-ratio:1;width:100%;max-width:34rem;justify-self:center;background:var(--p-perso);overflow:hidden;
   view-transition-name:perso}
 .hero-perso img{width:100%;height:100%;object-fit:cover}
-.hero-perso .etoile-svg{position:absolute;right:6%;bottom:6%;width:14%;color:var(--p-accent-t);opacity:.9;animation:tourne 9s linear infinite}
-@keyframes tourne{to{transform:rotate(360deg)}}
+.hero-perso .etoile-svg{position:absolute;right:6%;bottom:6%;width:14%;color:var(--p-accent-t);opacity:.9;transition:transform .5s cubic-bezier(.2,1.3,.4,1)}
+.hero-perso:hover .etoile-svg{transform:rotate(90deg)}
 
 /* ---------- le petit jeu ---------- */
 .stage{padding:clamp(2.5rem,6vw,5rem) var(--gut);border-top:3px solid var(--p-accent)}
@@ -185,7 +185,7 @@ body.page-projet{background:var(--p-fond);color:var(--p-texte)}
 .voisin:hover img{opacity:.4;transform:scale(1.05)}
 .voisin > *:not(img){position:relative}
 
-.pied{background:var(--noir);color:#fff;padding:1.3rem var(--gut);display:flex;flex-wrap:wrap;justify-content:space-between;gap:.6rem;font-family:var(--nom);text-transform:uppercase;font-size:.85rem}
+.pied{background:var(--noir) var(--tex-sombre);background-size:120px;color:#fff;padding:1.3rem var(--gut);display:flex;flex-wrap:wrap;justify-content:space-between;gap:.6rem;font-family:var(--nom);text-transform:uppercase;font-size:.85rem}
 .pied a{text-decoration:none;border-bottom:2px solid var(--rouge)}
 .pied a:hover{color:var(--rouge)}
 
@@ -204,7 +204,7 @@ body.page-projet{background:var(--p-fond);color:var(--p-texte)}
   .voisin.suivant{text-align:left;align-items:flex-start}
 }
 @media (prefers-reduced-motion:reduce){
-  .hero-perso .etoile-svg{animation:none}
+  .hero-perso .etoile-svg{transition:none}
   .synth-star.hit{animation:none}
 }
 .hero-perso:not(:has(img)) .etoile-svg{width:46%;right:27%;bottom:27%;opacity:1}
@@ -221,3 +221,7 @@ body.page-projet{background:var(--p-fond);color:var(--p-texte)}
 .couleur:hover .c-nom{color:var(--p-accent,#ff0a14)}
 .c-hex{font-size:.9rem;font-weight:600;letter-spacing:.04em}
 .c-role{font-size:.8rem;opacity:.65}
+
+/* texture de fond des pages projet (le fond uni est posé plus haut, on remet la texture dessus) */
+body.page-projet{background-image:var(--tex-clair);background-size:120px}
+body.page-projet.sombre{background-image:var(--tex-sombre)}

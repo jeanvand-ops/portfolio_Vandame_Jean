@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="../css/shared.css">
 <link rel="stylesheet" href="../css/projet.css">
 <link rel="stylesheet" href="../css/meduse.css">
+<link rel="stylesheet" href="../css/fluide.css">
 </head>
 <!-- Page sur mesure. Les images du film vont dans img/meduse/ (voir le LISEZ-MOI de ce dossier).
      Les textes en « Lorem ipsum » sont à remplacer directement ici. -->
@@ -44,7 +45,7 @@
 
 <main>
   <!-- ===== OUVERTURE ===== -->
-  <section class="m-hero">
+  <section class="m-hero" data-nav="Ouverture">
     <div class="m-hero-img"><img src="../img/visuels/img-meduse.jpg" alt="Méduse, tête rouge sur fond noir, saisie par la main de Persée"></div>
     <div class="m-hero-txt">
       <div class="m-titre">
@@ -61,7 +62,7 @@
   </section>
 
   <!-- ===== LE PROJET (description) ===== -->
-  <section class="m-projet" id="projet">
+  <section class="m-projet" id="projet" data-nav="Le projet">
     <div class="m-projet-grille">
       <div class="m-projet-gauche">
         <h2 class="m-h2">Le projet</h2>
@@ -95,7 +96,7 @@
   </section>
 
   <!-- ===== LE RÉCIT : LE VASE QUI TOURNE ===== -->
-  <section class="vase-s" id="recit" aria-labelledby="recit-t">
+  <section class="vase-s" id="recit" data-nav="Le vase" aria-labelledby="recit-t">
     <div class="vase-grille">
       <div class="vase-zone">
         <canvas id="vase" tabindex="0" aria-label="Vase grec décoré des 8 plans du film. Glisse ou utilise les flèches pour le faire tourner."></canvas>
@@ -116,7 +117,7 @@
   </section>
 
   <!-- ===== LE REGARD QUI PÉTRIFIE (plein écran) ===== -->
-  <section class="regard-s" aria-labelledby="regard-t">
+  <section class="regard-s" data-nav="Le regard" aria-labelledby="regard-t">
     <div class="regard-zone" id="regard" aria-label="Le visage de Méduse en plein écran. Plus le curseur s'agite, plus ses yeux s'ouvrent vite et le pétrifient. Pour s'échapper, il faut faire défiler la page.">
       <div class="r-media" id="r-media">
         <img src="../img/visuels/img-meduse.jpg" alt="">
@@ -152,7 +153,7 @@
   </section>
 
   <!-- ===== LE FILM ===== -->
-  <section class="film" id="film">
+  <section class="film" id="film" data-nav="Le film">
     <div class="m-tete-s"><h2 class="m-h2">Le film</h2><p>1 min 20. Mets le son.</p></div>
     <div class="film-cadre">
       <button class="film-lancer" id="film-lancer" aria-label="Lancer le film Méduse">
@@ -175,7 +176,12 @@
   </section>
 
   <!-- ===== COULEURS (même bloc sur tous les projets) ===== -->
-  <section class="couleurs-s">
+  <section class="process" id="process" data-nav="Process">
+    <div class="m-tete-s"><h2 class="m-h2">Coulisses du process</h2><p>De la légende au dernier plan : comment le film s'est construit.</p></div>
+    <div class="process-grille" id="process-grille"></div>
+  </section>
+
+  <section class="couleurs-s" data-nav="Couleurs">
     <div class="m-tete-s"><h2 class="m-h2">Couleurs</h2><p>Clique sur une couleur pour copier son code.</p></div>
     <div class="couleurs" id="couleurs"></div>
   </section>
@@ -186,6 +192,16 @@
 
 <script src="../js/projets-data.js"></script>
 <script src="../js/couleurs.js"></script>
+<script src="../js/process.js"></script>
 <script src="../js/meduse.js"></script>
+<script>
+afficherProcess(document.getElementById('process-grille'), [
+  {titre:'Recherche', texte:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Références, mythe, céramique grecque.', image:'../img/meduse/process-01.jpg'},
+  {titre:'Storyboard', texte:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Le rythme et les cadrages du film.', image:'../img/meduse/process-02.jpg'},
+  {titre:'Direction artistique', texte:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Palette, textures, styleframes.', image:'../img/meduse/process-03.jpg'},
+  {titre:'Animation', texte:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mouvement, montage, son.', image:'../img/meduse/process-04.jpg'}
+]);
+</script>
+<script src="../js/fluide.js"></script>
 </body>
 </html>

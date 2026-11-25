@@ -1,7 +1,7 @@
 /* =====================================================================
    Partie commune à toutes les pages : couleurs, polices, barre rouge, grain
    ===================================================================== */
-:root{
+:root{--tex-clair:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cg fill='rgba%2810%2C10%2C10%2C.10%29'%3E%3Ccircle cx='15' cy='45' r='1.2'/%3E%3Ccircle cx='15' cy='75' r='1.2'/%3E%3Ccircle cx='15' cy='105' r='1.2'/%3E%3Ccircle cx='45' cy='15' r='1.2'/%3E%3Ccircle cx='45' cy='45' r='1.2'/%3E%3Ccircle cx='45' cy='75' r='1.2'/%3E%3Ccircle cx='45' cy='105' r='1.2'/%3E%3Ccircle cx='75' cy='15' r='1.2'/%3E%3Ccircle cx='75' cy='45' r='1.2'/%3E%3Ccircle cx='75' cy='105' r='1.2'/%3E%3Ccircle cx='105' cy='15' r='1.2'/%3E%3Ccircle cx='105' cy='45' r='1.2'/%3E%3Ccircle cx='105' cy='75' r='1.2'/%3E%3Ccircle cx='105' cy='105' r='1.2'/%3E%3C/g%3E%3Cg fill='rgba%28255%2C10%2C20%2C.14%29'%3E%3Cpath d='M75 66C76.2 72 78 73.8 84 75C78 76.2 76.2 78 75 84C73.8 78 72 76.2 66 75C72 73.8 73.8 72 75 66Z'/%3E%3Cpath d='M15 11.5C15.5 13.5 16.5 14.5 18.5 15C16.5 15.5 15.5 16.5 15 18.5C14.5 16.5 13.5 15.5 11.5 15C13.5 14.5 14.5 13.5 15 11.5Z'/%3E%3C/g%3E%3Cpath d='M-2 122L122 -2' stroke='rgba%2810%2C10%2C10%2C.06%29' stroke-width='.7' fill='none'/%3E%3C/svg%3E");--tex-sombre:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cg fill='rgba%28255%2C255%2C255%2C.09%29'%3E%3Ccircle cx='15' cy='45' r='1.2'/%3E%3Ccircle cx='15' cy='75' r='1.2'/%3E%3Ccircle cx='15' cy='105' r='1.2'/%3E%3Ccircle cx='45' cy='15' r='1.2'/%3E%3Ccircle cx='45' cy='45' r='1.2'/%3E%3Ccircle cx='45' cy='75' r='1.2'/%3E%3Ccircle cx='45' cy='105' r='1.2'/%3E%3Ccircle cx='75' cy='15' r='1.2'/%3E%3Ccircle cx='75' cy='45' r='1.2'/%3E%3Ccircle cx='75' cy='105' r='1.2'/%3E%3Ccircle cx='105' cy='15' r='1.2'/%3E%3Ccircle cx='105' cy='45' r='1.2'/%3E%3Ccircle cx='105' cy='75' r='1.2'/%3E%3Ccircle cx='105' cy='105' r='1.2'/%3E%3C/g%3E%3Cg fill='rgba%28255%2C10%2C20%2C.20%29'%3E%3Cpath d='M75 66C76.2 72 78 73.8 84 75C78 76.2 76.2 78 75 84C73.8 78 72 76.2 66 75C72 73.8 73.8 72 75 66Z'/%3E%3Cpath d='M15 11.5C15.5 13.5 16.5 14.5 18.5 15C16.5 15.5 15.5 16.5 15 18.5C14.5 16.5 13.5 15.5 11.5 15C13.5 14.5 14.5 13.5 15 11.5Z'/%3E%3C/g%3E%3Cpath d='M-2 122L122 -2' stroke='rgba%28255%2C255%2C255%2C.05%29' stroke-width='.7' fill='none'/%3E%3C/svg%3E");
   --noir:#0a0a0a;
   --encre:#140405;
   --rouge:#ff0a14;
@@ -17,7 +17,7 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:#fff;color:var(--noir);font-family:var(--texte);line-height:1.55;overflow-x:hidden}
+body{background:#fff var(--tex-clair);background-size:120px;color:var(--noir);font-family:var(--texte);line-height:1.55;overflow-x:hidden}
 a{color:inherit}
 img{display:block}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
@@ -65,7 +65,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 }
 
 /* ---------- ambiance sombre : pour les projets (ou films) sombres, la page l'est aussi ---------- */
-body.sombre{background:#0a0a0a;color:#fff}
+body.sombre{background:#0a0a0a var(--tex-sombre);background-size:120px;color:#fff}
 .sombre .barre{background:#0a0a0a;color:#fff;border-bottom-color:#fff}
 .sombre .barre .logo img{filter:invert(1)}
 .sombre .barre .logo:hover img{filter:none}
