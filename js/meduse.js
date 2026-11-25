@@ -112,11 +112,12 @@
     cc.setTransform(D, 0, 0, D, 0, 0); cc.globalCompositeOperation = 'source-over'; cc.clearRect(0, 0, W, H);
     cc.fillStyle = '#111'; cc.fillRect(0, 0, W, H);
     const RB = RR * 1.45, bt = Ys(BANDE_Y), bh = SH / K * RB, xc0 = Xs(VC);   // RB : la frise est vue un peu plus à plat, pour que les plans restent grands
-    for (let px = -RR; px < RR; px += 1) {                // la frise des 8 plans, enroulée autour du cylindre
-      const xc = px + .5, q = Math.sqrt(Math.max(RB * RB - xc * xc, .01));
+    const PAS_PX = 2;                                     // une tranche tous les 2 px : deux fois moins de calculs, même rendu
+    for (let px = -RR; px < RR; px += PAS_PX) {           // la frise des 8 plans, enroulée autour du cylindre
+      const xc = px + PAS_PX / 2, q = Math.sqrt(Math.max(RB * RB - xc * xc, .01));
       let u = ((rot + Math.asin(borne(xc / RB, -1, 1))) * K) % SW; if (u < 0) u += SW;
-      let sw = Math.max(1, K / q); if (u + sw > SW) sw = SW - u;
-      cc.drawImage(bande, u, 0, Math.max(sw, .5), SH, xc0 + px, bt, 1.5, bh);
+      let sw = Math.max(1, PAS_PX * K / q); if (u + sw > SW) sw = SW - u;
+      cc.drawImage(bande, u, 0, Math.max(sw, .5), SH, xc0 + px, bt, PAS_PX + .6, bh);
     }
     cc.fillStyle = O;                                     // rayons ocre en bas de la panse (tournent avec le vase)
     for (let k = 0; k < 28; k++) {
@@ -147,7 +148,6 @@
   function plan(i) {
     if (i === cur) return; cur = i;
     const p = PLANS[i];
-    sVase.style.setProperty('--v-fond', p.fond); sVase.style.setProperty('--v-txt', p.txt);
     $('#v-num').textContent = nn(i);
     $('#v-etat').textContent = p.etat;
     $('#v-titre').textContent = 'Plan ' + nn(i) + ' · ' + p.titre;
@@ -394,7 +394,7 @@
   if (typeof PROJETS !== 'undefined') {
     const k = PROJETS.findIndex(p => p.id === 'meduse');
     const prev = PROJETS[(k - 1 + PROJETS.length) % PROJETS.length], next = PROJETS[(k + 1) % PROJETS.length];
-    const v = (q, cls, label) => `<a class="voisin ${cls}" href="${q.id}.html" style="--v-fond:${q.theme.fond};--v-titre:${q.theme.titre};--v-texte:${q.theme.texte}">
+    const v = (q, cls, label) => `<a class="voisin ${cls}" href="${q.id}.html" style="--v-fond:#0a0a0a;--v-titre:#fff;--v-texte:#ff0a14">
       ${q.visuel ? `<img src="${BASE + q.visuel}" alt="" loading="lazy">` : ''}<small>${label}</small><strong>${q.nom}</strong></a>`;
     $('#nav-projets').innerHTML = v(prev, 'precedent', '← Précédent') + v(next, 'suivant', 'Suivant →');
   }

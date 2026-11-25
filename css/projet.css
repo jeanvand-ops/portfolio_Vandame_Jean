@@ -25,7 +25,7 @@ body.page-projet{background:var(--p-fond);color:var(--p-texte)}
 .jauges b{flex:1;height:.6rem;background:currentColor;opacity:.18;clip-path:polygon(0 0,100% 0,85% 100%,0 100%)}
 .jauges b.on{background:var(--p-accent);opacity:1}
 .hero-perso{position:relative;aspect-ratio:1;width:100%;max-width:34rem;justify-self:center;background:var(--p-perso);overflow:hidden;
-  clip-path:polygon(0 0,92% 0,100% 8%,100% 100%,8% 100%,0 92%);view-transition-name:perso}
+  view-transition-name:perso}
 .hero-perso img{width:100%;height:100%;object-fit:cover}
 .hero-perso .etoile-svg{position:absolute;right:6%;bottom:6%;width:14%;color:var(--p-accent-t);opacity:.9;animation:tourne 9s linear infinite}
 @keyframes tourne{to{transform:rotate(360deg)}}
@@ -175,7 +175,9 @@ body.page-projet{background:var(--p-fond);color:var(--p-texte)}
 .nav-projets{display:grid;grid-template-columns:1fr 1fr}
 .voisin{position:relative;display:flex;flex-direction:column;justify-content:flex-end;gap:.3rem;min-height:clamp(12rem,28vw,20rem);padding:var(--gut);text-decoration:none;
   background:var(--v-fond);color:var(--v-titre);overflow:hidden;transition:filter .2s}
-.voisin:hover{filter:brightness(1.12)}
+.sombre .voisin{border-top:2px solid rgba(255,255,255,.18)}
+.voisin:hover{background:var(--rouge);color:#000}
+.voisin:hover small{color:#000}
 .voisin small{font-family:var(--nom);text-transform:uppercase;font-size:.78rem;color:var(--v-texte)}
 .voisin strong{font-family:var(--titre);font-weight:400;text-transform:uppercase;font-size:clamp(2.4rem,8vw,6.5rem);line-height:.9;overflow-wrap:anywhere}
 .voisin.suivant{text-align:right;align-items:flex-end}
@@ -183,8 +185,9 @@ body.page-projet{background:var(--p-fond);color:var(--p-texte)}
 .voisin:hover img{opacity:.4;transform:scale(1.05)}
 .voisin > *:not(img){position:relative}
 
-.pied{background:var(--rouge);color:#000;padding:1.3rem var(--gut);display:flex;flex-wrap:wrap;justify-content:space-between;gap:.6rem;font-family:var(--nom);text-transform:uppercase;font-size:.85rem}
-.pied a{text-decoration:none;border-bottom:2px solid #000}
+.pied{background:var(--noir);color:#fff;padding:1.3rem var(--gut);display:flex;flex-wrap:wrap;justify-content:space-between;gap:.6rem;font-family:var(--nom);text-transform:uppercase;font-size:.85rem}
+.pied a{text-decoration:none;border-bottom:2px solid var(--rouge)}
+.pied a:hover{color:var(--rouge)}
 
 /* ---------- mobile ---------- */
 @media (max-width:860px){

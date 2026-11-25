@@ -60,29 +60,36 @@ if (!calme) {
     ty = (e.clientY / innerHeight - .5) * -2;
   });
   (function boucle(t) {
-    if (!souris) { tx = Math.sin(t / 3200) * .8; ty = Math.cos(t / 4100) * .6; }
-    cx += (tx - cx) * .06; cy += (ty - cy) * .06;
-    const dy = Math.min(scrollY, innerHeight) * .25;
-    mur.style.transform = `translate(calc(-50% + ${cx * 7}vw), calc(-50% + ${cy * 7}vh - ${dy}px)) rotate(-6deg)`;
+    if (scrollY < innerHeight * 1.1 && !document.hidden) {        // rien à calculer quand le mur n'est plus à l'écran
+      if (!souris) { tx = Math.sin(t / 3200) * .8; ty = Math.cos(t / 4100) * .6; }
+      cx += (tx - cx) * .06; cy += (ty - cy) * .06;
+      const dy = Math.min(scrollY, innerHeight) * .25;
+      mur.style.transform = `translate3d(calc(-50% + ${(cx * 7).toFixed(3)}vw), calc(-50% + ${(cy * 7).toFixed(3)}vh - ${dy.toFixed(1)}px), 0) rotate(-6deg)`;
+    }
     requestAnimationFrame(boucle);
   })(0);
 }
 
-/* ---- Zoom au scroll ---- */
-const zooms = [...document.querySelectorAll('.zoom')];
-function zoom() {
-  for (const z of zooms) {
-    const r = z.getBoundingClientRect();
-    const course = r.height - innerHeight;
-    let p = Math.min(Math.max(-r.top / course, 0), 1);
-    const ouverture = Math.min(p / .6, 1);          // 0 → 60 % : l'image s'ouvre
-    const e = 1 - Math.pow(1 - ouverture, 3);
-    const m = z.querySelector('.zoom-media');
-    m.style.setProperty('--y', (32 * (1 - e)) + '%');
-    m.style.setProperty('--x', (34 * (1 - e)) + '%');
-    m.style.setProperty('--s', (1.25 - .25 * e).toFixed(3));
-    const t = Math.min(Math.max((p - .55) / .25, 0), 1); // le titre arrive ensuite
-    z.querySelector('.zoom-scene').style.setProperty('--t', t.toFixed(3));
-  }
+/* ---- Zoom au scroll (adouci : l'image rattrape le scroll en douceur) ---- */
+const zooms = [...document.querySelectorAll('.zoom')].map(z => ({
+  z, m: z.querySelector('.zoom-media'), sc: z.querySelector('.zoom-scene'), cur: 0, vu: true
+}));
+if (!calme && zooms.length) {
+  const io = new IntersectionObserver(es => es.forEach(e => { zooms.find(o => o.z === e.target).vu = e.isIntersecting; }), {rootMargin: '30% 0px'});
+  zooms.forEach(o => io.observe(o.z));
+  (function boucle() {
+    for (const o of zooms) {
+      if (!o.vu) continue;
+      const r = o.z.getBoundingClientRect(), course = r.height - innerHeight;
+      const cible = Math.min(Math.max(-r.top / course, 0), 1);
+      o.cur += (cible - o.cur) * .16;
+      if (Math.abs(cible - o.cur) < .0004) o.cur = cible;
+      const p = o.cur, ouverture = Math.min(p / .6, 1), e = 1 - Math.pow(1 - ouverture, 3);
+      o.m.style.setProperty('--y', (32 * (1 - e)).toFixed(2) + '%');
+      o.m.style.setProperty('--x', (34 * (1 - e)).toFixed(2) + '%');
+      o.m.style.setProperty('--s', (1.25 - .25 * e).toFixed(3));
+      o.sc.style.setProperty('--t', Math.min(Math.max((p - .55) / .25, 0), 1).toFixed(3));
+    }
+    requestAnimationFrame(boucle);
+  })();
 }
-if (!calme) { addEventListener('scroll', () => requestAnimationFrame(zoom), {passive:true}); addEventListener('resize', zoom); zoom(); }

@@ -39,6 +39,9 @@ function choisir(i) {
   actuel = (i + PROJETS.length) % PROJETS.length;
   const p = PROJETS[actuel];
   document.documentElement.style.setProperty('--accent', p.couleur);
+  // la page prend l'ambiance du projet (sombre si le projet est sombre), comme sur sa propre page
+  const n = parseInt(p.theme.fond.slice(1), 16), lum = ((n >> 16) * 299 + ((n >> 8) & 255) * 587 + (n & 255) * 114) / 1000;
+  document.body.classList.toggle('sombre', p.ambiance ? p.ambiance === 'sombre' : lum < 100);
 
   const perso = $('perso'), img = $('perso-img');
   perso.classList.toggle('vide', !p.perso);

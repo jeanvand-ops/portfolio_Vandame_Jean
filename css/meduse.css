@@ -1,38 +1,39 @@
 /* =====================================================================
    Page sur mesure : MÉDUSE
-   Blanc par défaut, rouge au survol. Rouge de la légende → couleurs de la céramique.
+   Page sombre (le film est rouge et noir), touches de rouge sur les boutons et les éléments graphiques.
    ===================================================================== */
 .page-meduse{
-  --m-rouge:#ff0a14; --m-noir:#0a0a0a; --m-creme:#f1ebe0; --m-bleu:#3b8fe3; --m-ocre:#eba552;
-  --p-fond:var(--m-noir); --p-texte:var(--m-creme); --p-titre:var(--m-creme); --p-accent:var(--m-rouge); --p-accent-t:#000;
+  --m-rouge:#ff0a14; --m-noir:#0a0a0a; --m-creme:#fff; --m-bleu:#3b8fe3; --m-ocre:#eba552;
+  --p-fond:var(--m-noir); --p-texte:#fff; --p-titre:#fff; --p-accent:var(--m-rouge); --p-accent-t:#000;
   --haut:calc(100svh - var(--barre));
-  background:var(--m-noir); color:var(--m-creme);
+  background:var(--m-noir); color:#fff;
 }
 .page-meduse main{padding-top:var(--barre)}
 .page-meduse section{padding-inline:var(--gut)}
 .page-meduse section > *{max-width:78rem;margin-inline:auto}
-.m-h2{font-family:var(--titre);font-weight:400;text-transform:uppercase;font-size:clamp(2.3rem,6vw,4.8rem);line-height:.92;color:var(--m-creme)}
+.m-h2{font-family:var(--titre);font-weight:400;text-transform:uppercase;font-size:clamp(2.3rem,6vw,4.8rem);line-height:.92;color:inherit}
 .m-tete-s{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:.4rem 2rem;margin-bottom:clamp(1.2rem,3vw,2rem)}
 .m-tete-s p{max-width:30rem;opacity:.8;font-size:.95rem}
 
-/* boutons blancs, rouges au survol */
-.page-meduse .bouton{background:var(--m-creme);color:#000}
-.page-meduse .bouton:hover{background:var(--m-rouge);box-shadow:5px 5px 0 var(--m-creme)}
+/* boutons : rouges (ou noirs) par défaut, le survol change la couleur */
+.m-hero .bouton:hover{box-shadow:5px 5px 0 #fff}
 .page-meduse .tags span{background:var(--m-creme);color:#000;transition:background .15s}
 .page-meduse .tags span:hover{background:var(--m-rouge)}
-.btn-b{min-width:3rem;height:3rem;padding:0 1rem;background:var(--m-creme);color:#000;font-family:var(--nom);font-size:1rem;text-transform:uppercase;
+.btn-b{min-width:3rem;height:3rem;padding:0 1rem;background:#fff;color:#000;font-family:var(--nom);font-size:1rem;text-transform:uppercase;
   clip-path:polygon(0 0,100% 0,100% 72%,82% 100%,0 100%);transition:background .15s,color .15s}
 .btn-b.texte{font-size:.72rem;height:2.4rem}
 .btn-b:hover{background:var(--m-rouge);color:#000}
+.regard-zone .btn-b{background:#fff;color:#000}
+.regard-zone .btn-b:hover{background:var(--m-rouge)}
 
 /* retour fixe en haut à gauche */
-.retour-fixe{position:fixed;z-index:70;top:calc(var(--barre) + .8rem);left:var(--gut);background:var(--m-creme);color:#000;text-decoration:none;
+.retour-fixe{position:fixed;z-index:70;top:calc(var(--barre) + .8rem);left:var(--gut);background:var(--m-rouge);color:#000;text-decoration:none;
   font-family:var(--nom);text-transform:uppercase;font-size:.75rem;padding:.55rem .85rem;clip-path:polygon(0 0,100% 0,100% 70%,90% 100%,0 100%);
   transition:background .15s}
-.retour-fixe:hover{background:var(--m-rouge)}
+.retour-fixe:hover{background:#fff;color:#000}
 
 /* ---------- ouverture ---------- */
-.m-hero{position:relative;height:var(--haut);padding-top:4rem;min-height:32rem;display:flex;align-items:flex-end;overflow:hidden;padding-block:clamp(1.5rem,5vw,4rem)}
+.m-hero{background:var(--m-noir);color:#fff;position:relative;height:var(--haut);padding-top:4rem;min-height:32rem;display:flex;align-items:flex-end;overflow:hidden;padding-block:clamp(1.5rem,5vw,4rem)}
 .page-meduse .m-hero > *{max-width:none;margin:0}
 .m-hero-img{position:absolute;inset:0;view-transition-name:perso}
 .m-hero-img img{width:100%;height:100%;object-fit:cover;transform:translateX(22%) scale(1.3);transform-origin:50% 20%}
@@ -55,7 +56,7 @@
 .m-grand{font-family:var(--titre);text-transform:uppercase;font-size:clamp(1.7rem,3.4vw,2.9rem);line-height:1.02;margin-top:1.4rem}
 .m-grand span{color:var(--m-rouge)}
 .m-projet-droite{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2rem 2.2rem}
-.bloc{border-top:3px solid var(--m-creme);padding-top:.9rem;transition:border-color .2s}
+.bloc{border-top:3px solid #fff;padding-top:.9rem;transition:border-color .2s}
 .bloc:hover{border-color:var(--m-rouge)}
 .bloc h3{font-family:var(--nom);text-transform:uppercase;font-size:.85rem;margin-bottom:.6rem}
 .bloc p{font-size:.95rem;opacity:.85}
@@ -64,7 +65,7 @@
 .m-fiche dd{font-size:.92rem}
 
 /* ---------- le vase qui tourne ---------- */
-.vase-s{padding-block:clamp(3rem,7vw,5rem);background:var(--v-fond,var(--m-noir));color:var(--v-txt,var(--m-creme));transition:background .7s,color .7s}
+.vase-s{padding-block:clamp(3rem,7vw,5rem);background:var(--m-noir);color:#fff}
 .vase-grille{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(1.5rem,4vw,4rem);align-items:center;min-height:calc(var(--haut) - 6rem)}
 .vase-zone{position:relative;height:min(calc(var(--haut) - 7rem),46rem);min-height:24rem}
 .vase-zone canvas{position:absolute;inset:0;width:100%;height:100%;cursor:grab;touch-action:pan-y}
@@ -79,7 +80,7 @@
 .vase-compteur{display:flex;align-items:baseline;flex-wrap:wrap;gap:.2rem .7rem;margin-bottom:.4rem}
 .vase-compteur b{font-family:var(--titre);font-weight:400;font-size:clamp(3.5rem,8vw,6rem);line-height:.9}
 .vase-compteur span{font-family:var(--nom);font-size:.9rem}
-.vase-compteur em{font-style:normal;font-family:var(--nom);text-transform:uppercase;font-size:.7rem;padding:.3rem .6rem;background:var(--v-txt,var(--m-creme));color:var(--v-fond,var(--m-noir));margin-left:auto;transition:background .7s,color .7s}
+.vase-compteur em{font-style:normal;font-family:var(--nom);text-transform:uppercase;font-size:.7rem;padding:.3rem .6rem;background:#fff;color:#000;margin-left:auto}
 .vase-titre{font-family:var(--nom);text-transform:uppercase;font-size:.85rem;margin:1rem 0 .7rem;opacity:.85}
 .vase-citation{font-family:var(--titre);text-transform:uppercase;font-size:clamp(1.5rem,2.6vw,2.4rem);line-height:1.05;min-height:4.4em}
 .vase-boutons{display:flex;align-items:center;gap:.6rem;margin-top:1.6rem}
@@ -90,7 +91,7 @@
 /* ---------- le regard qui pétrifie ---------- */
 .page-meduse .regard-s{padding:0;height:420svh;position:relative}
 .page-meduse .regard-s > *{max-width:none}
-.regard-zone{position:sticky;top:var(--barre);height:var(--haut);min-height:28rem;overflow:hidden;background:#000;cursor:none;touch-action:pan-y;user-select:none;-webkit-user-select:none;--p:0}
+.regard-zone{color:#fff;position:sticky;top:var(--barre);height:var(--haut);min-height:28rem;overflow:hidden;background:#000;cursor:none;touch-action:pan-y;user-select:none;-webkit-user-select:none;--p:0}
 .regard-zone::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;opacity:var(--p);
   background:radial-gradient(ellipse 60% 55% at 55% 52%,transparent 20%,rgba(0,0,0,.92) 85%)}
 .r-haut,.r-bas{position:absolute;left:0;right:0;z-index:6;padding:clamp(1rem,3vw,2.2rem) var(--gut);pointer-events:none}
@@ -108,7 +109,7 @@
 @keyframes fuite{50%{transform:translateY(5px)}}
 .regard-zone.verrou .rf-barre i{background:var(--m-rouge)}
 .regard-zone.verrou .rf-fleche{opacity:.2;animation:none}
-.r-media{position:absolute;left:0;top:0;transition:filter .3s}
+.r-media{position:absolute;left:0;top:0;transition:filter .3s;will-change:transform}
 .r-media img{width:100%;height:100%;display:block}
 .regard-zone.pierre .r-media{filter:grayscale(1) contrast(1.15) brightness(.85)}
 .oeil{position:absolute;width:4.3%;aspect-ratio:2.6;transform:translate(-50%,-50%) scaleY(var(--o,0));border-radius:50%;
@@ -124,7 +125,7 @@
 .r-curseur svg{width:100%;overflow:visible;display:block}
 .c-corps path{fill:#fff;stroke:#000;stroke-width:1.6;stroke-linejoin:round;transition:fill .25s}
 .c-fissures{fill:none;stroke:#2a2724;stroke-width:1.1;opacity:0}
-.c-bulle{position:absolute;left:30px;top:-12px;font-family:var(--nom);text-transform:uppercase;font-size:.7rem;background:var(--m-creme);color:#000;padding:.25rem .45rem;white-space:nowrap;
+.c-bulle{position:absolute;left:30px;top:-12px;font-family:var(--nom);text-transform:uppercase;font-size:.7rem;background:#fff;color:#000;padding:.25rem .45rem;white-space:nowrap;
   opacity:0;transform:scale(.6);transform-origin:left bottom;transition:opacity .2s,transform .25s}
 .r-curseur.pierre .c-corps path,.statue .c-corps path{fill:#9a958c;stroke:#3a3631}
 .r-curseur.pierre .c-corps,.statue .c-corps{filter:url(#pierre-f)}
@@ -148,11 +149,10 @@
 .r-compte b{font-family:var(--titre);font-weight:400;font-size:1.6rem;margin-right:.2rem}
 
 /* ---------- le film ---------- */
-.film{padding-block:clamp(4rem,10vw,7rem);background:var(--m-creme);color:#000}
-.film .m-h2{color:#000}
+.film{padding-block:clamp(4rem,10vw,7rem);background:var(--m-noir);color:#fff;border-top:1px solid rgba(255,255,255,.15)}
 .film .m-tete-s p{opacity:.75}
-.film-cadre{position:relative;aspect-ratio:16/9;background:#000;width:min(100%,calc((100svh - var(--barre) - 11rem) * 16 / 9));box-shadow:12px 12px 0 #000;transition:box-shadow .2s}
-.film-cadre:hover{box-shadow:12px 12px 0 var(--m-rouge)}
+.film-cadre{position:relative;aspect-ratio:16/9;background:#000;width:min(100%,calc((100svh - var(--barre) - 11rem) * 16 / 9));box-shadow:12px 12px 0 var(--m-rouge);transition:box-shadow .2s}
+.film-cadre:hover{box-shadow:12px 12px 0 #fff}
 .page-meduse .film .film-cadre{margin-inline:auto}
 .film-cadre iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .film-lancer{position:absolute;inset:0;width:100%;height:100%;display:grid;place-items:center}
@@ -181,7 +181,7 @@
 .teaser .m-tete-s p{margin-top:1rem}
 
 /* ---------- couleurs ---------- */
-.couleurs-s{padding-block:clamp(4rem,10vw,7rem);border-top:1px solid rgba(241,235,224,.15)}
+.couleurs-s{padding-block:clamp(4rem,10vw,7rem);border-top:1px solid rgba(255,255,255,.15)}
 
 /* ---------- mobile ---------- */
 @media (max-width:860px){
@@ -204,7 +204,7 @@
   .frames-grille{grid-template-columns:1fr}
   .page-meduse .teaser{grid-template-columns:1fr;justify-items:center}
   .teaser-cadre video{height:min(70svh,36rem)}
-  .film-cadre,.film-cadre:hover{box-shadow:6px 6px 0 #000}
+  .film-cadre,.film-cadre:hover{box-shadow:6px 6px 0 var(--m-rouge)}
 }
 @media (prefers-reduced-motion:reduce){
   .vase-indice span,.r-curseur.pierre svg,.regard-zone.tremble,.r-flash.on,.regard-zone.fixe .r-rayons line{animation:none}

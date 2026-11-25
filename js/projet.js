@@ -15,15 +15,20 @@
   const next = PROJETS[(i + 1) % PROJETS.length];
   const T = p.theme;
   const root = document.documentElement.style;
-  root.setProperty('--p-fond', T.fond); root.setProperty('--p-texte', T.texte); root.setProperty('--p-titre', T.titre);
-  root.setProperty('--p-accent', T.accent); root.setProperty('--p-accent-t', T.accentTexte); root.setProperty('--p-perso', p.couleur);
+  // ambiance : si le projet (ou son film) est sombre, la page l'est aussi. On peut forcer avec  ambiance: 'sombre' | 'clair'  dans projets-data.js
+  const lumFond = (n => ((n >> 16) * 299 + ((n >> 8) & 255) * 587 + (n & 255) * 114) / 1000)(parseInt(T.fond.slice(1), 16));
+  const sombre = p.ambiance ? p.ambiance === 'sombre' : lumFond < 100;
+  document.body.classList.toggle('sombre', sombre);
+  const bs = document.body.style;
+  bs.setProperty('--p-fond', sombre ? '#0a0a0a' : '#fff'); bs.setProperty('--p-texte', sombre ? '#fff' : '#0a0a0a'); bs.setProperty('--p-titre', sombre ? '#fff' : '#0a0a0a');
+  bs.setProperty('--p-accent', '#ff0a14'); bs.setProperty('--p-accent-t', '#000'); root.setProperty('--p-perso', p.couleur);
 
   const ETOILE = '<svg class="etoile-svg" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 0C54 30 70 46 100 50C70 54 54 70 50 100C46 70 30 54 0 50C30 46 46 30 50 0Z" fill="currentColor"/></svg>';
   const tags = p.role.split(' · ').map(t => `<span>${esc(t)}</span>`).join('');
   const jauges = Object.entries(p.stats || {}).map(([k, v]) =>
     `<div><span>${esc(k)}</span><i>${Array.from({length: 10}, (_, n) => `<b class="${n < v ? 'on' : ''}"></b>`).join('')}</i></div>`).join('');
   const voisin = (q, cls, label) => `
-    <a class="voisin ${cls}" href="${q.id}.html" style="--v-fond:${q.theme.fond};--v-titre:${q.theme.titre};--v-texte:${q.theme.texte}">
+    <a class="voisin ${cls}" href="${q.id}.html" style="--v-fond:#0a0a0a;--v-titre:#fff;--v-texte:#ff0a14">
       ${q.visuel ? `<img src="${u(q.visuel)}" alt="" loading="lazy">` : ''}
       <small>${label}</small><strong>${esc(q.nom)}</strong>
     </a>`;
