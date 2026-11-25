@@ -1,6 +1,6 @@
 /* Page d'accueil : mur de projets, zoom au scroll, à propos, contact */
 /* ---------- MUR DE PROJETS ---------- */
-.mur{position:relative;height:100svh;overflow:hidden;background:#fff;padding-top:var(--barre)}
+.mur{position:relative;height:100svh;overflow:hidden;background:#262626;padding-top:var(--barre)}
 .mur-grille{position:absolute;left:50%;top:50%;width:150vw;display:grid;grid-template-columns:repeat(6,1fr);gap:1.4vw;
   transform:translate(-50%,-50%) rotate(-6deg);will-change:transform}
 .tuile{position:relative;aspect-ratio:4/5;overflow:hidden;contain:paint;background:#e4e4e2;text-decoration:none;

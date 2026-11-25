@@ -32,7 +32,6 @@ function animer(el, p, on) {
   const img = el.querySelector('img');
   if (!img || !p.perso) return;
   if (gifs[p.id]) img.src = on ? gifs[p.id] : p.perso + '.jpg';
-  el.classList.toggle('anim', on);   // même rebond pour toutes les cards
 }
 
 function choisir(i) {
@@ -67,8 +66,13 @@ function choisir(i) {
 }
 
 // survol du grand perso : le GIF se lance
+$('perso').addEventListener('mousemove', e => {          // inclinaison qui suit la souris
+  const r = $('perso').getBoundingClientRect();
+  $('perso').style.setProperty('--ry', ((e.clientX - r.left) / r.width - .5) * 10 + 'deg');
+  $('perso').style.setProperty('--rx', ((e.clientY - r.top) / r.height - .5) * -10 + 'deg');
+});
 $('perso').addEventListener('mouseenter', () => animer($('perso'), PROJETS[actuel], true));
-$('perso').addEventListener('mouseleave', () => animer($('perso'), PROJETS[actuel], false));
+$('perso').addEventListener('mouseleave', () => { $('perso').style.setProperty('--rx', '0deg'); $('perso').style.setProperty('--ry', '0deg'); animer($('perso'), PROJETS[actuel], false); });
 
 // ouvre la page du projet
 function ouvrir() { location.href = 'projets/' + PROJETS[actuel].id + '.html'; }

@@ -37,5 +37,5 @@ body{--halo:#fff}
 body.sombre{--halo:#0a0a0a}
 .page-projet :is(.hero,.stage-tete,.infos-bas,.video) :is(p,h1,h2,h3,dt,dd,.num,.format,.aide),
 .page-choix :is(.entete,.fiche) :is(h1,p,dt,dd,.num),
-.intro-zoom :is(h2,p),.apropos :is(h2,p),.page-projet .retour,.page-choix .entete kbd{
+.apropos :is(h2,p),.page-projet .retour,.page-choix .entete kbd{
   text-shadow:0 0 3px var(--halo),0 0 3px var(--halo),0 0 6px var(--halo),0 0 6px var(--halo),0 0 10px var(--halo),0 0 10px var(--halo),0 0 15px var(--halo),0 0 22px var(--halo)}

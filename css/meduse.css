@@ -91,7 +91,7 @@
 /* ---------- le regard qui pétrifie ---------- */
 .page-meduse .regard-s{padding:0;height:420svh;position:relative}
 .page-meduse .regard-s > *{max-width:none}
-.regard-zone{color:#fff;position:sticky;top:var(--barre);height:var(--haut);min-height:28rem;overflow:hidden;background:var(--m-noir);cursor:none;touch-action:pan-y;user-select:none;-webkit-user-select:none;--p:0}
+.regard-zone{color:#fff;position:sticky;top:var(--barre);height:var(--haut);min-height:28rem;overflow:hidden;background:transparent;cursor:none;touch-action:pan-y;user-select:none;-webkit-user-select:none;--p:0}
 .regard-zone::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;opacity:var(--p);
   background:radial-gradient(ellipse 60% 55% at 55% 52%,transparent 20%,rgba(10,10,10,.92) 85%)}
 .r-haut,.r-bas{position:absolute;left:0;right:0;z-index:6;padding:clamp(1rem,3vw,2.2rem) var(--gut);pointer-events:none}
@@ -209,3 +209,13 @@
 @media (prefers-reduced-motion:reduce){
   .vase-indice span,.r-curseur.pierre svg,.regard-zone.tremble,.r-flash.on,.regard-zone.fixe .r-rayons line{animation:none}
 }
+
+/* grille par-dessus l'image du mini-jeu, par plages inégales */
+.regard-zone::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:var(--tex-sombre) 0 0/36px;
+  -webkit-mask-image:radial-gradient(circle 360px at 20% 70%,#000,transparent),radial-gradient(circle 420px at 80% 30%,#000,transparent),radial-gradient(circle 300px at 55% 55%,rgba(0,0,0,.6),transparent),linear-gradient(rgba(0,0,0,.1),rgba(0,0,0,.1));
+  mask-image:radial-gradient(circle 360px at 20% 70%,#000,transparent),radial-gradient(circle 420px at 80% 30%,#000,transparent),radial-gradient(circle 300px at 55% 55%,rgba(0,0,0,.6),transparent),linear-gradient(rgba(0,0,0,.1),rgba(0,0,0,.1))}
+
+.r-media{z-index:1}
+.r-media img{filter:url(#cle-noir)}
+/* grille atténuée autour des textes du mini-jeu */
+.r-haut :is(h2,p),.r-bas :is(h3,p,b,span,div){text-shadow:0 0 3px #0a0a0a,0 0 3px #0a0a0a,0 0 6px #0a0a0a,0 0 6px #0a0a0a,0 0 10px #0a0a0a,0 0 10px #0a0a0a,0 0 15px #0a0a0a,0 0 22px #0a0a0a}

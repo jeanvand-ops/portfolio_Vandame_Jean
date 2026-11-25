@@ -75,11 +75,12 @@ body.sombre{background:#0a0a0a;color:#fff}
 .sombre .pied{border-top:2px solid rgba(255,255,255,.18)}
 
 /* trame de fond : petite grille à croix, visible par plages inégales qui dérivent lentement */
-body::before{content:'';position:fixed;inset:0;z-index:-1;background:var(--tex-clair) 0 0/36px;pointer-events:none;
+body{position:relative}
+body::before{content:'';position:absolute;inset:0;z-index:-1;background:var(--tex-clair) 0 0/36px;pointer-events:none;
   --m:radial-gradient(circle 340px at 22% 28%,#000 0,transparent 100%),radial-gradient(circle 420px at 78% 52%,#000 0,transparent 100%),radial-gradient(circle 300px at 38% 84%,rgba(0,0,0,.7) 0,transparent 100%),radial-gradient(circle 260px at 90% 10%,rgba(0,0,0,.5) 0,transparent 100%),linear-gradient(rgba(0,0,0,.07),rgba(0,0,0,.07));
-  -webkit-mask-image:var(--m);mask-image:var(--m);-webkit-mask-size:220% 220%;mask-size:220% 220%;
+  -webkit-mask-image:var(--m);mask-image:var(--m);-webkit-mask-size:1700px 1500px;mask-size:1700px 1500px;
   animation:derive 46s ease-in-out infinite alternate,tamise 24s ease-in-out infinite}
 body.sombre::before{background-image:var(--tex-sombre)}
-@keyframes derive{from{-webkit-mask-position:0 0;mask-position:0 0}to{-webkit-mask-position:100% 100%;mask-position:100% 100%}}
+@keyframes derive{from{-webkit-mask-position:0 0;mask-position:0 0}to{-webkit-mask-position:850px 750px;mask-position:850px 750px}}
 @keyframes tamise{0%,50%,100%{opacity:1}62%,80%{opacity:.3}}
 @media (prefers-reduced-motion:reduce){body::before{animation:none}}
