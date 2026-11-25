@@ -32,7 +32,7 @@ function animer(el, p, on) {
   const img = el.querySelector('img');
   if (!img || !p.perso) return;
   if (gifs[p.id]) img.src = on ? gifs[p.id] : p.perso + '.jpg';
-  else el.classList.toggle('anim', on);
+  el.classList.toggle('anim', on);   // même rebond pour toutes les cards
 }
 
 function choisir(i) {

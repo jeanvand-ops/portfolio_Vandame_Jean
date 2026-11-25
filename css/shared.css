@@ -1,7 +1,7 @@
 /* =====================================================================
    Partie commune à toutes les pages : couleurs, polices, barre rouge, grain
    ===================================================================== */
-:root{--tex-clair:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cg fill='rgba%2810%2C10%2C10%2C.10%29'%3E%3Ccircle cx='15' cy='45' r='1.2'/%3E%3Ccircle cx='15' cy='75' r='1.2'/%3E%3Ccircle cx='15' cy='105' r='1.2'/%3E%3Ccircle cx='45' cy='15' r='1.2'/%3E%3Ccircle cx='45' cy='45' r='1.2'/%3E%3Ccircle cx='45' cy='75' r='1.2'/%3E%3Ccircle cx='45' cy='105' r='1.2'/%3E%3Ccircle cx='75' cy='15' r='1.2'/%3E%3Ccircle cx='75' cy='45' r='1.2'/%3E%3Ccircle cx='75' cy='105' r='1.2'/%3E%3Ccircle cx='105' cy='15' r='1.2'/%3E%3Ccircle cx='105' cy='45' r='1.2'/%3E%3Ccircle cx='105' cy='75' r='1.2'/%3E%3Ccircle cx='105' cy='105' r='1.2'/%3E%3C/g%3E%3Cg fill='rgba%28255%2C10%2C20%2C.14%29'%3E%3Cpath d='M75 66C76.2 72 78 73.8 84 75C78 76.2 76.2 78 75 84C73.8 78 72 76.2 66 75C72 73.8 73.8 72 75 66Z'/%3E%3Cpath d='M15 11.5C15.5 13.5 16.5 14.5 18.5 15C16.5 15.5 15.5 16.5 15 18.5C14.5 16.5 13.5 15.5 11.5 15C13.5 14.5 14.5 13.5 15 11.5Z'/%3E%3C/g%3E%3Cpath d='M-2 122L122 -2' stroke='rgba%2810%2C10%2C10%2C.06%29' stroke-width='.7' fill='none'/%3E%3C/svg%3E");--tex-sombre:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cg fill='rgba%28255%2C255%2C255%2C.09%29'%3E%3Ccircle cx='15' cy='45' r='1.2'/%3E%3Ccircle cx='15' cy='75' r='1.2'/%3E%3Ccircle cx='15' cy='105' r='1.2'/%3E%3Ccircle cx='45' cy='15' r='1.2'/%3E%3Ccircle cx='45' cy='45' r='1.2'/%3E%3Ccircle cx='45' cy='75' r='1.2'/%3E%3Ccircle cx='45' cy='105' r='1.2'/%3E%3Ccircle cx='75' cy='15' r='1.2'/%3E%3Ccircle cx='75' cy='45' r='1.2'/%3E%3Ccircle cx='75' cy='105' r='1.2'/%3E%3Ccircle cx='105' cy='15' r='1.2'/%3E%3Ccircle cx='105' cy='45' r='1.2'/%3E%3Ccircle cx='105' cy='75' r='1.2'/%3E%3Ccircle cx='105' cy='105' r='1.2'/%3E%3C/g%3E%3Cg fill='rgba%28255%2C10%2C20%2C.20%29'%3E%3Cpath d='M75 66C76.2 72 78 73.8 84 75C78 76.2 76.2 78 75 84C73.8 78 72 76.2 66 75C72 73.8 73.8 72 75 66Z'/%3E%3Cpath d='M15 11.5C15.5 13.5 16.5 14.5 18.5 15C16.5 15.5 15.5 16.5 15 18.5C14.5 16.5 13.5 15.5 11.5 15C13.5 14.5 14.5 13.5 15 11.5Z'/%3E%3C/g%3E%3Cpath d='M-2 122L122 -2' stroke='rgba%28255%2C255%2C255%2C.05%29' stroke-width='.7' fill='none'/%3E%3C/svg%3E");
+:root{--tex-clair:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36'%3E%3Cg stroke='%230a0a0a' fill='none'%3E%3Cpath d='M18 0V36M0 18H36' stroke-width='.8' stroke-dasharray='3 3' stroke-opacity='.4'/%3E%3Cpath d='M14 18H22M18 14V22' stroke-width='1.2' stroke-opacity='.7'/%3E%3C/g%3E%3C/svg%3E");--tex-sombre:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36'%3E%3Cg stroke='%23fff' fill='none'%3E%3Cpath d='M18 0V36M0 18H36' stroke-width='.8' stroke-dasharray='3 3' stroke-opacity='.35'/%3E%3Cpath d='M14 18H22M18 14V22' stroke-width='1.2' stroke-opacity='.6'/%3E%3C/g%3E%3C/svg%3E");
   --noir:#0a0a0a;
   --encre:#140405;
   --rouge:#ff0a14;
@@ -17,7 +17,7 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:#fff var(--tex-clair);background-size:120px;color:var(--noir);font-family:var(--texte);line-height:1.55;overflow-x:hidden}
+body{background:#fff;color:var(--noir);font-family:var(--texte);line-height:1.55;overflow-x:hidden}
 a{color:inherit}
 img{display:block}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
@@ -65,7 +65,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 }
 
 /* ---------- ambiance sombre : pour les projets (ou films) sombres, la page l'est aussi ---------- */
-body.sombre{background:#0a0a0a var(--tex-sombre);background-size:120px;color:#fff}
+body.sombre{background:#0a0a0a;color:#fff}
 .sombre .barre{background:#0a0a0a;color:#fff;border-bottom-color:#fff}
 .sombre .barre .logo img{filter:invert(1)}
 .sombre .barre .logo:hover img{filter:none}
@@ -73,3 +73,13 @@ body.sombre{background:#0a0a0a var(--tex-sombre);background-size:120px;color:#ff
 .sombre .barre nav a:hover,.sombre .barre nav a[aria-current]{color:#000}
 .sombre .bouton:hover{box-shadow:5px 5px 0 #fff}
 .sombre .pied{border-top:2px solid rgba(255,255,255,.18)}
+
+/* trame de fond : petite grille à croix, visible par plages inégales qui dérivent lentement */
+body::before{content:'';position:fixed;inset:0;z-index:-1;background:var(--tex-clair) 0 0/36px;pointer-events:none;
+  --m:radial-gradient(circle 340px at 22% 28%,#000 0,transparent 100%),radial-gradient(circle 420px at 78% 52%,#000 0,transparent 100%),radial-gradient(circle 300px at 38% 84%,rgba(0,0,0,.7) 0,transparent 100%),radial-gradient(circle 260px at 90% 10%,rgba(0,0,0,.5) 0,transparent 100%),linear-gradient(rgba(0,0,0,.07),rgba(0,0,0,.07));
+  -webkit-mask-image:var(--m);mask-image:var(--m);-webkit-mask-size:220% 220%;mask-size:220% 220%;
+  animation:derive 46s ease-in-out infinite alternate,tamise 24s ease-in-out infinite}
+body.sombre::before{background-image:var(--tex-sombre)}
+@keyframes derive{from{-webkit-mask-position:0 0;mask-position:0 0}to{-webkit-mask-position:100% 100%;mask-position:100% 100%}}
+@keyframes tamise{0%,50%,100%{opacity:1}62%,80%{opacity:.3}}
+@media (prefers-reduced-motion:reduce){body::before{animation:none}}

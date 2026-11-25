@@ -185,7 +185,7 @@ body.page-projet{background:var(--p-fond);color:var(--p-texte)}
 .voisin:hover img{opacity:.4;transform:scale(1.05)}
 .voisin > *:not(img){position:relative}
 
-.pied{background:var(--noir) var(--tex-sombre);background-size:120px;color:#fff;padding:1.3rem var(--gut);display:flex;flex-wrap:wrap;justify-content:space-between;gap:.6rem;font-family:var(--nom);text-transform:uppercase;font-size:.85rem}
+.pied{background:var(--noir) var(--tex-sombre);background-size:36px;color:#fff;padding:1.3rem var(--gut);display:flex;flex-wrap:wrap;justify-content:space-between;gap:.6rem;font-family:var(--nom);text-transform:uppercase;font-size:.85rem}
 .pied a{text-decoration:none;border-bottom:2px solid var(--rouge)}
 .pied a:hover{color:var(--rouge)}
 
@@ -223,5 +223,3 @@ body.page-projet{background:var(--p-fond);color:var(--p-texte)}
 .c-role{font-size:.8rem;opacity:.65}
 
 /* texture de fond des pages projet (le fond uni est posé plus haut, on remet la texture dessus) */
-body.page-projet{background-image:var(--tex-clair);background-size:120px}
-body.page-projet.sombre{background-image:var(--tex-sombre)}

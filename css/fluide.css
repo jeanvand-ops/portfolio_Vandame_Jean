@@ -1,5 +1,5 @@
 /* Bandeau rouge défilant */
-.bandeau-cadre{overflow:hidden;padding:1.6rem 0;background:#fff var(--tex-clair) 0 0/120px}
+.bandeau-cadre{overflow:hidden;padding:1.6rem 0;background:#fff var(--tex-clair) 0 0/36px}
 .bandeau{background:var(--rouge,#ff0a14);color:#fff;overflow:hidden;border-block:2px solid #0a0a0a;transform:rotate(-1.2deg);margin:0 -3vw;position:relative;z-index:3}
 .bandeau-piste{display:flex;width:max-content;align-items:center;gap:1.6rem;padding:.7rem 0;animation:defile 38s linear infinite;font:400 clamp(1.1rem,2.4vw,1.7rem)/1 'Anton',Impact,sans-serif;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
 .bandeau svg{width:1.1em;height:1.1em;fill:#0a0a0a;flex:none}
@@ -27,7 +27,15 @@
 .etape-n{font:400 2.4rem/1 'Anton',Impact,sans-serif;color:var(--rouge,#ff0a14)}
 .etape-vis{aspect-ratio:4/3;margin:.8rem 0;background:#1b1b1b;overflow:hidden;position:relative}
 .etape-vis img{width:100%;height:100%;object-fit:cover;display:block}
-.etape-vis.vide::after,.etape-vis:empty::after{content:'';position:absolute;inset:0;background:var(--tex-sombre) 0 0/120px}
+.etape-vis.vide::after,.etape-vis:empty::after{content:'';position:absolute;inset:0;background:var(--tex-sombre) 0 0/36px}
 .etape h3{font:400 1.3rem/1.1 'Anton',Impact,sans-serif;text-transform:uppercase;margin-bottom:.4rem}
 .etape p{opacity:.8;font-size:.92rem;line-height:1.55}
 @media (prefers-reduced-motion:reduce){.bandeau-piste{animation:none}.etape{opacity:1;transform:none}}
+
+/* lisibilité : un halo de la couleur du fond efface la grille derrière les textes */
+body{--halo:#fff}
+body.sombre{--halo:#0a0a0a}
+.page-projet :is(.hero,.stage-tete,.infos-bas,.video) :is(p,h1,h2,h3,dt,dd,.num,.format,.aide),
+.page-choix :is(.entete,.fiche) :is(h1,p,dt,dd,.num),
+.intro-zoom :is(h2,p),.apropos :is(h2,p),.page-projet .retour,.page-choix .entete kbd{
+  text-shadow:0 0 3px var(--halo),0 0 3px var(--halo),0 0 6px var(--halo),0 0 6px var(--halo),0 0 10px var(--halo),0 0 10px var(--halo),0 0 15px var(--halo),0 0 22px var(--halo)}
